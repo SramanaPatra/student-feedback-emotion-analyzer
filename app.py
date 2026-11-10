@@ -97,14 +97,15 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
-        background-color: #0b1328;
+        background-color: #1a2f52;
         background-image: 
-            radial-gradient(rgba(56, 189, 248, 0.12) 1.5px, transparent 1.5px),
-            radial-gradient(circle at 18% 22%, rgba(37, 99, 235, 0.35) 0%, transparent 48%),
-            radial-gradient(circle at 82% 78%, rgba(124, 58, 237, 0.30) 0%, transparent 52%),
-            radial-gradient(circle at 50% 45%, rgba(14, 165, 233, 0.22) 0%, transparent 60%),
-            linear-gradient(135deg, #0b142b 0%, #101c3b 50%, #0d1630 100%);
-        background-size: 36px 36px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+            radial-gradient(rgba(255, 255, 255, 0.20) 1.5px, transparent 1.5px),
+            radial-gradient(circle at 18% 22%, rgba(56, 189, 248, 0.60) 0%, transparent 52%),
+            radial-gradient(circle at 82% 78%, rgba(168, 85, 247, 0.50) 0%, transparent 55%),
+            radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.25) 0%, transparent 60%),
+            radial-gradient(circle at 50% 70%, rgba(34, 211, 238, 0.40) 0%, transparent 65%),
+            linear-gradient(135deg, #1b335c 0%, #284c85 50%, #1e3a6a 100%);
+        background-size: 36px 36px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
         animation: ambientHueRotate 22s ease-in-out infinite alternate;
     }
 
@@ -122,7 +123,7 @@ st.markdown("""
         width: 100vw;
         height: 100vh;
         pointer-events: none;
-        opacity: 0.90;
+        opacity: 0.95;
         animation: neuralMeshDrift 22s ease-in-out infinite alternate;
     }
 
@@ -134,44 +135,47 @@ st.markdown("""
 
     /* Clear High-Contrast Synaptic Connections */
     .synapse-edge {
-        stroke: rgba(96, 165, 250, 0.70);
-        stroke-width: 2.2;
+        stroke: #38bdf8;
+        stroke-width: 2.6;
         stroke-dasharray: 8 14;
         animation: synapseFlow 8s linear infinite, synapseColorShift 10s ease-in-out infinite alternate;
+        filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.7));
     }
     .synapse-edge.fast {
         animation-duration: 5s, 8s;
-        stroke-width: 2.6;
+        stroke-width: 3.2;
+        stroke: #7dd3fc;
     }
     .synapse-edge.slow {
         animation-duration: 11s, 14s;
-        stroke-width: 2.0;
+        stroke-width: 2.4;
     }
     .synapse-edge.normal {
         animation-duration: 8s, 10s;
-        stroke-width: 2.2;
+        stroke-width: 2.6;
     }
 
     @keyframes synapseColorShift {
-        0%   { stroke: rgba(56, 189, 248, 0.80); }
-        25%  { stroke: rgba(167, 139, 250, 0.85); }
-        50%  { stroke: rgba(236, 72, 153, 0.80); }
-        75%  { stroke: rgba(52, 211, 153, 0.85); }
-        100% { stroke: rgba(56, 189, 248, 0.80); }
+        0%   { stroke: rgba(56, 189, 248, 0.90); }
+        25%  { stroke: rgba(167, 139, 250, 0.95); }
+        50%  { stroke: rgba(236, 72, 153, 0.90); }
+        75%  { stroke: rgba(52, 211, 153, 0.95); }
+        100% { stroke: rgba(56, 189, 248, 0.90); }
     }
 
     .recurrent-edge {
         fill: none;
-        stroke: rgba(52, 211, 153, 0.80);
-        stroke-width: 2.6;
+        stroke: rgba(52, 211, 153, 0.90);
+        stroke-width: 2.8;
         stroke-dasharray: 5 10;
         animation: synapseFlow 6s linear infinite reverse, recurrentColorShift 8s ease-in-out infinite alternate;
+        filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.8));
     }
 
     @keyframes recurrentColorShift {
-        0%   { stroke: rgba(52, 211, 153, 0.90); }
-        50%  { stroke: rgba(244, 114, 182, 0.90); }
-        100% { stroke: rgba(56, 189, 248, 0.90); }
+        0%   { stroke: rgba(52, 211, 153, 0.95); }
+        50%  { stroke: rgba(244, 114, 182, 0.95); }
+        100% { stroke: rgba(56, 189, 248, 0.95); }
     }
 
     @keyframes synapseFlow {
@@ -182,11 +186,11 @@ st.markdown("""
     /* Architectural Layer Headers */
     .layer-header {
         font-family: 'Orbitron', monospace;
-        font-size: 13px;
-        font-weight: 800;
-        fill: #38bdf8;
+        font-size: 14px;
+        font-weight: 900;
+        fill: #ffffff;
         letter-spacing: 2.5px;
-        filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+        filter: drop-shadow(0 0 10px #00f3ff) drop-shadow(0 0 20px #00f3ff);
     }
 
     /* Artificial Neurons with Vivid Chromatic Pulse */
@@ -250,14 +254,14 @@ st.markdown("""
     .tensor-particle {
         position: absolute;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.85rem;
+        font-size: 0.88rem;
         font-weight: 800;
-        color: #f0f9ff;
-        background: rgba(15, 23, 42, 0.82);
-        border: 1.5px solid rgba(56, 189, 248, 0.65);
+        color: #ffffff;
+        background: rgba(15, 23, 42, 0.86);
+        border: 2px solid #38bdf8;
         border-radius: 8px;
-        padding: 5px 12px;
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 0 10px rgba(56, 189, 248, 0.1);
+        padding: 6px 14px;
+        box-shadow: 0 0 22px rgba(56, 189, 248, 0.45), inset 0 0 10px rgba(56, 189, 248, 0.15);
         pointer-events: none;
         user-select: none;
         animation: floatTensor 16s ease-in-out infinite alternate, tensorColorShift 10s ease-in-out infinite alternate;
@@ -272,16 +276,16 @@ st.markdown("""
     .tp8 { top: 88%; left: 80%; animation-delay: 7s; }
 
     @keyframes tensorColorShift {
-        0%   { border-color: rgba(56, 189, 248, 0.8);  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
-        33%  { border-color: rgba(167, 139, 250, 0.85); box-shadow: 0 0 20px rgba(167, 139, 250, 0.45); }
-        66%  { border-color: rgba(52, 211, 153, 0.8);  box-shadow: 0 0 20px rgba(52, 211, 153, 0.4); }
-        100% { border-color: rgba(244, 114, 182, 0.85); box-shadow: 0 0 20px rgba(244, 114, 182, 0.45); }
+        0%   { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56, 189, 248, 0.5); }
+        33%  { border-color: #a78bfa; box-shadow: 0 0 20px rgba(167, 139, 250, 0.5); }
+        66%  { border-color: #34d399; box-shadow: 0 0 20px rgba(52, 211, 153, 0.5); }
+        100% { border-color: #f472b6; box-shadow: 0 0 20px rgba(244, 114, 182, 0.5); }
     }
 
     @keyframes floatTensor {
-        0%   { transform: translateY(0px) rotate(0deg); opacity: 0.85; }
+        0%   { transform: translateY(0px) rotate(0deg); opacity: 0.9; }
         50%  { transform: translateY(-24px) rotate(2deg); opacity: 1; }
-        100% { transform: translateY(14px) rotate(-2deg); opacity: 0.85; }
+        100% { transform: translateY(14px) rotate(-2deg); opacity: 0.9; }
     }
 
     /* Flashy Top Telemetry Ribbon */
