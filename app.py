@@ -97,11 +97,15 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
-        background: radial-gradient(circle at 18% 22%, rgba(30, 58, 138, 0.35) 0%, transparent 50%),
-                    radial-gradient(circle at 82% 78%, rgba(79, 70, 229, 0.30) 0%, transparent 55%),
-                    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.16) 0%, transparent 65%),
-                    #080c16;
-        animation: ambientHueRotate 20s ease-in-out infinite alternate;
+        background-color: #0b1328;
+        background-image: 
+            radial-gradient(rgba(56, 189, 248, 0.12) 1.5px, transparent 1.5px),
+            radial-gradient(circle at 18% 22%, rgba(37, 99, 235, 0.35) 0%, transparent 48%),
+            radial-gradient(circle at 82% 78%, rgba(124, 58, 237, 0.30) 0%, transparent 52%),
+            radial-gradient(circle at 50% 45%, rgba(14, 165, 233, 0.22) 0%, transparent 60%),
+            linear-gradient(135deg, #0b142b 0%, #101c3b 50%, #0d1630 100%);
+        background-size: 36px 36px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        animation: ambientHueRotate 22s ease-in-out infinite alternate;
     }
 
     @keyframes ambientHueRotate {
@@ -118,62 +122,74 @@ st.markdown("""
         width: 100vw;
         height: 100vh;
         pointer-events: none;
-        opacity: 0.75;
+        opacity: 0.90;
         animation: neuralMeshDrift 22s ease-in-out infinite alternate;
     }
 
     @keyframes neuralMeshDrift {
-        0% { transform: scale(1) translate(0, 0); }
-        50% { transform: scale(1.025) translate(-12px, 10px); }
-        100% { transform: scale(0.99) translate(10px, -12px); }
+        0%   { transform: scale(1) translate(0, 0); }
+        50%  { transform: scale(1.02) translate(-10px, 8px); }
+        100% { transform: scale(0.99) translate(8px, -10px); }
     }
 
-    /* Synaptic Connections (Weight Edges) with Real-Time Chromatic Flow */
+    /* Clear High-Contrast Synaptic Connections */
     .synapse-edge {
-        stroke: rgba(96, 165, 250, 0.45);
-        stroke-width: 1.6;
-        stroke-dasharray: 6 12;
+        stroke: rgba(96, 165, 250, 0.70);
+        stroke-width: 2.2;
+        stroke-dasharray: 8 14;
         animation: synapseFlow 8s linear infinite, synapseColorShift 10s ease-in-out infinite alternate;
     }
     .synapse-edge.fast {
         animation-duration: 5s, 8s;
-        stroke-width: 2;
+        stroke-width: 2.6;
     }
     .synapse-edge.slow {
         animation-duration: 11s, 14s;
+        stroke-width: 2.0;
     }
     .synapse-edge.normal {
         animation-duration: 8s, 10s;
+        stroke-width: 2.2;
     }
 
     @keyframes synapseColorShift {
-        0%   { stroke: rgba(56, 189, 248, 0.55); }
-        25%  { stroke: rgba(167, 139, 250, 0.60); }
-        50%  { stroke: rgba(236, 72, 153, 0.55); }
-        75%  { stroke: rgba(52, 211, 153, 0.60); }
-        100% { stroke: rgba(56, 189, 248, 0.55); }
+        0%   { stroke: rgba(56, 189, 248, 0.80); }
+        25%  { stroke: rgba(167, 139, 250, 0.85); }
+        50%  { stroke: rgba(236, 72, 153, 0.80); }
+        75%  { stroke: rgba(52, 211, 153, 0.85); }
+        100% { stroke: rgba(56, 189, 248, 0.80); }
     }
 
     .recurrent-edge {
         fill: none;
-        stroke: rgba(52, 211, 153, 0.5);
-        stroke-width: 2;
-        stroke-dasharray: 4 8;
+        stroke: rgba(52, 211, 153, 0.80);
+        stroke-width: 2.6;
+        stroke-dasharray: 5 10;
         animation: synapseFlow 6s linear infinite reverse, recurrentColorShift 8s ease-in-out infinite alternate;
     }
 
     @keyframes recurrentColorShift {
-        0%   { stroke: rgba(52, 211, 153, 0.65); }
-        50%  { stroke: rgba(244, 114, 182, 0.65); }
-        100% { stroke: rgba(56, 189, 248, 0.65); }
+        0%   { stroke: rgba(52, 211, 153, 0.90); }
+        50%  { stroke: rgba(244, 114, 182, 0.90); }
+        100% { stroke: rgba(56, 189, 248, 0.90); }
     }
 
     @keyframes synapseFlow {
         from { stroke-dashoffset: 48; }
-        to { stroke-dashoffset: 0; }
+        to   { stroke-dashoffset: 0; }
     }
 
-    /* Artificial Neurons with Dynamic Color-Shifting Activation States */
+    /* Architectural Layer Headers */
+    .layer-header {
+        font-family: 'Orbitron', monospace;
+        font-size: 13px;
+        font-weight: 800;
+        fill: #38bdf8;
+        letter-spacing: 2.5px;
+        filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.8));
+    }
+
+    /* Artificial Neurons with Vivid Chromatic Pulse */
     .neuron {
         cursor: default;
         transition: all 0.3s ease;
@@ -192,53 +208,59 @@ st.markdown("""
     }
 
     @keyframes neuronColorInput {
-        0%   { fill: #00f3ff; filter: drop-shadow(0 0 6px #00f3ff); }
-        50%  { fill: #38bdf8; filter: drop-shadow(0 0 10px #38bdf8); }
-        100% { fill: #818cf8; filter: drop-shadow(0 0 8px #818cf8); }
+        0%   { fill: #00f3ff; filter: drop-shadow(0 0 8px #00f3ff); }
+        50%  { fill: #38bdf8; filter: drop-shadow(0 0 12px #38bdf8); }
+        100% { fill: #818cf8; filter: drop-shadow(0 0 10px #818cf8); }
     }
 
     @keyframes neuronColorHidden1 {
-        0%   { fill: #a855f7; filter: drop-shadow(0 0 8px #a855f7); }
-        50%  { fill: #ec4899; filter: drop-shadow(0 0 12px #ec4899); }
-        100% { fill: #38bdf8; filter: drop-shadow(0 0 8px #38bdf8); }
+        0%   { fill: #a855f7; filter: drop-shadow(0 0 10px #a855f7); }
+        50%  { fill: #ec4899; filter: drop-shadow(0 0 14px #ec4899); }
+        100% { fill: #38bdf8; filter: drop-shadow(0 0 10px #38bdf8); }
     }
 
     @keyframes neuronColorHidden2 {
-        0%   { fill: #6366f1; filter: drop-shadow(0 0 8px #6366f1); }
-        50%  { fill: #10b981; filter: drop-shadow(0 0 12px #10b981); }
-        100% { fill: #c084fc; filter: drop-shadow(0 0 8px #c084fc); }
+        0%   { fill: #6366f1; filter: drop-shadow(0 0 10px #6366f1); }
+        50%  { fill: #10b981; filter: drop-shadow(0 0 14px #10b981); }
+        100% { fill: #c084fc; filter: drop-shadow(0 0 10px #c084fc); }
     }
 
     @keyframes neuronColorDense {
-        0%   { fill: #34d399; filter: drop-shadow(0 0 8px #34d399); }
-        50%  { fill: #00f3ff; filter: drop-shadow(0 0 12px #00f3ff); }
-        100% { fill: #f59e0b; filter: drop-shadow(0 0 8px #f59e0b); }
+        0%   { fill: #34d399; filter: drop-shadow(0 0 10px #34d399); }
+        50%  { fill: #00f3ff; filter: drop-shadow(0 0 14px #00f3ff); }
+        100% { fill: #f59e0b; filter: drop-shadow(0 0 10px #f59e0b); }
     }
 
-    .output-satisfaction { fill: #00ff66; filter: drop-shadow(0 0 8px #00ff66); }
-    .output-confusion { fill: #fbbf24; filter: drop-shadow(0 0 8px #fbbf24); }
-    .output-frustration { fill: #f43f5e; filter: drop-shadow(0 0 8px #f43f5e); }
-    .output-boredom { fill: #94a3b8; filter: drop-shadow(0 0 6px #94a3b8); }
-    .output-stress { fill: #c084fc; filter: drop-shadow(0 0 8px #c084fc); }
+    .output-satisfaction { fill: #00ff66; filter: drop-shadow(0 0 10px #00ff66); }
+    .output-confusion    { fill: #fbbf24; filter: drop-shadow(0 0 10px #fbbf24); }
+    .output-frustration  { fill: #f43f5e; filter: drop-shadow(0 0 10px #f43f5e); }
+    .output-boredom      { fill: #cbd5e1; filter: drop-shadow(0 0 8px #cbd5e1); }
+    .output-stress       { fill: #c084fc; filter: drop-shadow(0 0 10px #c084fc); }
 
     .n-pulse1 { animation-delay: 0s; }
     .n-pulse2 { animation-delay: 0.9s; }
     .n-pulse3 { animation-delay: 1.7s; }
 
     @keyframes neuronPulse {
-        0%   { transform-origin: center; opacity: 0.65; transform: scale(0.9); }
-        100% { transform-origin: center; opacity: 1;    transform: scale(1.25); }
+        0%   { transform-origin: center; opacity: 0.75; transform: scale(0.92); }
+        100% { transform-origin: center; opacity: 1;    transform: scale(1.28); }
     }
 
-    /* Floating Tensor Math Notations with Chromatic Glow */
+    /* Highly Legible Floating Tensor Math Chips */
     .tensor-particle {
         position: absolute;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.82rem;
-        font-weight: 700;
+        font-size: 0.85rem;
+        font-weight: 800;
+        color: #f0f9ff;
+        background: rgba(15, 23, 42, 0.82);
+        border: 1.5px solid rgba(56, 189, 248, 0.65);
+        border-radius: 8px;
+        padding: 5px 12px;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.35), inset 0 0 10px rgba(56, 189, 248, 0.1);
         pointer-events: none;
         user-select: none;
-        animation: floatTensor 16s ease-in-out infinite alternate, tensorColorShift 12s ease-in-out infinite alternate;
+        animation: floatTensor 16s ease-in-out infinite alternate, tensorColorShift 10s ease-in-out infinite alternate;
     }
     .tp1 { top: 12%; left: 8%; animation-delay: 0s; }
     .tp2 { top: 28%; left: 24%; animation-delay: 3s; }
@@ -250,16 +272,16 @@ st.markdown("""
     .tp8 { top: 88%; left: 80%; animation-delay: 7s; }
 
     @keyframes tensorColorShift {
-        0%   { color: rgba(56, 189, 248, 0.55);  text-shadow: 0 0 10px rgba(56, 189, 248, 0.45); }
-        33%  { color: rgba(167, 139, 250, 0.60); text-shadow: 0 0 12px rgba(167, 139, 250, 0.50); }
-        66%  { color: rgba(52, 211, 153, 0.55);  text-shadow: 0 0 10px rgba(52, 211, 153, 0.45); }
-        100% { color: rgba(244, 114, 182, 0.60); text-shadow: 0 0 12px rgba(244, 114, 182, 0.50); }
+        0%   { border-color: rgba(56, 189, 248, 0.8);  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4); }
+        33%  { border-color: rgba(167, 139, 250, 0.85); box-shadow: 0 0 20px rgba(167, 139, 250, 0.45); }
+        66%  { border-color: rgba(52, 211, 153, 0.8);  box-shadow: 0 0 20px rgba(52, 211, 153, 0.4); }
+        100% { border-color: rgba(244, 114, 182, 0.85); box-shadow: 0 0 20px rgba(244, 114, 182, 0.45); }
     }
 
     @keyframes floatTensor {
-        0%   { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
-        50%  { transform: translateY(-24px) rotate(3deg); opacity: 0.65; }
-        100% { transform: translateY(14px) rotate(-3deg); opacity: 0.3; }
+        0%   { transform: translateY(0px) rotate(0deg); opacity: 0.85; }
+        50%  { transform: translateY(-24px) rotate(2deg); opacity: 1; }
+        100% { transform: translateY(14px) rotate(-2deg); opacity: 0.85; }
     }
 
     /* Flashy Top Telemetry Ribbon */
@@ -524,13 +546,20 @@ st.markdown("""
 <svg class="neural-graph-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
 <defs>
 <filter id="neuronGlow" x="-50%" y="-50%" width="200%" height="200%">
-<feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
+<feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
 <feMerge>
 <feMergeNode in="blur" />
 <feMergeNode in="SourceGraphic" />
 </feMerge>
 </filter>
 </defs>
+<g class="layer-titles">
+<text x="200" y="145" class="layer-header" text-anchor="middle">INPUT EMBEDDING (x_t)</text>
+<text x="520" y="190" class="layer-header" text-anchor="middle">FORWARD LSTM (h⃗_t)</text>
+<text x="900" y="145" class="layer-header" text-anchor="middle">BACKWARD LSTM (h⃖_t)</text>
+<text x="1300" y="210" class="layer-header" text-anchor="middle">DENSE PROJECTION (z)</text>
+<text x="1680" y="170" class="layer-header" text-anchor="middle">SOFTMAX (5 EMOTIONS)</text>
+</g>
 <g class="synaptic-edges">
 <line x1="200" y1="220" x2="520" y2="260" class="synapse-edge fast" />
 <line x1="200" y1="220" x2="520" y2="440" class="synapse-edge slow" />
@@ -578,34 +607,34 @@ st.markdown("""
 <line x1="1300" y1="900" x2="1680" y2="880" class="synapse-edge normal" />
 </g>
 <g class="neural-nodes">
-<circle cx="200" cy="220" r="7" class="neuron input-node n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="200" cy="380" r="7" class="neuron input-node n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="200" cy="540" r="7" class="neuron input-node n-pulse3" filter="url(#neuronGlow)" />
-<circle cx="200" cy="700" r="7" class="neuron input-node n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="200" cy="860" r="7" class="neuron input-node n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="520" cy="260" r="9" class="neuron hidden-node-1 n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="520" cy="440" r="9" class="neuron hidden-node-1 n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="520" cy="620" r="9" class="neuron hidden-node-1 n-pulse3" filter="url(#neuronGlow)" />
-<circle cx="520" cy="800" r="9" class="neuron hidden-node-1 n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="900" cy="220" r="9" class="neuron hidden-node-2 n-pulse3" filter="url(#neuronGlow)" />
-<circle cx="900" cy="400" r="9" class="neuron hidden-node-2 n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="900" cy="580" r="9" class="neuron hidden-node-2 n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="900" cy="760" r="9" class="neuron hidden-node-2 n-pulse3" filter="url(#neuronGlow)" />
-<circle cx="900" cy="920" r="9" class="neuron hidden-node-2 n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="1300" cy="280" r="8" class="neuron dense-node n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="1300" cy="500" r="8" class="neuron dense-node n-pulse3" filter="url(#neuronGlow)" />
-<circle cx="1300" cy="720" r="8" class="neuron dense-node n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="1300" cy="900" r="8" class="neuron dense-node n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="1680" cy="240" r="9" class="neuron output-satisfaction n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="1680" cy="400" r="9" class="neuron output-confusion n-pulse2" filter="url(#neuronGlow)" />
-<circle cx="1680" cy="560" r="9" class="neuron output-frustration n-pulse3" filter="url(#neuronGlow)" />
-<circle cx="1680" cy="720" r="9" class="neuron output-boredom n-pulse1" filter="url(#neuronGlow)" />
-<circle cx="1680" cy="880" r="9" class="neuron output-stress n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="200" cy="220" r="8" class="neuron input-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="200" cy="380" r="8" class="neuron input-node n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="200" cy="540" r="8" class="neuron input-node n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="200" cy="700" r="8" class="neuron input-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="200" cy="860" r="8" class="neuron input-node n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="520" cy="260" r="10" class="neuron hidden-node-1 n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="520" cy="440" r="10" class="neuron hidden-node-1 n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="520" cy="620" r="10" class="neuron hidden-node-1 n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="520" cy="800" r="10" class="neuron hidden-node-1 n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="900" cy="220" r="10" class="neuron hidden-node-2 n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="900" cy="400" r="10" class="neuron hidden-node-2 n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="900" cy="580" r="10" class="neuron hidden-node-2 n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="900" cy="760" r="10" class="neuron hidden-node-2 n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="900" cy="920" r="10" class="neuron hidden-node-2 n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="280" r="9" class="neuron dense-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="500" r="9" class="neuron dense-node n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="720" r="9" class="neuron dense-node n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="900" r="9" class="neuron dense-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="240" r="10" class="neuron output-satisfaction n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="400" r="10" class="neuron output-confusion n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="560" r="10" class="neuron output-frustration n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="720" r="10" class="neuron output-boredom n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="880" r="10" class="neuron output-stress n-pulse2" filter="url(#neuronGlow)" />
 </g>
 </svg>
 <div class="tensor-particle tp1">W_xh · x_t</div>
 <div class="tensor-particle tp2">h_t = tanh(W·x + U·h)</div>
-<div class="tensor-particle tp3">σ(z) = 1/(1+e^-z)</div>
+<div class="tensor-particle tp3">σ(z) = 1 / (1 + e^-z)</div>
 <div class="tensor-particle tp4">c_t = f_t ⊙ c_{t-1} + i_t ⊙ c̃_t</div>
 <div class="tensor-particle tp5">tanh(cell_gate)</div>
 <div class="tensor-particle tp6">Bi-LSTM: [h⃗_t ; h⃖_t]</div>
