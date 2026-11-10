@@ -57,17 +57,25 @@ st.markdown("""
         font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Deep Space Cyber Grid Canvas with Pulsing Radial Auroras */
+    /* Deep Space Cyber Grid Canvas with Live Animated Moving Grid */
     .stApp {
         background-color: #030611;
         background-image: 
-            radial-gradient(circle at 10% 10%, rgba(0, 243, 255, 0.18) 0%, transparent 45%),
-            radial-gradient(circle at 90% 90%, rgba(236, 72, 153, 0.18) 0%, transparent 45%),
-            radial-gradient(circle at 50% 50%, rgba(188, 19, 254, 0.12) 0%, transparent 55%),
-            linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
-        background-size: 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+            linear-gradient(rgba(0, 243, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.045) 1px, transparent 1px);
+        background-size: 38px 38px, 38px 38px;
+        background-attachment: fixed;
         color: #f1f5f9;
+        animation: cyberGridDrift 22s linear infinite;
+    }
+
+    @keyframes cyberGridDrift {
+        0% {
+            background-position: 0 0, 0 0;
+        }
+        100% {
+            background-position: 38px 38px, 38px 38px;
+        }
     }
 
     /* Ambient CRT Scanline Overlay */
@@ -75,11 +83,105 @@ st.markdown("""
         content: "";
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
         background-size: 100% 4px;
         z-index: 999999;
         pointer-events: none;
-        opacity: 0.35;
+        opacity: 0.32;
+    }
+
+    /* Live Ambient Moving Plasma Nebula Background */
+    .live-ambient-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .plasma-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(95px);
+        opacity: 0.40;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        will-change: transform;
+    }
+
+    .orb-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(0, 243, 255, 0.85) 0%, rgba(0, 243, 255, 0) 70%);
+        top: -80px;
+        left: -80px;
+        animation: floatOrb1 20s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, rgba(236, 72, 153, 0) 70%);
+        bottom: -120px;
+        right: -80px;
+        animation: floatOrb2 26s ease-in-out infinite alternate;
+    }
+
+    .orb-3 {
+        width: 440px;
+        height: 440px;
+        background: radial-gradient(circle, rgba(188, 19, 254, 0.75) 0%, rgba(188, 19, 254, 0) 70%);
+        top: 30%;
+        left: 60%;
+        animation: floatOrb3 22s ease-in-out infinite alternate;
+    }
+
+    .orb-4 {
+        width: 380px;
+        height: 380px;
+        background: radial-gradient(circle, rgba(0, 255, 102, 0.75) 0%, rgba(0, 255, 102, 0) 70%);
+        bottom: 15%;
+        left: 10%;
+        animation: floatOrb4 24s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatOrb1 {
+        0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        50% { transform: translate(160px, 140px) scale(1.15) rotate(45deg); }
+        100% { transform: translate(60px, 240px) scale(0.9) rotate(90deg); }
+    }
+
+    @keyframes floatOrb2 {
+        0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        50% { transform: translate(-170px, -130px) scale(1.18) rotate(-45deg); }
+        100% { transform: translate(-80px, -260px) scale(0.85) rotate(-90deg); }
+    }
+
+    @keyframes floatOrb3 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        50% { transform: translate(-160px, 110px) scale(1.22); }
+        100% { transform: translate(110px, -100px) scale(0.95); }
+    }
+
+    @keyframes floatOrb4 {
+        0% { transform: translate(0px, 0px) scale(1); }
+        50% { transform: translate(140px, -90px) scale(1.12); }
+        100% { transform: translate(70px, 120px) scale(0.82); }
+    }
+
+    .main .block-container {
+        position: relative;
+        z-index: 2;
+    }
+
+    [data-testid="stSidebar"] {
+        background-color: rgba(6, 11, 25, 0.85) !important;
+        backdrop-filter: blur(16px) !important;
+        border-right: 1px solid rgba(0, 243, 255, 0.25) !important;
+        z-index: 100 !important;
     }
 
     /* Flashy Top Telemetry Ribbon */
@@ -340,6 +442,12 @@ st.markdown("""
         color: #ffffff !important;
     }
 </style>
+<div class="live-ambient-container">
+    <div class="plasma-orb orb-1"></div>
+    <div class="plasma-orb orb-2"></div>
+    <div class="plasma-orb orb-3"></div>
+    <div class="plasma-orb orb-4"></div>
+</div>
 """, unsafe_allow_html=True)
 
 # -------------------------------------------------------------
