@@ -799,17 +799,138 @@ def render_saliency_tokens(text: str, dominant: str, meta: dict) -> str:
     return " ".join(tokens_html)
 
 # -------------------------------------------------------------
+# AUTHENTICATION & ACCESS CONTROL
+# -------------------------------------------------------------
+USER_DATABASE = {
+    "admin": {
+        "password": "123",
+        "name": "Prof. Sramana Patra",
+        "role": "Lead Faculty & NNDL Researcher",
+        "icon": "👑",
+        "badge": "FACULTY ADMIN"
+    },
+    "evaluator": {
+        "password": "123",
+        "name": "Dr. Academic Reviewer",
+        "role": "Senior External Evaluator",
+        "icon": "🔬",
+        "badge": "EXAM EVALUATOR"
+    },
+    "student": {
+        "password": "123",
+        "name": "Student Council Rep",
+        "role": "Institutional Quality Analyst",
+        "icon": "🎓",
+        "badge": "STUDENT COUNCIL"
+    }
+}
+
+if "authenticated" not in st.session_state:
+    st.session_state["authenticated"] = True
+    st.session_state["username"] = "admin"
+    st.session_state["current_user"] = USER_DATABASE["admin"]
+
+def logout_user():
+    st.session_state["authenticated"] = False
+    st.session_state["current_user"] = None
+    st.session_state["username"] = ""
+    st.rerun()
+
+def login_user(username: str, user_data: dict):
+    st.session_state["authenticated"] = True
+    st.session_state["current_user"] = user_data
+    st.session_state["username"] = username
+    st.rerun()
+
+# If not authenticated, render login gateway and halt execution
+if not st.session_state.get("authenticated", False):
+    col_l1, col_l2, col_l3 = st.columns([0.8, 2.2, 0.8])
+    with col_l2:
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, rgba(14, 22, 48, 0.9) 0%, rgba(6, 10, 26, 0.98) 100%);
+                    backdrop-filter: blur(28px) saturate(190%);
+                    border: 1px solid rgba(0, 243, 255, 0.4);
+                    border-radius: 24px;
+                    padding: 38px 44px;
+                    margin-top: 25px;
+                    margin-bottom: 24px;
+                    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 45px rgba(0, 243, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                    text-align: center;">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: 20px; background: rgba(0, 243, 255, 0.15); border: 2px solid #00f3ff; font-size: 32px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.5); margin-bottom: 16px;">
+                ⚡
+            </div>
+            <div class="orbit-title" style="font-size: 1.85rem; font-weight: 900; color: #ffffff; letter-spacing: 0.05em;">
+                EDUPULSE QUANTUM
+            </div>
+            <div class="mono-text" style="font-size: 0.78rem; color: #00f3ff; margin-top: 4px; letter-spacing: 0.15em;">
+                AFFECTIVE NEURAL CORE // AUTHENTICATION GATEWAY
+            </div>
+            <div style="color: #cbd5e1; font-size: 0.95rem; margin-top: 12px; line-height: 1.6;">
+                Sign in to access NNDL Deep Neural Network models, real-time emotion vectors, and longitudinal academic telemetry.
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("##### ⚡ 1-CLICK INSTANT ACCESS (FOR EVALUATION / DEMO)")
+        d_c1, d_c2, d_c3 = st.columns(3)
+        with d_c1:
+            if st.button("👑 Faculty Admin\nProf. Patra", use_container_width=True):
+                login_user("admin", USER_DATABASE["admin"])
+        with d_c2:
+            if st.button("🔬 Evaluator\nDr. Reviewer", use_container_width=True):
+                login_user("evaluator", USER_DATABASE["evaluator"])
+        with d_c3:
+            if st.button("🎓 Student Rep\nDelegate", use_container_width=True):
+                login_user("student", USER_DATABASE["student"])
+
+        st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
+        st.markdown("##### 🛡️ STANDARD CREDENTIAL SIGN-IN")
+        with st.form("login_form"):
+            in_user = st.text_input("Username / ID", placeholder="admin, evaluator, or student")
+            in_pass = st.text_input("Security Key / Password", type="password", placeholder="Password (default: 123)")
+            submitted = st.form_submit_button("🚀 AUTHENTICATE & ENTER NEURAL CORE", type="primary", use_container_width=True)
+
+            if submitted:
+                clean_u = in_user.strip().lower()
+                if clean_u in USER_DATABASE and (in_pass == USER_DATABASE[clean_u]["password"] or in_pass == "123"):
+                    login_user(clean_u, USER_DATABASE[clean_u])
+                else:
+                    st.error("Invalid credentials. Use Quick-Access above or enter username 'admin' with password '123'.")
+
+        st.stop()
+
+current_user = st.session_state.get("current_user", USER_DATABASE["admin"])
+
+# -------------------------------------------------------------
 # SIDEBAR
 # -------------------------------------------------------------
 with st.sidebar:
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, rgba(0, 243, 255, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%); border: 1px solid rgba(0, 243, 255, 0.35); border-radius: 18px; padding: 18px; margin-bottom: 22px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
+    st.markdown(f"""
+    <div style="background: rgba(14, 22, 45, 0.85); border: 1px solid rgba(0, 243, 255, 0.35); border-radius: 16px; padding: 14px 16px; margin-bottom: 18px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
         <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);">
+            <div style="font-size: 26px;">{current_user['icon']}</div>
+            <div style="overflow: hidden;">
+                <div style="color: #ffffff; font-weight: 700; font-size: 0.92rem; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{current_user['name']}</div>
+                <div class="mono-text" style="color: #00f3ff; font-size: 0.68rem; font-weight: 700;">{current_user['badge']}</div>
+                <div style="color: #94a3b8; font-size: 0.72rem; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;">{current_user['role']}</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    if st.button("🚪 SIGN OUT // LOG OUT", use_container_width=True):
+        logout_user()
+
+    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, rgba(0, 243, 255, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%); border: 1px solid rgba(0, 243, 255, 0.35); border-radius: 18px; padding: 16px; margin-bottom: 20px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 42px; height: 42px; border-radius: 12px; background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);">
                 ⚡
             </div>
             <div>
-                <div class="orbit-title" style="font-size: 1.15rem; font-weight: 900; color: #00f3ff; letter-spacing: 0.06em;">EDUPULSE AI</div>
+                <div class="orbit-title" style="font-size: 1.1rem; font-weight: 900; color: #00f3ff; letter-spacing: 0.06em;">EDUPULSE AI</div>
                 <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">AFFECTIVE TENSOR ENGINE</div>
             </div>
         </div>
@@ -852,25 +973,39 @@ with st.sidebar:
 # -------------------------------------------------------------
 # TOP TELEMETRY RIBBON
 # -------------------------------------------------------------
-st.markdown(f"""
-<div class="top-telemetry-ribbon">
-    <div style="display: flex; align-items: center;">
-        <span class="pulse-laser"></span>
-        <span style="font-weight: 700;">NEURAL CORE CO-PROCESSOR ACTIVE</span>
-    </div>
-    <div style="display: flex; align-items: center; gap: 18px;">
-        <div>TENSOR: <b style="color: #ffffff;">{selected_model}</b></div>
-        <div>LATENCY: <b style="color: #00ff66;">0.19ms</b></div>
-        <div class="equalizer-box">
-            <div class="eq-col eq-1"></div>
-            <div class="eq-col eq-2"></div>
-            <div class="eq-col eq-3"></div>
-            <div class="eq-col eq-4"></div>
-            <div class="eq-col eq-5"></div>
+tele_col1, tele_col2 = st.columns([2.5, 1])
+with tele_col1:
+    st.markdown(f"""
+    <div class="top-telemetry-ribbon" style="margin-bottom: 0px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center;">
+                <span class="pulse-laser"></span>
+                <span style="font-weight: 700;">NEURAL CORE CO-PROCESSOR ACTIVE</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.06); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(0, 243, 255, 0.25);">
+                <span>{current_user['icon']}</span>
+                <span style="color: #ffffff; font-weight: 600;">{current_user['name']}</span>
+                <span style="color: #00f3ff; font-size: 0.68rem; font-weight: 700;">({current_user['badge']})</span>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 18px;">
+            <div>TENSOR: <b style="color: #ffffff;">{selected_model}</b></div>
+            <div>LATENCY: <b style="color: #00ff66;">0.19ms</b></div>
+            <div class="equalizer-box">
+                <div class="eq-col eq-1"></div>
+                <div class="eq-col eq-2"></div>
+                <div class="eq-col eq-3"></div>
+                <div class="eq-col eq-4"></div>
+                <div class="eq-col eq-5"></div>
+            </div>
         </div>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
+with tele_col2:
+    if st.button("🚪 LOG OUT", key="top_logout_btn", use_container_width=True):
+        logout_user()
+
+st.markdown("<div style='height: 16px;'></div>", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
 # SHOWCASE HERO BANNER
