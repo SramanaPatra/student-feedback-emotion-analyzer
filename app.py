@@ -57,25 +57,32 @@ st.markdown("""
         font-family: 'JetBrains Mono', monospace;
     }
 
-    /* Deep Space Cyber Grid Canvas with Live Animated Moving Grid */
-    .stApp {
-        background-color: #030611;
-        background-image: 
-            linear-gradient(rgba(0, 243, 255, 0.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.045) 1px, transparent 1px);
-        background-size: 38px 38px, 38px 38px;
-        background-attachment: fixed;
-        color: #f1f5f9;
-        animation: cyberGridDrift 22s linear infinite;
+    /* ---------------------------------------------------------
+       TRANSPARENCY ENFORCEMENT ON STREAMLIT LAYOUT
+       Ensures our dynamic live moving universe is 100% visible
+       --------------------------------------------------------- */
+    .stApp,
+    [data-testid="stAppViewContainer"],
+    section.main,
+    [data-testid="stHeader"],
+    .main > div {
+        background-color: transparent !important;
+        background: transparent !important;
     }
 
-    @keyframes cyberGridDrift {
-        0% {
-            background-position: 0 0, 0 0;
-        }
-        100% {
-            background-position: 38px 38px, 38px 38px;
-        }
+    .main .block-container {
+        position: relative;
+        z-index: 10;
+        max-width: 1300px;
+        padding-top: 2rem;
+    }
+
+    [data-testid="stSidebar"] {
+        position: relative;
+        z-index: 20;
+        background-color: rgba(6, 11, 25, 0.88) !important;
+        backdrop-filter: blur(16px) !important;
+        border-right: 1px solid rgba(0, 243, 255, 0.25) !important;
     }
 
     /* Ambient CRT Scanline Overlay */
@@ -87,11 +94,13 @@ st.markdown("""
         background-size: 100% 4px;
         z-index: 999999;
         pointer-events: none;
-        opacity: 0.32;
+        opacity: 0.28;
     }
 
-    /* Live Ambient Moving Plasma Nebula Background */
-    .live-ambient-container {
+    /* ---------------------------------------------------------
+       LIVE ANIMATED CYBERNETIC BACKGROUND UNIVERSE
+       --------------------------------------------------------- */
+    .live-bg-universe {
         position: fixed;
         top: 0;
         left: 0;
@@ -102,87 +111,163 @@ st.markdown("""
         z-index: 0;
     }
 
+    /* Layer 1: Continuous Flowing Aurora Gradient */
+    .aurora-mesh-layer {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(135deg, #020512 0%, #061838 25%, #18052e 50%, #042533 75%, #020512 100%);
+        background-size: 300% 300%;
+        animation: auroraMeshShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes auroraMeshShift {
+        0% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+        100% { background-position: 0% 100%; }
+    }
+
+    /* Layer 2: Seamlessly Gliding Neon Cyber Grid */
+    .live-grid-drift {
+        position: absolute;
+        top: -120px;
+        left: -120px;
+        width: calc(100vw + 240px);
+        height: calc(100vh + 240px);
+        background-image: 
+            linear-gradient(rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px);
+        background-size: 48px 48px;
+        animation: movingGridGlide 6s linear infinite;
+        will-change: transform;
+    }
+    @keyframes movingGridGlide {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(48px, 48px, 0);
+        }
+    }
+
+    /* Layer 3: Sweeping Sci-Fi Laser Scan Beam */
+    .laser-scanner-beam {
+        position: absolute;
+        top: -100px;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, transparent 0%, rgba(0, 243, 255, 0.2) 20%, #00f3ff 50%, #bc13fe 70%, transparent 100%);
+        box-shadow: 0 0 25px #00f3ff, 0 0 50px #bc13fe;
+        opacity: 0.75;
+        animation: laserScanDown 7s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+        will-change: top;
+    }
+    @keyframes laserScanDown {
+        0% { top: -20px; opacity: 0; }
+        15% { opacity: 0.85; }
+        85% { opacity: 0.85; }
+        100% { top: 100vh; opacity: 0; }
+    }
+
+    /* Layer 4: Luminous Floating Plasma Nebulas */
     .plasma-orb {
         position: absolute;
         border-radius: 50%;
-        filter: blur(95px);
-        opacity: 0.40;
+        filter: blur(85px);
         mix-blend-mode: screen;
         pointer-events: none;
         will-change: transform;
     }
-
-    .orb-1 {
-        width: 500px;
-        height: 500px;
-        background: radial-gradient(circle, rgba(0, 243, 255, 0.85) 0%, rgba(0, 243, 255, 0) 70%);
-        top: -80px;
-        left: -80px;
-        animation: floatOrb1 20s ease-in-out infinite alternate;
+    .orb-cyan {
+        width: 550px;
+        height: 550px;
+        background: radial-gradient(circle, rgba(0, 243, 255, 0.75) 0%, rgba(0, 243, 255, 0) 70%);
+        top: -60px;
+        left: -60px;
+        animation: orbMove1 14s ease-in-out infinite alternate;
+    }
+    .orb-magenta {
+        width: 650px;
+        height: 650px;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.7) 0%, rgba(236, 72, 153, 0) 70%);
+        bottom: -100px;
+        right: -60px;
+        animation: orbMove2 18s ease-in-out infinite alternate;
+    }
+    .orb-violet {
+        width: 480px;
+        height: 480px;
+        background: radial-gradient(circle, rgba(188, 19, 254, 0.7) 0%, rgba(188, 19, 254, 0) 70%);
+        top: 35%;
+        left: 55%;
+        animation: orbMove3 15s ease-in-out infinite alternate;
+    }
+    .orb-emerald {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(0, 255, 102, 0.6) 0%, rgba(0, 255, 102, 0) 70%);
+        bottom: 18%;
+        left: 12%;
+        animation: orbMove4 16s ease-in-out infinite alternate;
+    }
+    @keyframes orbMove1 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(160px, 120px) scale(1.2); }
+        100% { transform: translate(60px, 220px) scale(0.9); }
+    }
+    @keyframes orbMove2 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-180px, -130px) scale(1.25); }
+        100% { transform: translate(-70px, -240px) scale(0.85); }
+    }
+    @keyframes orbMove3 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-140px, 120px) scale(1.2); }
+        100% { transform: translate(100px, -120px) scale(0.95); }
+    }
+    @keyframes orbMove4 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(150px, -100px) scale(1.15); }
+        100% { transform: translate(80px, 110px) scale(0.85); }
     }
 
-    .orb-2 {
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(236, 72, 153, 0.8) 0%, rgba(236, 72, 153, 0) 70%);
-        bottom: -120px;
-        right: -80px;
-        animation: floatOrb2 26s ease-in-out infinite alternate;
+    /* Layer 5: Glowing Floating Cyber Data Particles */
+    .cyber-particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        will-change: transform, opacity;
+    }
+    @keyframes floatUpSwirl1 {
+        0% { transform: translateY(105vh) translateX(0) scale(0.6); opacity: 0; }
+        10% { opacity: 0.9; }
+        50% { transform: translateY(50vh) translateX(40px) scale(1.2); opacity: 1; }
+        90% { opacity: 0.9; }
+        100% { transform: translateY(-5vh) translateX(-20px) scale(0.6); opacity: 0; }
+    }
+    @keyframes floatUpSwirl2 {
+        0% { transform: translateY(105vh) translateX(0) scale(0.8); opacity: 0; }
+        15% { opacity: 1; }
+        50% { transform: translateY(45vh) translateX(-50px) scale(1.3); opacity: 0.9; }
+        85% { opacity: 1; }
+        100% { transform: translateY(-5vh) translateX(30px) scale(0.7); opacity: 0; }
     }
 
-    .orb-3 {
-        width: 440px;
-        height: 440px;
-        background: radial-gradient(circle, rgba(188, 19, 254, 0.75) 0%, rgba(188, 19, 254, 0) 70%);
-        top: 30%;
-        left: 60%;
-        animation: floatOrb3 22s ease-in-out infinite alternate;
-    }
-
-    .orb-4 {
-        width: 380px;
-        height: 380px;
-        background: radial-gradient(circle, rgba(0, 255, 102, 0.75) 0%, rgba(0, 255, 102, 0) 70%);
-        bottom: 15%;
-        left: 10%;
-        animation: floatOrb4 24s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatOrb1 {
-        0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-        50% { transform: translate(160px, 140px) scale(1.15) rotate(45deg); }
-        100% { transform: translate(60px, 240px) scale(0.9) rotate(90deg); }
-    }
-
-    @keyframes floatOrb2 {
-        0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-        50% { transform: translate(-170px, -130px) scale(1.18) rotate(-45deg); }
-        100% { transform: translate(-80px, -260px) scale(0.85) rotate(-90deg); }
-    }
-
-    @keyframes floatOrb3 {
-        0% { transform: translate(0px, 0px) scale(1); }
-        50% { transform: translate(-160px, 110px) scale(1.22); }
-        100% { transform: translate(110px, -100px) scale(0.95); }
-    }
-
-    @keyframes floatOrb4 {
-        0% { transform: translate(0px, 0px) scale(1); }
-        50% { transform: translate(140px, -90px) scale(1.12); }
-        100% { transform: translate(70px, 120px) scale(0.82); }
-    }
-
-    .main .block-container {
-        position: relative;
-        z-index: 2;
-    }
-
-    [data-testid="stSidebar"] {
-        background-color: rgba(6, 11, 25, 0.85) !important;
-        backdrop-filter: blur(16px) !important;
-        border-right: 1px solid rgba(0, 243, 255, 0.25) !important;
-        z-index: 100 !important;
-    }
+    .p1  { left: 6%;  width: 7px;  height: 7px;  background: #00f3ff; box-shadow: 0 0 14px #00f3ff; animation: floatUpSwirl1 11s infinite linear; animation-delay: 0s; }
+    .p2  { left: 16%; width: 9px;  height: 9px;  background: #ec4899; box-shadow: 0 0 16px #ec4899; animation: floatUpSwirl2 14s infinite linear; animation-delay: 2s; }
+    .p3  { left: 26%; width: 5px;  height: 5px;  background: #00ff66; box-shadow: 0 0 12px #00ff66; animation: floatUpSwirl1 9s  infinite linear; animation-delay: 4s; }
+    .p4  { left: 36%; width: 8px;  height: 8px;  background: #bc13fe; box-shadow: 0 0 16px #bc13fe; animation: floatUpSwirl2 16s infinite linear; animation-delay: 1s; }
+    .p5  { left: 46%; width: 10px; height: 10px; background: #00f3ff; box-shadow: 0 0 20px #00f3ff; animation: floatUpSwirl1 12s infinite linear; animation-delay: 3s; }
+    .p6  { left: 56%; width: 6px;  height: 6px;  background: #ffb703; box-shadow: 0 0 14px #ffb703; animation: floatUpSwirl2 15s infinite linear; animation-delay: 5s; }
+    .p7  { left: 66%; width: 9px;  height: 9px;  background: #ec4899; box-shadow: 0 0 18px #ec4899; animation: floatUpSwirl1 10s infinite linear; animation-delay: 2.5s; }
+    .p8  { left: 76%; width: 5px;  height: 5px;  background: #00f3ff; box-shadow: 0 0 12px #00f3ff; animation: floatUpSwirl2 13s infinite linear; animation-delay: 0.5s; }
+    .p9  { left: 86%; width: 8px;  height: 8px;  background: #00ff66; box-shadow: 0 0 16px #00ff66; animation: floatUpSwirl1 17s infinite linear; animation-delay: 4s; }
+    .p10 { left: 93%; width: 6px;  height: 6px;  background: #bc13fe; box-shadow: 0 0 14px #bc13fe; animation: floatUpSwirl2 11s infinite linear; animation-delay: 1.5s; }
+    .p11 { left: 11%; width: 11px; height: 11px; background: #00f3ff; box-shadow: 0 0 22px #00f3ff; animation: floatUpSwirl1 18s infinite linear; animation-delay: 6s; }
+    .p12 { left: 30%; width: 6px;  height: 6px;  background: #ec4899; box-shadow: 0 0 14px #ec4899; animation: floatUpSwirl2 12s infinite linear; animation-delay: 7s; }
+    .p13 { left: 52%; width: 8px;  height: 8px;  background: #00ff66; box-shadow: 0 0 16px #00ff66; animation: floatUpSwirl1 14s infinite linear; animation-delay: 8s; }
+    .p14 { left: 72%; width: 7px;  height: 7px;  background: #bc13fe; box-shadow: 0 0 15px #bc13fe; animation: floatUpSwirl2 11s infinite linear; animation-delay: 9s; }
+    .p15 { left: 84%; width: 5px;  height: 5px;  background: #00f3ff; box-shadow: 0 0 12px #00f3ff; animation: floatUpSwirl1 16s infinite linear; animation-delay: 3.5s; }
+    .p16 { left: 97%; width: 9px;  height: 9px;  background: #ffb703; box-shadow: 0 0 18px #ffb703; animation: floatUpSwirl2 13s infinite linear; animation-delay: 7.5s; }
 
     /* Flashy Top Telemetry Ribbon */
     .top-telemetry-ribbon {
@@ -442,11 +527,30 @@ st.markdown("""
         color: #ffffff !important;
     }
 </style>
-<div class="live-ambient-container">
-    <div class="plasma-orb orb-1"></div>
-    <div class="plasma-orb orb-2"></div>
-    <div class="plasma-orb orb-3"></div>
-    <div class="plasma-orb orb-4"></div>
+<div class="live-bg-universe">
+    <div class="aurora-mesh-layer"></div>
+    <div class="live-grid-drift"></div>
+    <div class="plasma-orb orb-cyan"></div>
+    <div class="plasma-orb orb-magenta"></div>
+    <div class="plasma-orb orb-violet"></div>
+    <div class="plasma-orb orb-emerald"></div>
+    <div class="laser-scanner-beam"></div>
+    <div class="cyber-particle p1"></div>
+    <div class="cyber-particle p2"></div>
+    <div class="cyber-particle p3"></div>
+    <div class="cyber-particle p4"></div>
+    <div class="cyber-particle p5"></div>
+    <div class="cyber-particle p6"></div>
+    <div class="cyber-particle p7"></div>
+    <div class="cyber-particle p8"></div>
+    <div class="cyber-particle p9"></div>
+    <div class="cyber-particle p10"></div>
+    <div class="cyber-particle p11"></div>
+    <div class="cyber-particle p12"></div>
+    <div class="cyber-particle p13"></div>
+    <div class="cyber-particle p14"></div>
+    <div class="cyber-particle p15"></div>
+    <div class="cyber-particle p16"></div>
 </div>
 """, unsafe_allow_html=True)
 
