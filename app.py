@@ -58,16 +58,15 @@ st.markdown("""
     }
 
     /* ---------------------------------------------------------
-       TRANSPARENCY ENFORCEMENT ON STREAMLIT LAYOUT
-       Ensures our dynamic live moving universe is 100% visible
+       TOTALLY LIGHT STREAMLIT CANVAS LAYOUT
        --------------------------------------------------------- */
     .stApp,
     [data-testid="stAppViewContainer"],
     section.main,
     [data-testid="stHeader"],
     .main > div {
-        background-color: transparent !important;
-        background: transparent !important;
+        background-color: #ffffff !important;
+        background: #ffffff !important;
     }
 
     .main .block-container {
@@ -81,17 +80,37 @@ st.markdown("""
         position: relative;
         z-index: 20;
         background-color: #ffffff !important;
-        border-right: 1px solid #e2e8f0 !important;
-        box-shadow: 2px 0 16px rgba(15, 23, 42, 0.04) !important;
-    }
-
-    /* Universal Typography Legibility */
-    .stMarkdown, .stText, p, span, label, h1, h2, h3, h4, h5, h6 {
-        color: #0f172a !important;
+        border-right: 2px solid #e2e8f0 !important;
+        box-shadow: 4px 0 20px rgba(15, 23, 42, 0.05) !important;
     }
 
     /* ---------------------------------------------------------
-       NNDL ACADEMIC LIGHT AMBIENT CANVAS & FAINT NEURAL GRAPH
+       DEEP, HIGH-CONTRAST TYPOGRAPHY ("THE WRITTEN MAKE IT DEEP")
+       --------------------------------------------------------- */
+    .stMarkdown, .stText, p, span, label, [data-testid="stMarkdownContainer"] p {
+        color: #090d16 !important;
+        font-weight: 600 !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
+        font-weight: 900 !important;
+        letter-spacing: 0.02em !important;
+    }
+
+    label, [data-testid="stWidgetLabel"] p {
+        color: #000000 !important;
+        font-weight: 800 !important;
+        font-size: 0.92rem !important;
+    }
+
+    .mono-text {
+        color: #0f172a !important;
+        font-weight: 800 !important;
+    }
+
+    /* ---------------------------------------------------------
+       TOTALLY LIGHT AMBIENT CANVAS & SUBTLE NEURAL WATERMARK
        --------------------------------------------------------- */
     .live-bg-universe {
         position: fixed;
@@ -102,22 +121,14 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
-        background-color: #f8fafc;
+        background-color: #ffffff;
         background-image: 
-            radial-gradient(circle at 12% 18%, rgba(219, 234, 254, 0.75) 0%, transparent 45%),
-            radial-gradient(circle at 88% 22%, rgba(243, 232, 255, 0.70) 0%, transparent 45%),
-            radial-gradient(circle at 50% 80%, rgba(224, 242, 254, 0.75) 0%, transparent 50%),
-            linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-        animation: ambientLightShift 24s ease-in-out infinite alternate;
+            radial-gradient(circle at 10% 15%, rgba(219, 234, 254, 0.45) 0%, transparent 40%),
+            radial-gradient(circle at 90% 20%, rgba(243, 232, 255, 0.45) 0%, transparent 40%),
+            linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
     }
 
-    @keyframes ambientLightShift {
-        0%   { filter: hue-rotate(0deg); }
-        50%  { filter: hue-rotate(20deg); }
-        100% { filter: hue-rotate(-15deg); }
-    }
-
-    /* Faint, Non-overlapping Neural Graph Watermark */
+    /* Very faint, non-intrusive watermark */
     .neural-graph-svg {
         position: absolute;
         top: 0;
@@ -125,24 +136,24 @@ st.markdown("""
         width: 100vw;
         height: 100vh;
         pointer-events: none;
-        opacity: 0.18;
-        animation: neuralMeshDrift 24s ease-in-out infinite alternate;
+        opacity: 0.09;
+        animation: neuralMeshDrift 28s ease-in-out infinite alternate;
     }
 
     @keyframes neuralMeshDrift {
         0%   { transform: scale(1) translate(0, 0); }
-        50%  { transform: scale(1.01) translate(-8px, 6px); }
-        100% { transform: scale(0.99) translate(6px, -8px); }
+        50%  { transform: scale(1.01) translate(-6px, 4px); }
+        100% { transform: scale(0.99) translate(4px, -6px); }
     }
 
     .synapse-edge {
-        stroke: #3b82f6;
+        stroke: #2563eb;
         stroke-width: 1.2;
         stroke-dasharray: 6 10;
         animation: synapseFlow 8s linear infinite;
     }
     .synapse-edge.fast {
-        stroke: #6366f1;
+        stroke: #4f46e5;
         stroke-width: 1.4;
         animation-duration: 5s;
     }
@@ -152,14 +163,14 @@ st.markdown("""
         animation-duration: 11s;
     }
     .synapse-edge.normal {
-        stroke: #3b82f6;
+        stroke: #2563eb;
         stroke-width: 1.2;
         animation-duration: 8s;
     }
 
     .recurrent-edge {
         fill: none;
-        stroke: #10b981;
+        stroke: #16a34a;
         stroke-width: 1.3;
         stroke-dasharray: 4 8;
         animation: synapseFlow 6s linear infinite reverse;
@@ -172,50 +183,41 @@ st.markdown("""
 
     .neuron {
         cursor: default;
-        transition: all 0.3s ease;
     }
     .input-node { fill: #0284c7; }
-    .hidden-node-1 { fill: #6366f1; }
-    .hidden-node-2 { fill: #8b5cf6; }
+    .hidden-node-1 { fill: #4f46e5; }
+    .hidden-node-2 { fill: #7c3aed; }
     .dense-node { fill: #059669; }
     .output-satisfaction { fill: #16a34a; }
     .output-confusion    { fill: #d97706; }
     .output-frustration  { fill: #dc2626; }
-    .output-boredom      { fill: #64748b; }
+    .output-boredom      { fill: #475569; }
     .output-stress       { fill: #9333ea; }
 
-    .n-pulse1 { animation: softPulse 3s ease-in-out infinite alternate; }
-    .n-pulse2 { animation: softPulse 3.5s ease-in-out infinite alternate; animation-delay: 0.8s; }
-    .n-pulse3 { animation: softPulse 4s ease-in-out infinite alternate; animation-delay: 1.6s; }
-
-    @keyframes softPulse {
-        0%   { transform-origin: center; opacity: 0.55; transform: scale(0.95); }
-        100% { transform-origin: center; opacity: 0.95; transform: scale(1.15); }
-    }
-
-    /* Top Telemetry Ribbon - Clean Academic Style */
+    /* Top Telemetry Ribbon - Deep High Contrast */
     .top-telemetry-ribbon {
         display: flex;
         justify-content: space-between;
         align-items: center;
         background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 12px !important;
-        padding: 10px 22px !important;
+        border: 2px solid #cbd5e1 !important;
+        border-radius: 14px !important;
+        padding: 12px 24px !important;
         margin-bottom: 22px !important;
-        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05) !important;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.78rem;
-        color: #1e293b !important;
+        font-size: 0.82rem;
+        color: #000000 !important;
+        font-weight: 800 !important;
     }
 
     .pulse-laser {
         display: inline-block;
-        width: 10px;
-        height: 10px;
+        width: 11px;
+        height: 11px;
         border-radius: 50%;
         background: #16a34a;
-        box-shadow: 0 0 8px rgba(22, 163, 74, 0.6);
+        box-shadow: 0 0 8px rgba(22, 163, 74, 0.7);
         animation: pulseLaser 1.5s infinite;
         margin-right: 8px;
     }
@@ -234,7 +236,7 @@ st.markdown("""
 
     .eq-col {
         width: 4px;
-        background: #2563eb;
+        background: #1e40af;
         border-radius: 2px;
         animation: eqAnim 1s ease-in-out infinite alternate;
     }
@@ -249,11 +251,11 @@ st.markdown("""
         100% { height: 100%; }
     }
 
-    /* SHOWCASE HERO BANNER - ELEGANT ACADEMIC PRESENTATION */
+    /* SHOWCASE HERO BANNER */
     .showcase-hero {
         position: relative;
         background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 2px solid #cbd5e1 !important;
         border-radius: 22px !important;
         padding: 34px 40px !important;
         margin-bottom: 24px !important;
@@ -264,8 +266,8 @@ st.markdown("""
     .showcase-hero::before {
         content: '';
         position: absolute;
-        top: 0; left: 0; right: 0; height: 4px;
-        background: linear-gradient(90deg, #2563eb, #7c3aed, #ec4899, #10b981, #2563eb);
+        top: 0; left: 0; right: 0; height: 5px;
+        background: linear-gradient(90deg, #1e3a8a, #2563eb, #7c3aed, #16a34a, #1e3a8a);
         background-size: 300% 100%;
         animation: heroBarSlide 8s ease infinite;
     }
@@ -278,11 +280,11 @@ st.markdown("""
 
     .hero-glow-title {
         font-family: 'Orbitron', monospace;
-        font-size: 2.5rem;
+        font-size: 2.6rem;
         font-weight: 900;
         letter-spacing: 0.04em;
         text-transform: uppercase;
-        background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 50%, #7c3aed 100%);
+        background: linear-gradient(90deg, #090d16 0%, #1e40af 55%, #4338ca 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 0;
@@ -290,38 +292,38 @@ st.markdown("""
     }
 
     .hero-desc {
-        color: #475569 !important;
-        font-size: 1.1rem;
+        color: #0f172a !important;
+        font-size: 1.12rem;
         margin-top: 10px;
         max-width: 900px;
         line-height: 1.6;
-        font-weight: 500;
+        font-weight: 600 !important;
     }
 
     .badge-chip {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 6px 16px;
+        padding: 7px 18px;
         border-radius: 9999px;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.78rem;
-        font-weight: 700;
+        font-size: 0.80rem;
+        font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.06em;
     }
-    .chip-cyan { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; }
-    .chip-pink { background: #fdf2f8; border: 1px solid #fbcfe8; color: #be185d; }
-    .chip-green { background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; }
+    .chip-cyan { background: #dbeafe; border: 1.5px solid #1d4ed8; color: #1e3a8a; }
+    .chip-pink { background: #fce7f3; border: 1.5px solid #be185d; color: #831843; }
+    .chip-green { background: #dcfce7; border: 1.5px solid #15803d; color: #14532d; }
 
-    /* HOLOGRAPHIC EMOTION SHOWCASE CARD (SOLID OPAQUE WHITE) */
+    /* HOLOGRAPHIC EMOTION SHOWCASE CARD */
     .holo-card {
         background: #ffffff !important;
-        border: 2px solid var(--neon-border, #3b82f6) !important;
+        border: 2px solid var(--neon-border, #1e40af) !important;
         border-radius: 20px !important;
         padding: 28px 34px !important;
         margin: 20px 0 !important;
-        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.08) !important;
+        box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1) !important;
         position: relative;
     }
 
@@ -333,26 +335,27 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         font-size: 2.4rem;
-        background: var(--orb-bg, rgba(37, 99, 235, 0.1));
-        border: 2px solid var(--neon-border, #3b82f6);
-        box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+        background: var(--orb-bg, rgba(30, 64, 175, 0.1));
+        border: 2px solid var(--neon-border, #1e40af);
+        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
     }
 
     .directive-card {
         background: #f8fafc !important;
-        border: 1px solid #e2e8f0 !important;
-        border-left: 5px solid var(--neon-border, #3b82f6) !important;
+        border: 2px solid #cbd5e1 !important;
+        border-left: 6px solid var(--neon-border, #1e40af) !important;
         border-radius: 12px !important;
         padding: 18px 22px !important;
         margin-top: 18px !important;
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03) !important;
-        color: #1e293b !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+        color: #000000 !important;
+        font-weight: 600 !important;
     }
 
-    /* FLASHY KPI METRIC CARDS (SOLID CRISP WHITE) */
+    /* FLASHY KPI METRIC CARDS */
     .flashy-kpi {
         background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 2px solid #cbd5e1 !important;
         border-radius: 16px !important;
         padding: 20px 24px !important;
         position: relative;
@@ -363,97 +366,158 @@ st.markdown("""
 
     .flashy-kpi:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.12) !important;
-        border-color: #3b82f6 !important;
+        box-shadow: 0 10px 25px rgba(30, 64, 175, 0.15) !important;
+        border-color: #1e40af !important;
     }
 
     .flashy-kpi::before {
         content: '';
         position: absolute;
-        top: 0; left: 0; right: 0; height: 3px;
-        background: var(--kpi-laser, #2563eb);
+        top: 0; left: 0; right: 0; height: 4px;
+        background: var(--kpi-laser, #1e40af);
     }
 
     .kpi-num {
         font-family: 'Orbitron', monospace;
-        font-size: 2.2rem;
-        font-weight: 800;
-        color: #0f172a !important;
+        font-size: 2.3rem;
+        font-weight: 900;
+        color: #000000 !important;
         line-height: 1.1;
     }
 
-    /* STREAMLIT TAB OVERHAUL (CLEAN SEGMENTED PILLS & SOLID PANELS) */
+    /* STREAMLIT TAB OVERHAUL (DEEP HIGH-CONTRAST TABS) */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background: #e2e8f0 !important;
-        border: 1px solid #cbd5e1 !important;
-        padding: 6px 10px !important;
-        border-radius: 14px !important;
+        gap: 10px;
+        background: #f1f5f9 !important;
+        border: 2px solid #cbd5e1 !important;
+        padding: 8px 12px !important;
+        border-radius: 16px !important;
         box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
     }
 
     .stTabs [data-baseweb="tab"] {
-        font-family: 'Orbitron', monospace !important;
-        font-size: 0.82rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.04em !important;
-        color: #475569 !important;
+        font-family: 'Rajdhani', sans-serif !important;
+        font-size: 0.95rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.03em !important;
+        color: #0f172a !important;
         border-radius: 10px !important;
         padding: 10px 20px !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
     .stTabs [aria-selected="true"] {
-        background: #ffffff !important;
-        color: #2563eb !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+        background: #0f172a !important; /* DEEP SOLID NAVY */
+        color: #ffffff !important;       /* SHARP CRISP WHITE */
+        border: 2px solid #0f172a !important;
+        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3) !important;
     }
 
-    /* TAB PANEL CONTENT CARDS - 100% OPAQUE TO PREVENT ANY BACKGROUND OVERLAPPING */
+    /* TAB PANEL CONTENT CARDS */
     .stTabs [data-baseweb="tab-panel"] {
         background: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 2px solid #e2e8f0 !important;
         border-radius: 18px !important;
         padding: 26px 30px !important;
         margin-top: 14px !important;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04) !important;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05) !important;
     }
 
-    /* ELEGANT BUTTONS WITH SHARP CONTRAST */
+    /* ---------------------------------------------------------
+       DEEP WORKING BUTTONS ("BUTTONS WORKING MAKE IT DEEP")
+       --------------------------------------------------------- */
     .stButton > button {
-        font-family: 'Orbitron', monospace !important;
-        font-size: 0.82rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.04em !important;
-        border-radius: 10px !important;
-        background: #ffffff !important;
-        border: 1px solid #cbd5e1 !important;
-        color: #1e293b !important;
-        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04) !important;
+        font-family: 'Rajdhani', sans-serif !important;
+        font-size: 0.95rem !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.03em !important;
+        border-radius: 12px !important;
+        background: #0f172a !important;  /* DEEP NAVY / SLATE-900 */
+        border: 2px solid #1e293b !important;
+        color: #ffffff !important;        /* CRISP BOLD WHITE TEXT */
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2) !important;
+        padding: 11px 20px !important;
         transition: all 0.2s ease !important;
     }
 
     .stButton > button:hover {
-        background: #f8fafc !important;
+        background: #1e40af !important;  /* DEEP ROYAL BLUE */
         border-color: #2563eb !important;
-        color: #2563eb !important;
-        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15) !important;
-        transform: translateY(-1px) !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 22px rgba(30, 64, 175, 0.4) !important;
+        transform: translateY(-2px) !important;
     }
 
+    .stButton > button:active {
+        background: #172554 !important;
+        transform: translateY(0px) !important;
+    }
+
+    /* PRIMARY WORKING ACTION BUTTONS */
     button[kind="primary"] {
-        background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%) !important;
-        border: none !important;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #4338ca 100%) !important;
+        border: 2px solid #1e40af !important;
         color: #ffffff !important;
-        font-weight: 800 !important;
-        box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3) !important;
+        font-weight: 900 !important;
+        font-size: 1rem !important;
+        letter-spacing: 0.04em !important;
+        border-radius: 12px !important;
+        box-shadow: 0 6px 24px rgba(29, 78, 216, 0.45) !important;
+        padding: 12px 24px !important;
     }
 
     button[kind="primary"]:hover {
-        box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4) !important;
+        background: linear-gradient(135deg, #172554 0%, #1e40af 50%, #3730a3 100%) !important;
+        border-color: #3b82f6 !important;
+        box-shadow: 0 8px 30px rgba(29, 78, 216, 0.6) !important;
         color: #ffffff !important;
-        transform: translateY(-1px) !important;
+        transform: translateY(-2px) !important;
+    }
+
+    /* DOWNLOAD WORKING BUTTON */
+    .stDownloadButton > button {
+        background: #065f46 !important; /* DEEP SOLID EMERALD */
+        border: 2px solid #047857 !important;
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        font-size: 0.95rem !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 16px rgba(6, 95, 70, 0.3) !important;
+        padding: 12px 20px !important;
+    }
+
+    .stDownloadButton > button:hover {
+        background: #047857 !important;
+        color: #ffffff !important;
+        box-shadow: 0 6px 22px rgba(4, 120, 87, 0.45) !important;
+        transform: translateY(-2px) !important;
+    }
+
+    /* INPUT FIELDS & TEXT AREAS - HIGH CONTRAST */
+    .stTextArea textarea, .stTextInput input, [data-baseweb="select"] {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border: 2px solid #64748b !important;
+        border-radius: 12px !important;
+        font-weight: 600 !important;
+        font-size: 0.98rem !important;
+    }
+
+    .stTextArea textarea:focus, .stTextInput input:focus {
+        border-color: #1e40af !important;
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2) !important;
+    }
+
+    /* FILE UPLOADER CONTAINER */
+    [data-testid="stFileUploader"] {
+        background-color: #f8fafc !important;
+        border: 2px dashed #64748b !important;
+        border-radius: 14px !important;
+        padding: 16px !important;
+    }
+
+    [data-testid="stFileUploader"] section {
+        background-color: #ffffff !important;
     }
 </style>
 <div class="live-bg-universe">
