@@ -52,7 +52,7 @@ class EmotionInferenceEngine:
             
         self.model.eval()
 
-    def predict(self, texts: Union[str, List[str]]) -> List[Dict]:
+    def predict(self, texts: Union[str, List[str]], batch_size: int = 256) -> List[Dict]:
         is_single = isinstance(texts, str)
         if is_single:
             texts = [texts]
@@ -61,8 +61,17 @@ class EmotionInferenceEngine:
         tensor_x = torch.tensor(seqs, dtype=torch.long)
         
         with torch.no_grad():
-            logits = self.model(tensor_x)
-            probs = F.softmax(logits, dim=1).numpy()
+            if len(tensor_x) <= batch_size:
+                logits = self.model(tensor_x)
+                probs = F.softmax(logits, dim=1).cpu().numpy()
+            else:
+                probs_list = []
+                for i in range(0, len(tensor_x), batch_size):
+                    chunk = tensor_x[i:i + batch_size]
+                    logits = self.model(chunk)
+                    chunk_probs = F.softmax(logits, dim=1).cpu().numpy()
+                    probs_list.append(chunk_probs)
+                probs = np.vstack(probs_list)
             
         results = []
         for prob in probs:
