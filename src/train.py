@@ -1,6 +1,6 @@
 """
 Training and Evaluation Pipeline for Bi-LSTM and Bi-GRU Models.
-Compares both architectures and saves checkpoints and benchmark metrics.
+Compares both architectures on the enriched student feedback corpus and saves checkpoints.
 """
 
 import os
@@ -11,6 +11,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
+import copy
 import json
 import time
 import torch
@@ -25,11 +26,11 @@ from src.preprocessing import TextPreprocessor, EMOTIONS
 from src.models import BiLSTMClassifier, BiGRUClassifier
 from src.data_generator import generate_dataset
 
-def train_one_model(model_cls, name, X_train, y_train, X_val, y_val, vocab_size, epochs=10, batch_size=32):
+def train_one_model(model_cls, name, X_train, y_train, X_val, y_val, vocab_size, epochs=12, batch_size=32):
     print(f"\n--- Training {name} ---")
-    model = model_cls(vocab_size=vocab_size, embed_dim=64, hidden_dim=64, num_classes=len(EMOTIONS))
+    model = model_cls(vocab_size=vocab_size, embed_dim=64, hidden_dim=64, num_classes=len(EMOTIONS), dropout=0.3)
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.003)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.002, weight_decay=1e-4)
     
     train_dataset = TensorDataset(torch.tensor(X_train, dtype=torch.long), torch.tensor(y_train, dtype=torch.long))
     val_dataset = TensorDataset(torch.tensor(X_val, dtype=torch.long), torch.tensor(y_val, dtype=torch.long))
@@ -38,7 +39,10 @@ def train_one_model(model_cls, name, X_train, y_train, X_val, y_val, vocab_size,
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     
     start_time = time.time()
-    for epoch in range(epochs):
+    best_acc = 0.0
+    best_weights = copy.deepcopy(model.state_dict())
+
+    for epoch in range(1, epochs + 1):
         model.train()
         total_loss = 0
         for batch_x, batch_y in train_loader:
@@ -46,12 +50,30 @@ def train_one_model(model_cls, name, X_train, y_train, X_val, y_val, vocab_size,
             outputs = model(batch_x)
             loss = criterion(outputs, batch_y)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
             optimizer.step()
             total_loss += loss.item()
             
+        # Validation
+        model.eval()
+        epoch_preds = []
+        epoch_targets = []
+        with torch.no_grad():
+            for batch_x, batch_y in val_loader:
+                logits = model(batch_x)
+                preds = torch.argmax(logits, dim=1).numpy()
+                epoch_preds.extend(preds)
+                epoch_targets.extend(batch_y.numpy())
+
+        epoch_acc = accuracy_score(epoch_targets, epoch_preds)
+        if epoch_acc > best_acc:
+            best_acc = epoch_acc
+            best_weights = copy.deepcopy(model.state_dict())
+
     training_duration = round(time.time() - start_time, 2)
     
-    # Validation evaluation
+    # Restore best weights and perform final evaluation
+    model.load_state_dict(best_weights)
     model.eval()
     all_preds = []
     all_targets = []
@@ -68,7 +90,7 @@ def train_one_model(model_cls, name, X_train, y_train, X_val, y_val, vocab_size,
     acc = accuracy_score(all_targets, all_preds)
     macro_f1 = f1_score(all_targets, all_preds, average="macro")
     
-    print(f"{name} Completed: Train Time={training_duration}s | Val Acc={acc*100:.2f}% | Macro F1={macro_f1:.4f}")
+    print(f"{name} Completed: Train Time={training_duration}s | Best Val Acc={acc*100:.2f}% | Macro F1={macro_f1:.4f} | Latency={infer_latency}ms")
     
     return model, {
         "model_name": name,
@@ -78,23 +100,24 @@ def train_one_model(model_cls, name, X_train, y_train, X_val, y_val, vocab_size,
         "latency_ms_per_sample": infer_latency
     }
 
+
 def run_training_pipeline(data_path="data/student_feedback.csv", output_dir="saved_models"):
     os.makedirs(output_dir, exist_ok=True)
     
     # 1. Ensure dataset exists
     if not os.path.exists(data_path):
-        print("Dataset not found. Generating synthetic academic dataset...")
-        df = generate_dataset(n_samples=1800, output_csv=data_path)
+        print("Dataset not found. Generating academic dataset...")
+        df = generate_dataset(n_samples=3600, output_csv=data_path)
     else:
         df = pd.read_csv(data_path)
         
-    print(f"Loaded {len(df)} feedback records.")
+    print(f"Loaded {len(df)} feedback records from {data_path}.")
     
     # 2. Fit Preprocessor
-    preprocessor = TextPreprocessor(max_vocab_size=3000, max_seq_len=60)
+    preprocessor = TextPreprocessor(max_vocab_size=5000, max_seq_len=60)
     preprocessor.fit(df["feedback_text"].tolist())
     preprocessor.save(os.path.join(output_dir, "preprocessor.pkl"))
-    print(f"Vocabulary fitted with {len(preprocessor.word2idx)} tokens.")
+    print(f"Vocabulary fitted with {len(preprocessor.word2idx)} unique tokens.")
     
     # 3. Prepare Tensors
     X = np.array(preprocessor.transform(df["feedback_text"].tolist()))
@@ -105,13 +128,13 @@ def run_training_pipeline(data_path="data/student_feedback.csv", output_dir="sav
     
     # 4. Train Bi-LSTM
     bilstm_model, bilstm_metrics = train_one_model(
-        BiLSTMClassifier, "Bi-LSTM", X_train, y_train, X_val, y_val, len(preprocessor.word2idx), epochs=8
+        BiLSTMClassifier, "Bi-LSTM", X_train, y_train, X_val, y_val, len(preprocessor.word2idx), epochs=12
     )
     torch.save(bilstm_model.state_dict(), os.path.join(output_dir, "bilstm_model.pt"))
     
     # 5. Train Bi-GRU
     gru_model, gru_metrics = train_one_model(
-        BiGRUClassifier, "Bi-GRU", X_train, y_train, X_val, y_val, len(preprocessor.word2idx), epochs=8
+        BiGRUClassifier, "Bi-GRU", X_train, y_train, X_val, y_val, len(preprocessor.word2idx), epochs=12
     )
     torch.save(gru_model.state_dict(), os.path.join(output_dir, "gru_model.pt"))
     

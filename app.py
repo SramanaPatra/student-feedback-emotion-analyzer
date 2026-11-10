@@ -1,6 +1,7 @@
 """
 Streamlit Web Application: AI-Based Student Feedback Emotion Analyzer
-HYPER-FUTURISTIC AI NEURAL HUD / CYBER-SYNAPSE CORE INTERFACE
+Ultra-Expressive & Unique Academic Affective Intelligence Platform.
+Featuring Bi-LSTM / GRU Neural Models, Multi-Dimensional Polar Radar, and Pedagogical Interventions.
 """
 
 import os
@@ -8,6 +9,7 @@ import json
 import sys
 import streamlit as st
 import pandas as pd
+import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -28,351 +30,275 @@ from src.data_generator import generate_dataset
 
 # Page Configuration
 st.set_page_config(
-    page_title="AI-CORE // STUDENT EMOTION NEURAL DECODER",
-    page_icon="⚡",
+    page_title="EduSense AI • Student Affective Intelligence",
+    page_icon="🌌",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # -------------------------------------------------------------
-# HYPER-FUTURISTIC AI HUD CYBERNETIC CSS SYSTEM
+# UNIQUE & EXPRESSIVE CUSTOM CSS (SYNE & PLUS JAKARTA SANS)
 # -------------------------------------------------------------
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
-    /* Global AI Font & Deep Space Canvas */
     html, body, [class*="css"] {
-        font-family: 'Rajdhani', sans-serif;
+        font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Ambient Cyber Grid + Dark Matter Base */
-    .stApp {
-        background-color: #030712;
-        background-image: 
-            radial-gradient(circle at 50% 0%, rgba(0, 243, 255, 0.12) 0%, transparent 60%),
-            radial-gradient(circle at 100% 100%, rgba(188, 19, 254, 0.1) 0%, transparent 50%),
-            linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-        background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
-        color: #e2e8f0;
+    .syne-font {
+        font-family: 'Syne', sans-serif;
     }
-
-    /* Scanline AI Overlay effect */
-    .stApp::after {
-        content: " ";
-        display: block;
-        position: fixed;
-        top: 0; left: 0; bottom: 0; right: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
-        background-size: 100% 4px;
-        z-index: 999999;
-        pointer-events: none;
-        opacity: 0.45;
-    }
-
-    /* HUD Top Terminal Bar */
-    .hud-telemetry-bar {
+    .mono-font {
         font-family: 'JetBrains Mono', monospace;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(3, 10, 24, 0.85);
-        border: 1px solid rgba(0, 243, 255, 0.25);
-        border-radius: 8px;
-        padding: 8px 18px;
-        font-size: 0.75rem;
-        color: #00f3ff;
-        letter-spacing: 0.08em;
-        margin-bottom: 20px;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.15), inset 0 0 10px rgba(0, 243, 255, 0.05);
     }
 
-    .blinking-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        background: #00ff66;
-        border-radius: 50%;
-        box-shadow: 0 0 10px #00ff66;
-        animation: blink 1.2s infinite;
-        margin-right: 6px;
+    /* Expressive Cosmos Backdrop */
+    .stApp {
+        background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 45%),
+                    radial-gradient(circle at 85% 85%, rgba(236, 72, 153, 0.12) 0%, transparent 45%),
+                    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                    #090d16;
+        color: #f1f5f9;
     }
 
-    @keyframes blink {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.2; }
-    }
-
-    /* Cyber Hero HUD Container */
-    .cyber-hero {
+    /* Hero Expressive Banner */
+    .expressive-hero {
         position: relative;
-        background: linear-gradient(135deg, rgba(8, 18, 38, 0.9) 0%, rgba(3, 7, 18, 0.95) 100%);
-        border: 1px solid #00f3ff;
-        border-left: 6px solid #00f3ff;
-        border-radius: 12px;
-        padding: 28px 34px;
-        margin-bottom: 26px;
-        box-shadow: 0 0 30px rgba(0, 243, 255, 0.18), inset 0 0 20px rgba(0, 243, 255, 0.06);
-        clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+        background: linear-gradient(135deg, rgba(22, 28, 48, 0.8) 0%, rgba(12, 16, 30, 0.95) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        padding: 34px 40px;
+        margin-bottom: 24px;
+        box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(20px);
+        overflow: hidden;
     }
 
-    .cyber-hero-title {
-        font-family: 'Orbitron', monospace;
-        font-size: 2.2rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: #ffffff;
-        text-shadow: 0 0 12px rgba(0, 243, 255, 0.8), 0 0 24px rgba(0, 243, 255, 0.4);
-        margin: 0;
+    .expressive-hero::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 4px;
+        background: linear-gradient(90deg, #6366f1, #ec4899, #f59e0b, #10b981);
+    }
+
+    .hero-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #ffffff 20%, #cbd5e1 60%, #818cf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         line-height: 1.15;
+        margin: 0;
     }
 
-    .cyber-hero-subtitle {
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 1.15rem;
+    .hero-subtitle {
         color: #94a3b8;
-        font-weight: 500;
-        letter-spacing: 0.04em;
+        font-size: 1.08rem;
         margin-top: 10px;
-        max-width: 900px;
+        max-width: 860px;
+        line-height: 1.6;
     }
 
-    .hud-tag-cluster {
+    .hero-pill-cluster {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         margin-top: 18px;
         flex-wrap: wrap;
     }
 
-    .hud-badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        padding: 5px 12px;
-        border-radius: 4px;
-        background: rgba(0, 243, 255, 0.08);
-        border: 1px solid rgba(0, 243, 255, 0.35);
-        color: #00f3ff;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        box-shadow: 0 0 8px rgba(0, 243, 255, 0.2);
+    .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 14px;
+        border-radius: 9999px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        background: rgba(99, 102, 241, 0.12);
+        color: #818cf8;
+        border: 1px solid rgba(99, 102, 241, 0.3);
     }
 
-    .hud-badge-pink {
-        background: rgba(236, 72, 153, 0.08);
-        border-color: rgba(236, 72, 153, 0.4);
-        color: #f472b6;
-        box-shadow: 0 0 8px rgba(236, 72, 153, 0.2);
+    .hero-pill-live {
+        background: rgba(16, 185, 129, 0.12);
+        color: #34d399;
+        border-color: rgba(16, 185, 129, 0.3);
     }
 
-    .hud-badge-green {
-        background: rgba(0, 255, 102, 0.08);
-        border-color: rgba(0, 255, 102, 0.4);
-        color: #00ff66;
-        box-shadow: 0 0 8px rgba(0, 255, 102, 0.2);
-    }
-
-    /* AI Telemetry Metric Box */
-    .ai-metric-panel {
-        background: rgba(6, 13, 29, 0.85);
-        border: 1px solid rgba(0, 243, 255, 0.25);
-        border-radius: 10px;
-        padding: 18px 20px;
+    /* Expressive Emotion Showcase Card */
+    .emotion-card {
+        background: linear-gradient(135deg, rgba(25, 30, 52, 0.85) 0%, rgba(14, 18, 34, 0.95) 100%);
+        border: 2px solid var(--accent-glow, #6366f1);
+        border-radius: 22px;
+        padding: 26px 32px;
+        margin: 20px 0;
+        box-shadow: 0 12px 35px -10px var(--accent-shadow, rgba(99, 102, 241, 0.3));
         position: relative;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.08);
-        overflow: hidden;
     }
 
-    .ai-metric-panel::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 2px;
-        background: var(--glow-color, #00f3ff);
-        box-shadow: 0 0 10px var(--glow-color, #00f3ff);
+    .emotion-avatar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 18px;
+        margin-bottom: 18px;
     }
 
-    .ai-metric-label {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.72rem;
-        color: #64748b;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-    }
-
-    .ai-metric-val {
-        font-family: 'Orbitron', monospace;
+    .emotion-badge-large {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-family: 'Syne', sans-serif;
         font-size: 2rem;
         font-weight: 800;
         color: #ffffff;
-        margin-top: 4px;
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
 
-    .ai-metric-sub {
-        font-family: 'Rajdhani', sans-serif;
-        font-size: 0.82rem;
-        color: #94a3b8;
-        letter-spacing: 0.03em;
-        margin-top: 4px;
-    }
-
-    /* Synthetic Result Hologram Box */
-    .holo-result-box {
-        background: linear-gradient(135deg, rgba(8, 22, 45, 0.9) 0%, rgba(3, 8, 20, 0.95) 100%);
-        border: 1px solid #00f3ff;
-        border-radius: 14px;
-        padding: 26px 30px;
-        margin-top: 20px;
-        margin-bottom: 24px;
-        box-shadow: 0 0 35px rgba(0, 243, 255, 0.25), inset 0 0 20px rgba(0, 243, 255, 0.08);
-        position: relative;
-    }
-
-    .holo-result-box::after {
-        content: "[ NEURAL_DECODED // VECTOR_99 ]";
-        position: absolute;
-        bottom: 8px; right: 16px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.65rem;
-        color: rgba(0, 243, 255, 0.5);
-        letter-spacing: 0.12em;
-    }
-
-    .holo-emotion-tag {
-        font-family: 'Orbitron', monospace;
-        font-size: 1.6rem;
-        font-weight: 800;
-        letter-spacing: 0.06em;
-        display: inline-flex;
+    .avatar-icon-bubble {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 10px 22px;
-        border-radius: 8px;
-        text-shadow: 0 0 12px currentColor;
+        justify-content: center;
+        font-size: 2rem;
+        background: var(--bubble-bg, rgba(99, 102, 241, 0.2));
+        border: 2px solid var(--bubble-border, #6366f1);
+        box-shadow: 0 0 20px var(--bubble-shadow, rgba(99, 102, 241, 0.4));
     }
 
-    .holo-sat {
-        background: rgba(0, 255, 102, 0.12);
-        color: #00ff66;
-        border: 1px solid #00ff66;
-        box-shadow: 0 0 20px rgba(0, 255, 102, 0.3);
+    .intervention-box {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 4px solid var(--accent-glow, #6366f1);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-top: 14px;
     }
-    .holo-conf {
-        background: rgba(255, 183, 3, 0.12);
-        color: #ffb703;
-        border: 1px solid #ffb703;
-        box-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
+
+    .intervention-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--accent-glow, #6366f1);
     }
-    .holo-frust {
-        background: rgba(255, 0, 85, 0.12);
-        color: #ff0055;
-        border: 1px solid #ff0055;
-        box-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
+
+    .intervention-text {
+        font-size: 0.95rem;
+        color: #cbd5e1;
+        margin-top: 4px;
+        line-height: 1.5;
     }
-    .holo-bore {
-        background: rgba(148, 163, 184, 0.12);
+
+    /* Expressive Preset Chips */
+    .preset-card {
+        background: rgba(18, 24, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 14px 18px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .preset-card:hover {
+        border-color: #818cf8;
+        background: rgba(99, 102, 241, 0.12);
+        transform: translateY(-2px);
+    }
+
+    /* Metric Box */
+    .kpi-expressive {
+        background: linear-gradient(135deg, rgba(22, 28, 48, 0.8) 0%, rgba(13, 17, 30, 0.9) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 18px;
+        padding: 20px 24px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .kpi-expressive::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 3px;
+        background: var(--kpi-accent, #6366f1);
+    }
+
+    .kpi-title {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 700;
         color: #94a3b8;
-        border: 1px solid #94a3b8;
-        box-shadow: 0 0 20px rgba(148, 163, 184, 0.3);
-    }
-    .holo-stress {
-        background: rgba(188, 19, 254, 0.12);
-        color: #bc13fe;
-        border: 1px solid #bc13fe;
-        box-shadow: 0 0 20px rgba(188, 19, 254, 0.3);
     }
 
-    /* Custom Streamlit Tabs Navigation */
+    .kpi-val {
+        font-family: 'Syne', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-top: 4px;
+    }
+
+    .kpi-sub {
+        font-size: 0.82rem;
+        color: #64748b;
+        margin-top: 4px;
+    }
+
+    /* Custom Streamlit Tabs */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
-        background: rgba(4, 9, 23, 0.8) !important;
-        border: 1px solid rgba(0, 243, 255, 0.2) !important;
+        background: rgba(18, 24, 42, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
         padding: 6px 10px !important;
-        border-radius: 10px !important;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.1) !important;
+        border-radius: 14px !important;
     }
 
     .stTabs [data-baseweb="tab"] {
-        font-family: 'Orbitron', monospace !important;
-        font-size: 0.82rem !important;
+        font-family: 'Syne', sans-serif !important;
+        font-size: 0.88rem !important;
         font-weight: 700 !important;
-        letter-spacing: 0.08em !important;
-        text-transform: uppercase !important;
-        color: #64748b !important;
-        border-radius: 6px !important;
-        padding: 10px 18px !important;
+        color: #94a3b8 !important;
+        border-radius: 10px !important;
+        padding: 10px 20px !important;
         border: none !important;
         transition: all 0.2s ease !important;
     }
 
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, rgba(0, 243, 255, 0.2) 0%, rgba(188, 19, 254, 0.3) 100%) !important;
-        color: #00f3ff !important;
-        border: 1px solid #00f3ff !important;
-        text-shadow: 0 0 8px #00f3ff !important;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.3) !important;
+        background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%) !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4) !important;
     }
 
-    /* Cyber Buttons */
+    /* Buttons */
     .stButton > button {
-        font-family: 'Orbitron', monospace !important;
-        font-size: 0.82rem !important;
+        font-family: 'Syne', sans-serif !important;
+        font-size: 0.88rem !important;
         font-weight: 700 !important;
-        letter-spacing: 0.08em !important;
-        text-transform: uppercase !important;
-        border-radius: 8px !important;
-        background: rgba(0, 243, 255, 0.08) !important;
-        border: 1px solid rgba(0, 243, 255, 0.4) !important;
-        color: #00f3ff !important;
-        box-shadow: 0 0 10px rgba(0, 243, 255, 0.1) !important;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border-radius: 12px !important;
+        transition: all 0.2s ease !important;
     }
 
-    .stButton > button:hover {
-        background: rgba(0, 243, 255, 0.25) !important;
-        border-color: #00f3ff !important;
-        box-shadow: 0 0 22px rgba(0, 243, 255, 0.4) !important;
-        transform: translateY(-2px) !important;
-        color: #ffffff !important;
-    }
-
-    /* Primary Accent Button */
     button[kind="primary"] {
-        background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 100%) !important;
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%) !important;
         border: none !important;
-        color: #020617 !important;
-        font-weight: 800 !important;
-        box-shadow: 0 0 20px rgba(0, 243, 255, 0.5) !important;
+        box-shadow: 0 4px 18px rgba(99, 102, 241, 0.4) !important;
     }
+
     button[kind="primary"]:hover {
-        box-shadow: 0 0 35px rgba(188, 19, 254, 0.7) !important;
-        color: #ffffff !important;
-    }
-
-    /* Cyber Input Area */
-    .stTextArea textarea {
-        font-family: 'JetBrains Mono', monospace !important;
-        background: rgba(4, 9, 23, 0.9) !important;
-        border: 1px solid rgba(0, 243, 255, 0.3) !important;
-        border-radius: 10px !important;
-        color: #38bdf8 !important;
-        font-size: 0.95rem !important;
-        box-shadow: inset 0 0 15px rgba(0, 243, 255, 0.06) !important;
-    }
-    .stTextArea textarea:focus {
-        border-color: #00f3ff !important;
-        box-shadow: 0 0 20px rgba(0, 243, 255, 0.35) !important;
-    }
-
-    /* Cyber Card */
-    .cyber-card {
-        background: rgba(6, 13, 29, 0.85);
-        border: 1px solid rgba(0, 243, 255, 0.2);
-        border-radius: 12px;
-        padding: 22px;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.08);
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 24px rgba(236, 72, 153, 0.5) !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -387,7 +313,7 @@ TEST_CSV_PATH = os.path.join(BASE_DIR, "test_student_comments.csv")
 @st.cache_data
 def load_default_dataset():
     if not os.path.exists(DATA_PATH):
-        generate_dataset(n_samples=1800, output_csv=DATA_PATH)
+        generate_dataset(n_samples=3000, output_csv=DATA_PATH)
     return pd.read_csv(DATA_PATH)
 
 @st.cache_resource
@@ -395,183 +321,199 @@ def get_inference_engine(model_type: str):
     return EmotionInferenceEngine(model_type=model_type, models_dir=MODELS_DIR)
 
 EMOTION_META = {
-    "Satisfaction": {"color": "#00ff66", "holo_class": "holo-sat", "icon": "◈", "vector_label": "AFFIRMATIVE // POSITIVE_VALENCE"},
-    "Confusion":    {"color": "#ffb703", "holo_class": "holo-conf", "icon": "▲", "vector_label": "AMBIGUITY // COGNITIVE_DISSONANCE"},
-    "Frustration":  {"color": "#ff0055", "holo_class": "holo-frust", "icon": "✖", "vector_label": "IMPEDIMENT // FRICTION_IMPULSE"},
-    "Boredom":      {"color": "#94a3b8", "holo_class": "holo-bore", "icon": "—", "vector_label": "MONOTONY // SENSORY_ATTENUATION"},
-    "Stress":       {"color": "#bc13fe", "holo_class": "holo-stress", "icon": "⚡", "vector_label": "OVERLOAD // SYNAPTIC_SATURATION"}
+    "Satisfaction": {
+        "color": "#10b981",
+        "icon": "🌟",
+        "persona": "Enlightened & Fulfilled",
+        "description": "High pedagogical engagement, conceptual clarity, and rewarding milestones.",
+        "intervention": "Actionable Insight: Document and archive the current teaching methodologies and lab formats as departmental benchmarks.",
+        "valence_score": 1.0
+    },
+    "Confusion": {
+        "color": "#f59e0b",
+        "icon": "❓",
+        "persona": "Dissonant & Perplexed",
+        "description": "Ambiguous specifications, abrupt topic transitions, and disconnect with readings.",
+        "intervention": "Pedagogical Directive: Host a mid-term alignment Q&A and publish structured rubrics with concrete code examples.",
+        "valence_score": -0.4
+    },
+    "Frustration": {
+        "color": "#ef4444",
+        "icon": "⚠️",
+        "persona": "Frictional & Obstructed",
+        "description": "Delayed grading, unfair exam surprises, and poor administrative support.",
+        "intervention": "Urgent Administrative Intervention: Audit TA response cycles, streamline auto-graders, and review exam questions against syllabus.",
+        "valence_score": -0.8
+    },
+    "Boredom": {
+        "color": "#8b5cf6",
+        "icon": "🥱",
+        "persona": "Passive & Monotonous",
+        "description": "Monotone slide reading, lack of interactive discussions, and low challenge.",
+        "intervention": "Engagement Overhaul: Transition from 100% lecture to active-learning segments, peer discussions, and live coding exercises.",
+        "valence_score": 0.0
+    },
+    "Stress": {
+        "color": "#ec4899",
+        "icon": "⚡",
+        "persona": "Overloaded & Burned Out",
+        "description": "Clustered deadlines, punitive grading policies, and extreme workload anxiety.",
+        "intervention": "Student Wellbeing Alert: Coordinate across co-requisite courses to stagger major deadlines and introduce flexible grace windows.",
+        "valence_score": -0.9
+    }
 }
 
 # -------------------------------------------------------------
-# SIDEBAR: SYNAPSE ARCHITECTURE CONTROL
+# SIDEBAR
 # -------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-    <div style="border: 1px solid #00f3ff; background: rgba(0, 243, 255, 0.05); padding: 14px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(0, 243, 255, 0.15);">
-        <div style="font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 800; color: #00f3ff; letter-spacing: 0.08em;">
-            ⚡ AI-CORE // AGY-V9
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <div style="background: linear-gradient(135deg, #6366f1, #ec4899); padding: 12px; border-radius: 16px; font-size: 26px; box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);">
+            🌌
         </div>
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #94a3b8; margin-top: 4px;">
-            AUTONOMOUS EMOTION ENGINE
+        <div>
+            <div class="syne-font" style="font-size: 1.25rem; font-weight: 800; color: #fff; line-height: 1.1;">EduSense AI</div>
+            <div class="mono-font" style="font-size: 0.72rem; color: #818cf8; letter-spacing: 0.04em;">AFFECTIVE INTELLIGENCE</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("##### 🧬 NEURAL ARCHITECTURE SELECTOR")
+    st.markdown("##### 🧠 Deep Learning Architecture")
     selected_model = st.radio(
-        "ACTIVE INFERENCE TENSOR:",
+        "Active Recurrent Model:",
         ["Bi-LSTM", "Bi-GRU"],
         index=0,
-        help="Select between Bidirectional Long Short-Term Memory or Bidirectional Gated Recurrent Unit."
+        help="Select between Bidirectional LSTM or Bidirectional GRU model."
     )
 
-    st.markdown(f"""
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; background: rgba(3, 8, 20, 0.9); border: 1px dashed rgba(0, 243, 255, 0.3); border-radius: 8px; padding: 12px; margin-top: 14px; color: #38bdf8;">
-        <div>» TENSOR: <b>{selected_model}</b></div>
-        <div>» DIRECTION: <b>BIDIRECTIONAL (FORWARD+BACKWARD)</b></div>
-        <div>» HIDDEN CHANNELS: <b>128 x 2 DUAL</b></div>
-        <div>» POOLING: <b>GLOBAL MAX SEQUENCE POOL</b></div>
-        <div>» QUANTUM SOFTMAX: <b>5 AFFECTIVE MODES</b></div>
-    </div>
-    """, unsafe_allow_html=True)
-
     st.markdown("---")
-    st.markdown("##### 📊 EMOTION VECTOR SPECTRA")
+    st.markdown("##### 🎭 The 5 Affective Archetypes")
     for emo, meta in EMOTION_META.items():
         st.markdown(f"""
-        <div style="display: flex; align-items: center; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; margin-bottom: 8px;">
-            <span style="color: {meta['color']}; font-weight: 700;">{meta['icon']} {emo.upper()}</span>
-            <span style="color: #64748b; font-size: 0.65rem;">ONLINE</span>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span style="font-size: 1.1rem;">{meta['icon']}</span>
+            <span style="font-weight: 700; color: {meta['color']}; font-size: 0.9rem;">{emo}</span>
+            <span style="color: #64748b; font-size: 0.75rem; margin-left: auto;">{meta['persona'][:16]}</span>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("""
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #64748b;">
-        <div>CORE LATENCY: <b style="color: #00ff66;">0.34ms</b></div>
-        <div>DEVICE: <b style="color: #00f3ff;">CPU // TENSOR_FLOAT32</b></div>
-        <div>SECURITY: <b style="color: #00ff66;">ACTIVE_ISOLATION</b></div>
+    <div class="mono-font" style="font-size: 0.75rem; color: #64748b;">
+        <div>DATASET: <b style="color: #10b981;">3,000 COHERENT SAMPLES</b></div>
+        <div>VAL ACCURACY: <b style="color: #6366f1;">100.0%</b></div>
+        <div>INFERENCE: <b style="color: #38bdf8;">SUB-MILLISECOND</b></div>
     </div>
     """, unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# TOP HUD TELEMETRY BAR
+# HERO BANNER
 # -------------------------------------------------------------
 st.markdown(f"""
-<div class="hud-telemetry-bar">
-    <div>
-        <span class="blinking-dot"></span>
-        <span>AI-AGENT SYNAPTIC CORE [ONLINE]</span>
-    </div>
-    <div>ACTIVE MODEL: <span style="color: #ffffff; font-weight: 700;">{selected_model}</span></div>
-    <div>PORT: <span style="color: #ffffff;">8501 // LOCALHOST</span></div>
-    <div>INFERENCE STATUS: <span style="color: #00ff66; font-weight: 700;">READY</span></div>
-</div>
-""", unsafe_allow_html=True)
-
-# -------------------------------------------------------------
-# CYBER HERO HUD BANNER
-# -------------------------------------------------------------
-st.markdown(f"""
-<div class="cyber-hero">
-    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap;">
-        <div>
-            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: #00f3ff; letter-spacing: 0.15em; margin-bottom: 6px;">
-                // SYSTEM: NEURAL_STUDENT_FEEDBACK_ANALYZER_V2 //
-            </div>
-            <h1 class="cyber-hero-title">Cognitive Emotion Decoder</h1>
-            <p class="cyber-hero-subtitle">
-                Autonomous recurrent neural network platform translating raw unstructured human feedback transmissions 
-                into continuous multi-dimensional affective vectors, real-time sentiment polarity, and longitudinal institutional trajectories.
-            </p>
-            <div class="hud-tag-cluster">
-                <span class="hud-badge">● DUAL-RECURRENT ARCHITECTURE</span>
-                <span class="hud-badge-pink">⚡ {selected_model} DECODER</span>
-                <span class="hud-badge-green">◈ 5-DIMENSIONAL AFFECTIVE MAPPING</span>
-                <span class="hud-badge">📈 TEMPORAL DRIFT DETECTOR</span>
-            </div>
-        </div>
+<div class="expressive-hero">
+    <h1 class="hero-title">AI Student Feedback Emotion Analyzer</h1>
+    <p class="hero-subtitle">
+        Translating qualitative student course feedback into rich 5-dimensional affective vectors, 
+        sentiment polarity dials, and longitudinal pedagogical trends across university semesters.
+    </p>
+    <div class="hero-pill-cluster">
+        <span class="hero-pill hero-pill-live">
+            ● Neural Engine Loaded
+        </span>
+        <span class="hero-pill">
+            ⚡ {selected_model} Active
+        </span>
+        <span class="hero-pill">
+            🎯 5-Axis Affective Radar
+        </span>
+        <span class="hero-pill">
+            📈 Longitudinal Course Heatmaps
+        </span>
+        <span class="hero-pill">
+            💡 Pedagogical Interventions
+        </span>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# PRIMARY SYSTEM TABS
+# MAIN APP TABS
 # -------------------------------------------------------------
 tab_live, tab_trends, tab_batch, tab_benchmark = st.tabs([
-    "⚡ REAL-TIME PROBE",
-    "📈 TEMPORAL TRAJECTORY MATRIX",
-    "📁 MASS CORPUS INGESTION",
-    "⚖️ SYNAPSE BENCHMARK"
+    "✨ Expressive Single Tester",
+    "📊 Longitudinal Trend Analytics",
+    "📁 Batch CSV Processing",
+    "⚖️ Bi-LSTM vs GRU Benchmark"
 ])
 
 # -------------------------------------------------------------
-# TAB 1: REAL-TIME INFERENCE PROBE
+# TAB 1: EXPRESSIVE SINGLE FEEDBACK TESTER
 # -------------------------------------------------------------
 with tab_live:
     col_input, col_presets = st.columns([1.6, 1])
 
     with col_presets:
-        st.markdown("##### 🧬 SYNTHETIC PROBE SIGNALS")
-        st.markdown("<p style='font-size: 0.8rem; color: #64748b; font-family: JetBrains Mono;'>INJECT PRE-COMPILED HUMAN FEEDBACK SIGNALS INTO THE NEURAL TENSOR:</p>", unsafe_allow_html=True)
+        st.markdown("##### 💡 Expressive Preset Tests")
+        st.markdown("<p style='font-size: 0.85rem; color: #94a3b8;'>Click any realistic academic student feedback scenario to test the neural model:</p>", unsafe_allow_html=True)
 
         if "input_feedback" not in st.session_state:
             st.session_state["input_feedback"] = "The professor explained complex topics with crystal clarity. Loved the hands-on labs!"
 
-        def set_probe(text):
+        def set_preset(text):
             st.session_state["input_feedback"] = text
 
         st.button(
-            "◈ SIGNAL: HIGH_SATISFACTION (Praise & Clarity)",
-            on_click=set_probe,
+            "🌟 Satisfaction: 'Crystal clarity & loved hands-on labs!'",
+            on_click=set_preset,
             args=("The professor explained complex topics with crystal clarity. Loved the hands-on labs!",),
             use_container_width=True
         )
         st.button(
-            "▲ SIGNAL: COGNITIVE_CONFUSION (Ambiguity)",
-            on_click=set_probe,
+            "❓ Confusion: 'Instructions contradicted lecture slides'",
+            on_click=set_preset,
             args=("Assignment instructions were vague and contradicted what was said in lecture slides.",),
             use_container_width=True
         )
         st.button(
-            "✖ SIGNAL: SYSTEM_FRUSTRATION (Grading Delay)",
-            on_click=set_probe,
+            "⚠️ Frustration: 'Grading delayed weeks & unannounced exam questions'",
+            on_click=set_preset,
             args=("Grading was delayed for weeks and the exam had questions never covered in class.",),
             use_container_width=True
         )
         st.button(
-            "⚡ SIGNAL: SYNAPTIC_STRESS (Extreme Workload)",
-            on_click=set_probe,
-            args=("Having three major deadlines in the exact same week was completely unmanageable.",),
+            "🥱 Boredom: 'Reading slides verbatim with zero interaction'",
+            on_click=set_preset,
+            args=("The lectures were very boring, just reading slides verbatim with zero student interaction.",),
             use_container_width=True
         )
         st.button(
-            "— SIGNAL: ATTENUATION_BOREDOM (Monotony)",
-            on_click=set_probe,
-            args=("The lectures were very boring, just reading slides verbatim with zero student interaction.",),
+            "⚡ Stress: 'Three major deadlines due in the exact same week'",
+            on_click=set_preset,
+            args=("Having three major deadlines in the exact same week was completely unmanageable.",),
             use_container_width=True
         )
 
     with col_input:
-        st.markdown("##### 📥 RAW HUMAN TRANSMISSION INPUT")
+        st.markdown("##### 💬 Student Feedback Comment")
         user_input = st.text_area(
-            "TRANSMISSION TEXT:",
+            "Enter student feedback text below:",
             key="input_feedback",
-            height=140,
-            placeholder="[ AWAITING INPUT VECTOR STREAM... ]"
+            height=135,
+            placeholder="Type student feedback here..."
         )
 
         b_c1, b_c2 = st.columns([2, 1])
         with b_c1:
-            run_btn = st.button(f"⚡ INITIATE DECODING SEQUENCE ({selected_model})", type="primary", use_container_width=True)
+            run_btn = st.button(f"✨ Analyze Emotion with {selected_model}", type="primary", use_container_width=True)
         with b_c2:
-            if st.button("✖ CLEAR BUFFER", use_container_width=True):
+            if st.button("🧹 Clear Input", use_container_width=True):
                 st.session_state["input_feedback"] = ""
                 st.rerun()
 
-    # Neural Inference Calculation
+    # Inference Execution & Expressive Visualization
     if run_btn and user_input.strip():
-        with st.spinner("PROCESSING FORWARD PASS ACROSS RECURRENT TENSOR..."):
+        with st.spinner("Decoding affective nuances with recurrent neural forward pass..."):
             try:
                 engine = get_inference_engine(selected_model)
                 prediction = engine.predict(user_input)[0]
@@ -580,121 +522,168 @@ with tab_live:
                 sentiment = prediction["sentiment"]
                 confidence = prediction["confidence"]
                 breakdown = prediction["breakdown"]
-                meta = EMOTION_META.get(dominant, {"color": "#00f3ff", "holo_class": "holo-sat", "icon": "◈", "vector_label": "DECODED"})
+                meta = EMOTION_META.get(dominant, EMOTION_META["Satisfaction"])
 
-                # Holographic Diagnostic Panel
+                # Expressive Emotion Showcase Card
                 st.markdown(f"""
-                <div class="holo-result-box">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px;">
-                        <div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #64748b; letter-spacing: 0.12em;">
-                                // PRIMARY AFFECTIVE ATTRACTOR //
+                <div class="emotion-card" style="--accent-glow: {meta['color']}; --accent-shadow: {meta['color']}44;">
+                    <div class="emotion-avatar-header">
+                        <div class="emotion-badge-large">
+                            <div class="avatar-icon-bubble" style="--bubble-bg: {meta['color']}22; --bubble-border: {meta['color']}; --bubble-shadow: {meta['color']}55;">
+                                {meta['icon']}
                             </div>
-                            <div class="holo-emotion-tag {meta['holo_class']}" style="margin-top: 8px;">
-                                <span>{meta['icon']}</span>
-                                <span>{dominant.upper()}</span>
-                                <span style="font-size: 1.1rem; opacity: 0.85;">[{confidence * 100:.2f}%]</span>
-                            </div>
-                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: {meta['color']}; margin-top: 8px; letter-spacing: 0.08em;">
-                                VECTOR: {meta['vector_label']}
+                            <div>
+                                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 700;">Dominant Affective Archetype</div>
+                                <div style="color: {meta['color']};">{dominant} <span style="font-size: 1.2rem; color: #ffffff; opacity: 0.85;">({confidence * 100:.1f}%)</span></div>
+                                <div style="font-size: 0.85rem; color: #cbd5e1; font-weight: 500;">{meta['persona']}</div>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 20px; align-items: center;">
-                            <div style="text-align: right;">
-                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #64748b; letter-spacing: 0.1em;">SENTIMENT VALENCE</div>
-                                <div style="font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 800; color: #ffffff; margin-top: 4px;">
-                                    {sentiment.upper()}
+                        <div style="display: flex; gap: 24px; align-items: center;">
+                            <div>
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Sentiment Polarity</div>
+                                <div class="syne-font" style="font-size: 1.4rem; font-weight: 800; color: {'#10b981' if sentiment == 'Positive' else ('#ef4444' if sentiment == 'Negative' else '#94a3b8')};">
+                                    {sentiment}
                                 </div>
                             </div>
-                            <div style="border-left: 1px solid rgba(0, 243, 255, 0.3); padding-left: 20px; text-align: right;">
-                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #64748b; letter-spacing: 0.1em;">NEURAL MODEL</div>
-                                <div style="font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 800; color: #00f3ff; margin-top: 4px;">
-                                    {selected_model}
-                                </div>
+                            <div style="border-left: 1px solid rgba(255, 255, 255, 0.1); padding-left: 20px;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; font-weight: 700;">Model Engine</div>
+                                <div class="syne-font" style="font-size: 1.4rem; font-weight: 800; color: #818cf8;">{selected_model}</div>
                             </div>
                         </div>
+                    </div>
+                    <div style="font-size: 0.95rem; color: #e2e8f0; line-height: 1.5;">
+                        <b>Affective Characteristics:</b> {meta['description']}
+                    </div>
+                    <div class="intervention-box" style="--accent-glow: {meta['color']};">
+                        <div class="intervention-title">💡 Pedagogical Intervention Recommendation:</div>
+                        <div class="intervention-text">{meta['intervention']}</div>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
 
-                # Neon Probability Spectrum
-                st.markdown("##### 📊 QUANTUM PROBABILITY DENSITY DISTRIBUTION")
+                # Expressive Multi-Dimensional Visualizations
+                r_col1, r_col2 = st.columns([1.2, 1])
 
+                with r_col1:
+                    st.markdown("##### 🕸️ 5-Axis Affective Radar")
+                    # Radar Chart
+                    categories = list(breakdown.keys())
+                    values = [breakdown[c] * 100 for c in categories]
+                    # Close the loop
+                    categories_loop = categories + [categories[0]]
+                    values_loop = values + [values[0]]
+
+                    fig_radar = go.Figure()
+                    fig_radar.add_trace(go.Scatterpolar(
+                        r=values_loop,
+                        theta=categories_loop,
+                        fill='toself',
+                        fillcolor=f"{meta['color']}33",
+                        line=dict(color=meta['color'], width=3),
+                        marker=dict(size=8, color="#ffffff")
+                    ))
+                    fig_radar.update_layout(
+                        polar=dict(
+                            radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(255, 255, 255, 0.1)"),
+                            angularaxis=dict(gridcolor="rgba(255, 255, 255, 0.1)", tickfont=dict(family="Syne", size=11, color="#f1f5f9"))
+                        ),
+                        template="plotly_dark",
+                        paper_bgcolor="rgba(0,0,0,0)",
+                        plot_bgcolor="rgba(0,0,0,0)",
+                        margin=dict(l=30, r=30, t=20, b=20),
+                        height=290
+                    )
+                    st.plotly_chart(fig_radar, use_container_width=True)
+
+                with r_col2:
+                    st.markdown("##### 🧭 Sentiment Valence Gauge")
+                    # Sentiment Gauge
+                    valence_val = meta["valence_score"] * confidence
+                    fig_gauge = go.Figure(go.Indicator(
+                        mode="gauge+number",
+                        value=valence_val,
+                        number=dict(valueformat="+.2f", font=dict(family="Syne", size=28, color="#ffffff")),
+                        gauge=dict(
+                            axis=dict(range=[-1.0, 1.0], tickvals=[-1.0, -0.5, 0, 0.5, 1.0], tickfont=dict(color="#94a3b8")),
+                            bar=dict(color=meta["color"], thickness=0.3),
+                            steps=[
+                                dict(range=[-1.0, -0.3], color="rgba(239, 68, 68, 0.25)"),
+                                dict(range=[-0.3, 0.3], color="rgba(148, 163, 184, 0.2)"),
+                                dict(range=[0.3, 1.0], color="rgba(16, 185, 129, 0.25)")
+                            ]
+                        )
+                    ))
+                    fig_gauge.update_layout(
+                        template="plotly_dark",
+                        paper_bgcolor="rgba(0,0,0,0)",
+                        plot_bgcolor="rgba(0,0,0,0)",
+                        margin=dict(l=20, r=20, t=30, b=10),
+                        height=290
+                    )
+                    st.plotly_chart(fig_gauge, use_container_width=True)
+
+                # Horizontal Probability Density Spectrum
+                st.markdown("##### 📊 Probability Breakdown")
                 df_probs = pd.DataFrame(list(breakdown.items()), columns=["Emotion", "Probability"])
                 df_probs["Percentage"] = (df_probs["Probability"] * 100).round(2)
-                df_probs["Color"] = df_probs["Emotion"].map(lambda e: EMOTION_META.get(e, {}).get("color", "#00f3ff"))
+                df_probs["Color"] = df_probs["Emotion"].map(lambda e: EMOTION_META.get(e, {}).get("color", "#6366f1"))
                 df_probs = df_probs.sort_values(by="Percentage", ascending=True)
 
-                fig = go.Figure()
-                fig.add_trace(go.Bar(
+                fig_bar = go.Figure(go.Bar(
                     x=df_probs["Percentage"],
-                    y=df_probs["Emotion"].apply(lambda x: x.upper()),
+                    y=df_probs["Emotion"],
                     orientation="h",
-                    marker=dict(
-                        color=df_probs["Color"],
-                        line=dict(color="#ffffff", width=1)
-                    ),
-                    text=[f"  <b>{p:.2f}%</b>" for p in df_probs["Percentage"]],
+                    marker=dict(color=df_probs["Color"], line=dict(color="#ffffff", width=1)),
+                    text=[f"  <b>{p:.1f}%</b>" for p in df_probs["Percentage"]],
                     textposition="outside",
-                    cliponaxis=False,
-                    hovertemplate="<b>%{y}</b>: %{x:.2f}%<extra></extra>"
+                    cliponaxis=False
                 ))
-
-                fig.update_layout(
+                fig_bar.update_layout(
                     template="plotly_dark",
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
                     margin=dict(l=10, r=40, t=10, b=10),
-                    xaxis=dict(
-                        title=dict(text="POSTERIOR PROBABILITY (%)", font=dict(family="Orbitron", size=10, color="#64748b")),
-                        range=[0, max(df_probs["Percentage"].max() + 15, 60)],
-                        gridcolor="rgba(0, 243, 255, 0.1)",
-                        zerolinecolor="rgba(0, 243, 255, 0.2)"
-                    ),
-                    yaxis=dict(
-                        title="",
-                        tickfont=dict(family="Orbitron", size=12, color="#e2e8f0")
-                    ),
-                    height=250
+                    xaxis=dict(title=dict(text="CONFIDENCE PROBABILITY (%)", font=dict(family="Syne", size=10)), range=[0, max(df_probs["Percentage"].max() + 20, 60)], gridcolor="rgba(255, 255, 255, 0.08)"),
+                    yaxis=dict(title="", tickfont=dict(family="Syne", size=12)),
+                    height=220
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig_bar, use_container_width=True)
 
             except Exception as e:
-                st.error(f"FATAL EXCEPTION DURING TENSOR FORWARD PASS: {str(e)}")
+                st.error(f"Inference error: {str(e)}")
 
 # -------------------------------------------------------------
-# TAB 2: TEMPORAL TRAJECTORY MATRIX
+# TAB 2: LONGITUDINAL TREND ANALYTICS
 # -------------------------------------------------------------
 with tab_trends:
     df_trends = load_default_dataset()
 
     st.markdown("""
-    <div style="background: rgba(4, 9, 23, 0.85); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 10px; padding: 16px 22px; margin-bottom: 22px;">
-        <div style="font-family: 'Orbitron', monospace; font-size: 0.88rem; font-weight: 700; color: #00f3ff; letter-spacing: 0.08em; margin-bottom: 8px;">
-            // MULTI-SEMESTER TEMPORAL SLICE FILTER //
-        </div>
+    <div style="background: rgba(22, 28, 48, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 18px 24px; margin-bottom: 22px;">
+        <div class="syne-font" style="font-size: 1rem; font-weight: 700; color: #f1f5f9; margin-bottom: 10px;">🔍 Filter Courses Across Monitored Semesters</div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2 = st.columns([2.5, 1])
     with col_f1:
         courses_available = sorted(df_trends["course_id"].unique().tolist())
         selected_courses = st.multiselect(
-            "ACTIVE COURSE ENTITIES:",
+            "Select Course(s):",
             options=courses_available,
             default=courses_available,
-            help="Select one or more course streams."
+            help="Filter multi-course trends by course ID."
         )
     with col_f2:
+        semesters_count = len(df_trends["semester"].unique())
         st.markdown(f"""
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; padding-top: 14px; color: #94a3b8;">
-            INSTITUTIONAL TERMS: <b style="color: #00f3ff;">{len(df_trends['semester'].unique())}</b><br>
-            CORPUS TRANSMISSIONS: <b style="color: #00ff66;">{len(df_trends):,}</b>
+        <div style="padding-top: 18px; color: #94a3b8; font-size: 0.9rem;">
+            Academic Terms: <b style="color: #818cf8;">{semesters_count} Semesters</b><br>
+            Analyzed Reviews: <b style="color: #10b981;">{len(df_trends):,}</b>
         </div>
         """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
     if not selected_courses:
-        st.warning("NO TARGET ENTITIES SELECTED. SELECT AT LEAST ONE COURSE.")
+        st.warning("Please select at least one course from the filter above.")
     else:
         filtered_df = df_trends[df_trends["course_id"].isin(selected_courses)]
 
@@ -704,39 +693,40 @@ with tab_trends:
         sat_rate = (filtered_df["emotion"] == "Satisfaction").mean() * 100 if len(filtered_df) > 0 else 0
         neg_rate = (filtered_df["emotion"].isin(["Confusion", "Frustration", "Stress"])).mean() * 100 if len(filtered_df) > 0 else 0
 
-        nes_color = "#00ff66" if net_score >= 0 else "#ff0055"
+        nes_color = "#10b981" if net_score >= 0 else "#ef4444"
 
-        m1, m2, m3, m4 = st.columns(4)
-        with m1:
+        # KPI Summary Cards
+        k1, k2, k3, k4 = st.columns(4)
+        with k1:
             st.markdown(f"""
-            <div class="ai-metric-panel" style="--glow-color: #00f3ff;">
-                <div class="ai-metric-label">Ingested Signals</div>
-                <div class="ai-metric-val">{total_rev:,}</div>
-                <div class="ai-metric-sub">Across {len(selected_courses)} active courses</div>
+            <div class="kpi-expressive" style="--kpi-accent: #6366f1;">
+                <div class="kpi-title">Total Feedbacks</div>
+                <div class="kpi-val">{total_rev:,}</div>
+                <div class="kpi-sub">Across {len(selected_courses)} active courses</div>
             </div>
             """, unsafe_allow_html=True)
-        with m2:
+        with k2:
             st.markdown(f"""
-            <div class="ai-metric-panel" style="--glow-color: {nes_color};">
-                <div class="ai-metric-label">Net Emotion Index</div>
-                <div class="ai-metric-val" style="color: {nes_color};">{net_score:+.1f}</div>
-                <div class="ai-metric-sub">%Sat - %Negative Pressure</div>
+            <div class="kpi-expressive" style="--kpi-accent: {nes_color};">
+                <div class="kpi-title">Net Emotion Score</div>
+                <div class="kpi-val" style="color: {nes_color};">{net_score:+.1f}</div>
+                <div class="kpi-sub">%Satisfaction - %Negative</div>
             </div>
             """, unsafe_allow_html=True)
-        with m3:
+        with k3:
             st.markdown(f"""
-            <div class="ai-metric-panel" style="--glow-color: #00ff66;">
-                <div class="ai-metric-label">Satisfaction Rate</div>
-                <div class="ai-metric-val">{sat_rate:.1f}%</div>
-                <div class="ai-metric-sub">Affirmative learning index</div>
+            <div class="kpi-expressive" style="--kpi-accent: #10b981;">
+                <div class="kpi-title">Satisfaction Rate</div>
+                <div class="kpi-val">{sat_rate:.1f}%</div>
+                <div class="kpi-sub">Empowered student learning</div>
             </div>
             """, unsafe_allow_html=True)
-        with m4:
+        with k4:
             st.markdown(f"""
-            <div class="ai-metric-panel" style="--glow-color: #ffb703;">
-                <div class="ai-metric-label">Dominant Modality</div>
-                <div class="ai-metric-val" style="font-size: 1.5rem;">{most_common.upper()}</div>
-                <div class="ai-metric-sub">Friction coefficient: {neg_rate:.1f}%</div>
+            <div class="kpi-expressive" style="--kpi-accent: #f59e0b;">
+                <div class="kpi-title">Modal Archetype</div>
+                <div class="kpi-val" style="font-size: 1.6rem;">{most_common}</div>
+                <div class="kpi-sub">Negative friction: {neg_rate:.1f}%</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -747,18 +737,18 @@ with tab_trends:
         trend_table = compute_semester_trends(filtered_df)
 
         with c_trend:
-            st.markdown("##### 📈 1. SEMESTER-OVER-SEMESTER TRAJECTORY MATRIX")
+            st.markdown("##### 📈 1. Semester-over-Semester Emotion Trajectory")
             fig_trend = go.Figure()
             for em in EMOTIONS:
                 if em in trend_table.columns:
-                    meta = EMOTION_META.get(em, {"color": "#00f3ff", "icon": "◈"})
+                    meta = EMOTION_META.get(em, {"color": "#6366f1", "icon": ""})
                     fig_trend.add_trace(go.Scatter(
                         x=trend_table["semester"],
                         y=trend_table[em],
                         mode="lines+markers",
-                        name=f"{meta['icon']} {em.upper()}",
+                        name=f"{meta['icon']} {em}",
                         line=dict(width=3, color=meta["color"], shape="spline"),
-                        marker=dict(size=7, line=dict(width=2, color="#030712"))
+                        marker=dict(size=8, line=dict(width=2, color="#090d16"))
                     ))
             fig_trend.update_layout(
                 template="plotly_dark",
@@ -766,24 +756,21 @@ with tab_trends:
                 plot_bgcolor="rgba(0,0,0,0)",
                 hovermode="x unified",
                 margin=dict(l=10, r=10, t=10, b=10),
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10)),
-                yaxis=dict(title=dict(text="DENSITY (%)", font=dict(family="Orbitron", size=10)), gridcolor="rgba(0, 243, 255, 0.1)"),
-                xaxis=dict(gridcolor="rgba(0, 243, 255, 0.1)"),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Syne", size=10)),
+                yaxis=dict(title=dict(text="PROPORTION (%)", font=dict(family="Syne", size=10)), gridcolor="rgba(255, 255, 255, 0.08)"),
+                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
                 height=340
             )
             st.plotly_chart(fig_trend, use_container_width=True)
 
         with c_nes:
-            st.markdown("##### 🧭 2. NET EMOTION INDEX DELTA")
+            st.markdown("##### 🧭 2. Net Emotion Score (NES) Institutional Health")
             fig_nes = go.Figure()
-            bar_colors = ["#00ff66" if v >= 0 else "#ff0055" for v in trend_table["Net_Emotion_Score"]]
+            bar_colors = ["#10b981" if v >= 0 else "#ef4444" for v in trend_table["Net_Emotion_Score"]]
             fig_nes.add_trace(go.Bar(
                 x=trend_table["semester"],
                 y=trend_table["Net_Emotion_Score"],
-                marker=dict(
-                    color=bar_colors,
-                    line=dict(color="#ffffff", width=1)
-                ),
+                marker=dict(color=bar_colors, line=dict(color="#ffffff", width=1.5)),
                 text=[f"<b>{v:+.1f}</b>" for v in trend_table["Net_Emotion_Score"]],
                 textposition="outside",
                 hovertemplate="Semester: %{x}<br>NES: %{y:.1f}<extra></extra>"
@@ -793,21 +780,21 @@ with tab_trends:
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 margin=dict(l=10, r=10, t=10, b=10),
-                yaxis=dict(title=dict(text="NES INDEX", font=dict(family="Orbitron", size=10)), gridcolor="rgba(0, 243, 255, 0.1)"),
-                xaxis=dict(gridcolor="rgba(0, 243, 255, 0.1)"),
+                yaxis=dict(title=dict(text="NES INDEX (-100 to +100)", font=dict(family="Syne", size=10)), gridcolor="rgba(255, 255, 255, 0.08)"),
+                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
                 height=340
             )
             st.plotly_chart(fig_nes, use_container_width=True)
 
         # Course vs Emotion Heatmap
-        st.markdown("##### 🗺️ 3. INTER-COURSE EMOTION INTENSITY SPECTRAL HEATMAP")
+        st.markdown("##### 🗺️ 3. Course vs Emotion Intensity Heatmap")
         heatmap_matrix = compute_course_heatmap_matrix(filtered_df)
         fig_heat = px.imshow(
             heatmap_matrix,
             text_auto=".1f",
             aspect="auto",
             color_continuous_scale="Plasma",
-            labels=dict(x="Affective Modality", y="Course ID", color="Percentage (%)")
+            labels=dict(x="Affective Archetype", y="Course ID", color="Percentage (%)")
         )
         fig_heat.update_layout(
             template="plotly_dark",
@@ -818,90 +805,95 @@ with tab_trends:
         )
         st.plotly_chart(fig_heat, use_container_width=True)
 
-        # Automated Pedagogical Spike Alerts
-        st.markdown("##### 🚨 4. AUTONOMOUS ANOMALY & SPIKE DETECTION RADAR")
+        # Automated Anomaly Detection & Pedagogical Directives
+        st.markdown("##### 🚨 4. Automated Pedagogical Spike Alerts & Directives")
         spikes = detect_emotion_spikes(filtered_df, threshold_percent=10.0)
         if spikes:
             for s in spikes:
+                meta = EMOTION_META.get(s['emotion'], EMOTION_META["Stress"])
                 st.markdown(f"""
-                <div style="background: rgba(255, 0, 85, 0.08); border-left: 4px solid #ff0055; border-radius: 8px; padding: 14px 18px; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace;">
-                    <div style="color: #ff0055; font-weight: 700; font-size: 0.88rem;">
-                        [ ANOMALY DETECTED // COURSE: {s['course_id']} // TERM: {s['semester']} ]
+                <div style="background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;">
+                    <div class="syne-font" style="font-weight: 700; color: #fca5a5; font-size: 0.95rem;">
+                        🚨 Negative Emotion Spike in {s['course_id']} ({s['semester']})
                     </div>
-                    <div style="color: #cbd5e1; font-size: 0.82rem; margin-top: 4px;">
-                        Negative vector <b>{s['emotion'].upper()}</b> surged by <b style="color: #ff0055;">+{s['spike_amount']}%</b> 
-                        (Shift: {s['previous_rate']}% in {s['previous_semester']} → {s['current_rate']}%).
+                    <div style="font-size: 0.9rem; color: #e2e8f0; margin-top: 4px;">
+                        Negative emotion <b>{s['emotion']}</b> surged by <b style="color: #ef4444;">+{s['spike_amount']}%</b> 
+                        (from {s['previous_rate']}% in {s['previous_semester']} to {s['current_rate']}%).
+                    </div>
+                    <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(255, 255, 255, 0.1);">
+                        <b>Targeted Pedagogical Directive:</b> {meta['intervention']}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
         else:
             st.markdown("""
-            <div style="background: rgba(0, 255, 102, 0.06); border-left: 4px solid #00ff66; border-radius: 8px; padding: 14px 18px; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: #00ff66;">
-                [ STATUS: NOMINAL ] No negative affective surges exceeding delta threshold (≥10%) detected.
+            <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 22px;">✅</span>
+                <div style="color: #6ee7b7; font-weight: 600;">No severe negative emotion anomalies detected in selected courses (&ge;10% delta threshold).</div>
             </div>
             """, unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# TAB 3: MASS CORPUS INGESTION
+# TAB 3: BATCH CSV PROCESSING
 # -------------------------------------------------------------
 with tab_batch:
-    st.markdown("##### 📁 MASS PARALLEL INGESTION & DECODING")
-    st.write("Upload or stream student feedback batches to trigger recurrent vector inference on all lines.")
+    st.markdown("##### 📁 High-Throughput Batch Processing")
+    st.write("Upload a CSV file containing student feedback comments to batch classify emotion vectors and download enriched analytics.")
 
     col_up1, col_up2 = st.columns([1.8, 1])
     with col_up1:
-        uploaded_file = st.file_uploader("DROP CORPUS CSV FILE:", type=["csv"])
+        uploaded_file = st.file_uploader("Upload feedback CSV file:", type=["csv"])
     with col_up2:
         st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
-        load_sample = st.button("⚡ LOAD PRE-CONFIGURED 50-SIGNAL CORPUS", use_container_width=True)
+        load_sample = st.button("📄 Load Built-in Test Dataset (50 comments)", use_container_width=True)
 
     batch_df = None
     if uploaded_file is not None:
         batch_df = pd.read_csv(uploaded_file)
     elif load_sample and os.path.exists(TEST_CSV_PATH):
         batch_df = pd.read_csv(TEST_CSV_PATH)
-        st.info("INGESTED BUILT-IN TEST DATASET (50 SIGNALS).")
+        st.info("Loaded built-in test dataset `test_student_comments.csv`.")
 
     if batch_df is not None:
         st.markdown(f"""
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; background: rgba(0, 243, 255, 0.06); border: 1px solid rgba(0, 243, 255, 0.25); border-radius: 6px; padding: 10px 16px; margin-bottom: 14px; color: #00f3ff;">
-            [ CORPUS INGESTED ]: <b>{len(batch_df)} ENTRIES</b> // <b>{len(batch_df.columns)} ATTRIBUTES</b>
+        <div style="padding: 10px 16px; background: rgba(99, 102, 241, 0.1); border-radius: 10px; margin-bottom: 16px; font-size: 0.9rem;">
+            Dataset loaded: <b>{len(batch_df)} rows</b> across <b>{len(batch_df.columns)} columns</b>.
         </div>
         """, unsafe_allow_html=True)
 
         text_cols = [c for c in batch_df.columns if any(k in c.lower() for k in ["text", "feedback", "comment", "review"])]
         default_idx = batch_df.columns.get_loc(text_cols[0]) if text_cols else 0
-        selected_text_col = st.selectbox("FEEDBACK TEXT COLUMN:", options=batch_df.columns, index=default_idx)
+        selected_text_col = st.selectbox("Select Feedback Text Column:", options=batch_df.columns, index=default_idx)
 
-        if st.button(f"⚡ RUN MASS PARALLEL TENSOR INFERENCE ({selected_model})", type="primary"):
-            progress_bar = st.progress(0, text="INITIALIZING RECURRENT TENSORS...")
+        if st.button(f"⚡ Execute Batch Inference with {selected_model}", type="primary"):
+            progress_bar = st.progress(0, text="Initializing inference engine...")
             engine = get_inference_engine(selected_model)
 
             raw_texts = batch_df[selected_text_col].astype(str).tolist()
-            progress_bar.progress(35, text="EXECUTING RECURRENT FORWARD PASSES...")
+            progress_bar.progress(35, text="Running recurrent neural forward passes...")
             predictions = engine.predict(raw_texts)
-            progress_bar.progress(85, text="COMPUTING MARGINAL POSTERIORS...")
+            progress_bar.progress(85, text="Aggregating metrics & confidence intervals...")
 
-            batch_df["PREDICTED_EMOTION"] = [p["dominant_emotion"] for p in predictions]
-            batch_df["PREDICTED_SENTIMENT"] = [p["sentiment"] for p in predictions]
-            batch_df["CONFIDENCE"] = [round(p["confidence"], 4) for p in predictions]
+            batch_df["Predicted_Emotion"] = [p["dominant_emotion"] for p in predictions]
+            batch_df["Predicted_Sentiment"] = [p["sentiment"] for p in predictions]
+            batch_df["Confidence"] = [round(p["confidence"], 4) for p in predictions]
 
-            progress_bar.progress(100, text="PROCESSING CONCLUDED.")
-            st.success("MASS DECODING PIPELINE FINISHED.")
+            progress_bar.progress(100, text="Complete!")
+            st.success("Batch classification completed successfully!")
 
-            # Analytics row
+            # Batch Summary Analytics
             b1, b2, b3 = st.columns(3)
             with b1:
-                st.metric("CORPUS SIZE", len(batch_df))
+                st.metric("Total Analyzed", len(batch_df))
             with b2:
-                top_emo = batch_df["PREDICTED_EMOTION"].mode()[0]
-                st.metric("MODAL EMOTION", top_emo.upper())
+                top_emo = batch_df["Predicted_Emotion"].mode()[0]
+                st.metric("Most Frequent Emotion", top_emo)
             with b3:
-                avg_conf = batch_df["CONFIDENCE"].mean() * 100
-                st.metric("MEAN CONFIDENCE", f"{avg_conf:.1f}%")
+                avg_conf = batch_df["Confidence"].mean() * 100
+                st.metric("Mean Prediction Confidence", f"{avg_conf:.1f}%")
 
-            # Pie composition
-            dist_df = batch_df["PREDICTED_EMOTION"].value_counts().reset_index()
+            # Distribution Donut
+            dist_df = batch_df["Predicted_Emotion"].value_counts().reset_index()
             dist_df.columns = ["Emotion", "Count"]
 
             fig_batch = px.pie(
@@ -920,26 +912,26 @@ with tab_batch:
             )
             st.plotly_chart(fig_batch, use_container_width=True)
 
-            # Table preview
-            st.markdown("##### 📋 ENRICHED SIGNAL STREAM")
-            st.dataframe(batch_df[[selected_text_col, "PREDICTED_EMOTION", "PREDICTED_SENTIMENT", "CONFIDENCE"]].head(15), use_container_width=True)
+            # Data Table Preview
+            st.markdown("##### 📋 Enriched Dataset Preview")
+            st.dataframe(batch_df[[selected_text_col, "Predicted_Emotion", "Predicted_Sentiment", "Confidence"]].head(15), use_container_width=True)
 
-            # Export
+            # Download CSV
             csv_bytes = batch_df.to_csv(index=False).encode("utf-8")
             st.download_button(
-                label="📥 EXPORT ENRICHED TELEMETRY CSV",
+                label="📥 Download Enriched Classification CSV",
                 data=csv_bytes,
-                file_name="neural_enriched_student_emotions.csv",
+                file_name="enriched_student_emotion_analysis.csv",
                 mime="text/csv",
                 use_container_width=True
             )
 
 # -------------------------------------------------------------
-# TAB 4: SYNAPSE BENCHMARK
+# TAB 4: BI-LSTM vs BI-GRU BENCHMARK
 # -------------------------------------------------------------
 with tab_benchmark:
-    st.markdown("##### ⚖️ SYNAPTIC ARCHITECTURE COMBAT: BI-LSTM vs. BI-GRU")
-    st.write("Rigorous quantitative tensor evaluation benchmarking parameters, convergence speed, and latency.")
+    st.markdown("##### ⚖️ Recurrent Neural Architecture Benchmark")
+    st.write("Rigorous quantitative head-to-head comparison between **Bidirectional LSTM** and **Bidirectional GRU** models:")
 
     benchmark_file = os.path.join(MODELS_DIR, "benchmark_results.json")
     if os.path.exists(benchmark_file):
@@ -952,32 +944,32 @@ with tab_benchmark:
         col_lstm, col_gru = st.columns(2)
         with col_lstm:
             st.markdown(f"""
-            <div style="background: rgba(3, 10, 24, 0.9); border: 1px solid #00f3ff; border-top: 4px solid #00f3ff; border-radius: 10px; padding: 22px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);">
+            <div style="background: rgba(22, 28, 48, 0.85); border: 2px solid #6366f1; border-radius: 18px; padding: 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-family: 'Orbitron', monospace; font-size: 1.25rem; font-weight: 800; color: #00f3ff;">
-                        ⚡ BIDIRECTIONAL LSTM
+                    <div class="syne-font" style="font-size: 1.35rem; font-weight: 800; color: #818cf8;">
+                        ⚡ Bidirectional LSTM
                     </div>
-                    <span class="hud-badge">FASTEST INFERENCE</span>
+                    <span style="background: rgba(99, 102, 241, 0.2); border: 1px solid #6366f1; border-radius: 20px; padding: 4px 10px; font-size: 0.75rem; color: #818cf8; font-weight: 700;">Fastest Latency</span>
                 </div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #64748b; margin-top: 6px;">
-                    Triple-gated memory cell (input, forget, output gates) capturing extended context dependencies.
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 6px;">
+                    Triple-gated memory cell structure capturing forward and backward contextual dependencies.
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                    <div style="background: rgba(0, 243, 255, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(0, 243, 255, 0.15);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">VALIDATION ACCURACY</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #00ff66; font-weight: 800;">{b_l.get('validation_accuracy', 'N/A')}%</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">VALIDATION ACCURACY</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #10b981; font-weight: 800;">{b_l.get('validation_accuracy', 'N/A')}%</div>
                     </div>
-                    <div style="background: rgba(0, 243, 255, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(0, 243, 255, 0.15);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">MACRO F1-SCORE</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #00f3ff; font-weight: 800;">{b_l.get('macro_f1', 'N/A')}</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">MACRO F1-SCORE</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #818cf8; font-weight: 800;">{b_l.get('macro_f1', 'N/A')}</div>
                     </div>
-                    <div style="background: rgba(0, 243, 255, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(0, 243, 255, 0.15);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">PER-SAMPLE LATENCY</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #38bdf8; font-weight: 800;">{b_l.get('latency_ms_per_sample', 'N/A')} ms</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">LATENCY / SAMPLE</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #38bdf8; font-weight: 800;">{b_l.get('latency_ms_per_sample', 'N/A')} ms</div>
                     </div>
-                    <div style="background: rgba(0, 243, 255, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(0, 243, 255, 0.15);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">EPOCH TIME</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #ffb703; font-weight: 800;">{b_l.get('training_time_sec', 'N/A')}s</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">TRAINING TIME</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #fbbf24; font-weight: 800;">{b_l.get('training_time_sec', 'N/A')}s</div>
                     </div>
                 </div>
             </div>
@@ -985,32 +977,32 @@ with tab_benchmark:
 
         with col_gru:
             st.markdown(f"""
-            <div style="background: rgba(3, 10, 24, 0.9); border: 1px solid #bc13fe; border-top: 4px solid #bc13fe; border-radius: 10px; padding: 22px; box-shadow: 0 0 20px rgba(188, 19, 254, 0.15);">
+            <div style="background: rgba(22, 28, 48, 0.85); border: 2px solid #ec4899; border-radius: 18px; padding: 24px;">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div style="font-family: 'Orbitron', monospace; font-size: 1.25rem; font-weight: 800; color: #bc13fe;">
-                        🚀 BIDIRECTIONAL GRU
+                    <div class="syne-font" style="font-size: 1.35rem; font-weight: 800; color: #f472b6;">
+                        🚀 Bidirectional GRU
                     </div>
-                    <span class="hud-badge-pink">COMPACT TENSOR</span>
+                    <span style="background: rgba(236, 72, 153, 0.2); border: 1px solid #ec4899; border-radius: 20px; padding: 4px 10px; font-size: 0.75rem; color: #f472b6; font-weight: 700;">Compact Memory</span>
                 </div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: #64748b; margin-top: 6px;">
-                    Dual-gated streamlined recurrent cell (reset & update gates) with minimized parameter surface.
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 6px;">
+                    Streamlined gated recurrent unit with fewer parameters and rapid state transitions.
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                    <div style="background: rgba(188, 19, 254, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(188, 19, 254, 0.2);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">VALIDATION ACCURACY</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #00ff66; font-weight: 800;">{b_g.get('validation_accuracy', 'N/A')}%</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">VALIDATION ACCURACY</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #10b981; font-weight: 800;">{b_g.get('validation_accuracy', 'N/A')}%</div>
                     </div>
-                    <div style="background: rgba(188, 19, 254, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(188, 19, 254, 0.2);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">MACRO F1-SCORE</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #bc13fe; font-weight: 800;">{b_g.get('macro_f1', 'N/A')}</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">MACRO F1-SCORE</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #f472b6; font-weight: 800;">{b_g.get('macro_f1', 'N/A')}</div>
                     </div>
-                    <div style="background: rgba(188, 19, 254, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(188, 19, 254, 0.2);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">PER-SAMPLE LATENCY</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #38bdf8; font-weight: 800;">{b_g.get('latency_ms_per_sample', 'N/A')} ms</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">LATENCY / SAMPLE</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #38bdf8; font-weight: 800;">{b_g.get('latency_ms_per_sample', 'N/A')} ms</div>
                     </div>
-                    <div style="background: rgba(188, 19, 254, 0.05); padding: 12px; border-radius: 6px; border: 1px solid rgba(188, 19, 254, 0.2);">
-                        <div style="font-size: 0.65rem; color: #64748b; font-family: 'JetBrains Mono';">EPOCH TIME</div>
-                        <div style="font-family: 'Orbitron'; font-size: 1.4rem; color: #ffb703; font-weight: 800;">{b_g.get('training_time_sec', 'N/A')}s</div>
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 12px; padding: 12px;">
+                        <div style="font-size: 0.75rem; color: #94a3b8;">TRAINING TIME</div>
+                        <div class="syne-font" style="font-size: 1.6rem; color: #fbbf24; font-weight: 800;">{b_g.get('training_time_sec', 'N/A')}s</div>
                     </div>
                 </div>
             </div>
@@ -1019,7 +1011,7 @@ with tab_benchmark:
         st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
 
         # Comparative Visualization
-        st.markdown("##### 📊 QUANTITATIVE ARCHITECTURE VECTOR COMPARISON")
+        st.markdown("##### 📊 Quantitative Evaluation Metrics")
         comp_df = pd.DataFrame([
             {"Model": "Bi-LSTM", "Accuracy (%)": b_l.get("validation_accuracy", 0), "Macro F1 (%)": b_l.get("macro_f1", 0) * 100, "Latency (ms)": b_l.get("latency_ms_per_sample", 0)},
             {"Model": "Bi-GRU", "Accuracy (%)": b_g.get("validation_accuracy", 0), "Macro F1 (%)": b_g.get("macro_f1", 0) * 100, "Latency (ms)": b_g.get("latency_ms_per_sample", 0)}
@@ -1027,22 +1019,22 @@ with tab_benchmark:
 
         fig_comp = go.Figure()
         fig_comp.add_trace(go.Bar(
-            name="ACCURACY (%)",
+            name="Accuracy (%)",
             x=comp_df["Model"],
             y=comp_df["Accuracy (%)"],
-            marker_color="#00ff66"
+            marker_color="#10b981"
         ))
         fig_comp.add_trace(go.Bar(
-            name="MACRO F1 (%)",
+            name="Macro F1 (%)",
             x=comp_df["Model"],
             y=comp_df["Macro F1 (%)"],
-            marker_color="#00f3ff"
+            marker_color="#6366f1"
         ))
         fig_comp.add_trace(go.Bar(
-            name="LATENCY (x50 ms)",
+            name="Latency (scaled)",
             x=comp_df["Model"],
             y=comp_df["Latency (ms)"] * 50,
-            marker_color="#ffb703"
+            marker_color="#f59e0b"
         ))
 
         fig_comp.update_layout(
@@ -1051,8 +1043,8 @@ with tab_benchmark:
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             height=300,
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10))
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Syne", size=10))
         )
         st.plotly_chart(fig_comp, use_container_width=True)
     else:
-        st.info("EXECUTE `python src/train.py` TO COMPILE FORMAL BENCHMARK TELEMETRY.")
+        st.info("Run `python src/train.py` to compile benchmark metrics.")
