@@ -148,24 +148,90 @@ st.markdown("""
         }
     }
 
-    /* Layer 3: Sweeping Sci-Fi Laser Scan Beam */
-    .laser-scanner-beam {
+    /* Layer 3: Oscillating Wavy Neon Laser Energy Surge */
+    .wavy-laser-container {
         position: absolute;
-        top: -100px;
+        top: -180px;
         left: 0;
-        width: 100%;
-        height: 6px;
-        background: linear-gradient(90deg, transparent 0%, rgba(0, 243, 255, 0.2) 20%, #00f3ff 50%, #bc13fe 70%, transparent 100%);
-        box-shadow: 0 0 25px #00f3ff, 0 0 50px #bc13fe;
-        opacity: 0.75;
-        animation: laserScanDown 7s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
-        will-change: top;
+        width: 100vw;
+        height: 140px;
+        pointer-events: none;
+        overflow: visible;
+        will-change: top, transform, opacity;
     }
-    @keyframes laserScanDown {
-        0% { top: -20px; opacity: 0; }
-        15% { opacity: 0.85; }
-        85% { opacity: 0.85; }
-        100% { top: 100vh; opacity: 0; }
+
+    .wavy-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+
+    .wave-surge-1 {
+        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    }
+
+    .wave-surge-2 {
+        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+        animation-delay: 4.25s; /* Staggered so a wave is constantly traversing */
+    }
+
+    @keyframes wavyLaserSweep {
+        0% {
+            top: -160px;
+            opacity: 0;
+            transform: scaleY(0.7) scaleX(1);
+        }
+        12% {
+            opacity: 0.95;
+            transform: scaleY(1.15) scaleX(1.02);
+        }
+        50% {
+            opacity: 0.9;
+            transform: scaleY(0.95) scaleX(1);
+        }
+        88% {
+            opacity: 0.95;
+            transform: scaleY(1.2) scaleX(1.02);
+        }
+        100% {
+            top: 105vh;
+            opacity: 0;
+            transform: scaleY(0.7) scaleX(1);
+        }
+    }
+
+    /* Sine wave dynamic rippling & frequency oscillation */
+    .primary-wave {
+        animation: undulateWave1 3s ease-in-out infinite alternate;
+        transform-origin: center;
+    }
+
+    .secondary-wave {
+        animation: undulateWave2 2.4s ease-in-out infinite alternate;
+        transform-origin: center;
+    }
+
+    .harmonic-wave {
+        animation: undulateWave1 2.8s ease-in-out infinite alternate;
+        transform-origin: center;
+    }
+
+    @keyframes undulateWave1 {
+        0% {
+            transform: scaleY(0.8) translateY(-8px);
+        }
+        100% {
+            transform: scaleY(1.25) translateY(8px);
+        }
+    }
+
+    @keyframes undulateWave2 {
+        0% {
+            transform: scaleY(1.25) translateY(10px);
+        }
+        100% {
+            transform: scaleY(0.75) translateY(-10px);
+        }
     }
 
     /* Layer 4: Luminous Floating Plasma Nebulas */
@@ -534,7 +600,62 @@ st.markdown("""
     <div class="plasma-orb orb-magenta"></div>
     <div class="plasma-orb orb-violet"></div>
     <div class="plasma-orb orb-emerald"></div>
-    <div class="laser-scanner-beam"></div>
+    <!-- Primary Wavy Oscillating Neon Laser Surge -->
+    <div class="wavy-laser-container wave-surge-1">
+        <svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="neonWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00f3ff" stop-opacity="0" />
+                    <stop offset="15%" stop-color="#00f3ff" stop-opacity="0.9" />
+                    <stop offset="45%" stop-color="#bc13fe" stop-opacity="1" />
+                    <stop offset="70%" stop-color="#ec4899" stop-opacity="0.95" />
+                    <stop offset="85%" stop-color="#00f3ff" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#00f3ff" stop-opacity="0" />
+                </linearGradient>
+                <linearGradient id="neonWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
+                    <stop offset="20%" stop-color="#00ff66" stop-opacity="0.8" />
+                    <stop offset="50%" stop-color="#00f3ff" stop-opacity="1" />
+                    <stop offset="80%" stop-color="#bc13fe" stop-opacity="0.85" />
+                    <stop offset="100%" stop-color="#00ff66" stop-opacity="0" />
+                </linearGradient>
+                <filter id="neonGlowEffect" x="-10%" y="-40%" width="120%" height="180%">
+                    <feGaussianBlur stdDeviation="5" result="blur1" />
+                    <feGaussianBlur stdDeviation="12" result="blur2" />
+                    <feMerge>
+                        <feMergeNode in="blur2" />
+                        <feMergeNode in="blur1" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <path class="wave-path primary-wave" 
+                  d="M 0,80 Q 200,10 400,80 T 800,80 T 1200,80 T 1600,80" 
+                  fill="none" 
+                  stroke="url(#neonWaveGrad1)" 
+                  stroke-width="5" 
+                  filter="url(#neonGlowEffect)" />
+            <path class="wave-path secondary-wave" 
+                  d="M 0,80 Q 200,150 400,80 T 800,80 T 1200,80 T 1600,80" 
+                  fill="none" 
+                  stroke="url(#neonWaveGrad2)" 
+                  stroke-width="3" 
+                  opacity="0.8" 
+                  filter="url(#neonGlowEffect)" />
+        </svg>
+    </div>
+
+    <!-- Secondary Staggered Harmonic Wavy Surge -->
+    <div class="wavy-laser-container wave-surge-2">
+        <svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+            <path class="wave-path harmonic-wave" 
+                  d="M 0,80 Q 200,135 400,80 T 800,80 T 1200,80 T 1600,80" 
+                  fill="none" 
+                  stroke="url(#neonWaveGrad1)" 
+                  stroke-width="4" 
+                  filter="url(#neonGlowEffect)" />
+        </svg>
+    </div>
     <div class="cyber-particle p1"></div>
     <div class="cyber-particle p2"></div>
     <div class="cyber-particle p3"></div>
