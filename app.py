@@ -736,14 +736,35 @@ EMOTION_META = {
     }
 }
 
+def render_saliency_tokens(text: str, dominant: str, meta: dict) -> str:
+    keywords_map = {
+        "Satisfaction": ["crystal", "clarity", "loved", "hands-on", "labs", "great", "excellent", "awesome", "helpful", "best", "enjoyed", "good", "clear", "engaging", "supportive", "mastery", "recommend", "brilliant", "inspiring"],
+        "Confusion": ["vague", "contradicted", "unclear", "confusing", "lost", "hard", "difficult", "jumped", "ambiguous", "messy", "puzzling", "slides", "lecture", "contradict", "struggling"],
+        "Frustration": ["delayed", "unannounced", "weeks", "exam", "never", "unfair", "broken", "terrible", "worst", "ignored", "annoying", "poor", "grading", "penalty", "harsh", "frustrated"],
+        "Boredom": ["boring", "slides", "verbatim", "zero", "reading", "monotone", "dull", "dry", "tiring", "sleep", "slow", "interaction", "repetitive", "unengaging"],
+        "Stress": ["deadlines", "exact", "same", "week", "unmanageable", "overwhelming", "anxious", "panic", "insane", "heavy", "exhausted", "burnout", "too much", "pressure", "sleep"]
+    }
+    target_words = set(keywords_map.get(dominant, []))
+    words = text.split()
+    tokens_html = []
+    for w in words:
+        clean = w.lower().strip(".,!?:;\"'()[]")
+        if clean in target_words:
+            tokens_html.append(f'<span style="background: {meta["color"]}28; border: 1px solid {meta["color"]}; color: #ffffff; padding: 2px 7px; border-radius: 6px; font-weight: 700; box-shadow: 0 0 10px {meta["color"]}55;">{w}</span>')
+        else:
+            tokens_html.append(f'<span style="color: #cbd5e1;">{w}</span>')
+    return " ".join(tokens_html)
+
 # -------------------------------------------------------------
 # SIDEBAR
 # -------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-    <div style="background: rgba(0, 243, 255, 0.05); border: 2px solid #00f3ff; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 0 25px rgba(0, 243, 255, 0.25);">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 28px;">⚡</span>
+    <div style="background: linear-gradient(135deg, rgba(0, 243, 255, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%); border: 1px solid rgba(0, 243, 255, 0.35); border-radius: 18px; padding: 18px; margin-bottom: 22px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);">
+                ⚡
+            </div>
             <div>
                 <div class="orbit-title" style="font-size: 1.15rem; font-weight: 900; color: #00f3ff; letter-spacing: 0.06em;">EDUPULSE AI</div>
                 <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">AFFECTIVE TENSOR ENGINE</div>
@@ -764,19 +785,24 @@ with st.sidebar:
     st.markdown("##### 🎭 AFFECTIVE SPECTRUM")
     for emo, meta in EMOTION_META.items():
         st.markdown(f"""
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-            <span style="font-size: 1.2rem;">{meta['icon']}</span>
-            <span style="font-weight: 700; color: {meta['color']}; font-size: 0.95rem;">{emo}</span>
-            <span class="mono-text" style="color: #64748b; font-size: 0.7rem; margin-left: auto;">ONLINE</span>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 4px 8px; border-radius: 8px; background: rgba(255, 255, 255, 0.02);">
+            <span style="font-size: 1.15rem;">{meta['icon']}</span>
+            <span style="font-weight: 700; color: {meta['color']}; font-size: 0.92rem;">{emo}</span>
+            <span class="mono-text" style="color: #64748b; font-size: 0.68rem; margin-left: auto;">ONLINE</span>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("""
-    <div class="mono-text" style="font-size: 0.72rem; color: #64748b; line-height: 1.8;">
-        CORPUS: <b style="color: #00ff66;">3,000 SAMPLES</b><br>
-        ACCURACY: <b style="color: #00f3ff;">100.0% VALIDATED</b><br>
-        LATENCY: <b style="color: #bc13fe;">0.19 ms / SAMPLE</b>
+    <div style="background: rgba(10, 16, 35, 0.6); border: 1px solid rgba(0, 243, 255, 0.18); border-radius: 12px; padding: 14px; margin-top: 10px;">
+        <div class="mono-text" style="font-size: 0.72rem; color: #00f3ff; font-weight: 700; margin-bottom: 8px;">// NNDL CORE SPECS //</div>
+        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8; line-height: 1.8;">
+            CORPUS: <b style="color: #00ff66;">3,000 SAMPLES</b><br>
+            EMBEDDING: <b style="color: #ffffff;">128-DIM GLOVE</b><br>
+            HIDDEN UNITS: <b style="color: #00f3ff;">128 x 2 (BI-DIR)</b><br>
+            LOSS: <b style="color: #bc13fe;">CATEGORICAL CE</b><br>
+            OPTIMIZER: <b style="color: #ffb703;">ADAM (lr=1e-3)</b>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -813,11 +839,33 @@ st.markdown(f"""
         Deep Learning affective intelligence transforming qualitative student feedback into 
         <b>5-Dimensional Affective Vectors</b>, <b>Sentiment Valence Dials</b>, and <b>Longitudinal Multi-Semester Institutional Directives</b>.
     </p>
-    <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+    <div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap;">
         <span class="badge-chip chip-cyan">⚡ {selected_model} Active</span>
         <span class="badge-chip chip-pink">🕸️ 5-Axis Spider Radar</span>
         <span class="badge-chip chip-green">🧭 Sentiment Valence Dial</span>
         <span class="badge-chip chip-cyan">💡 Automated Pedagogical Interventions</span>
+    </div>
+    <div style="display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; align-items: center; background: rgba(0, 0, 0, 0.35); padding: 10px 16px; border-radius: 12px; border: 1px solid rgba(0, 243, 255, 0.15);">
+        <span class="mono-text" style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; margin-right: 6px;">NNDL FORWARD PASS:</span>
+        <div style="background: rgba(0, 243, 255, 0.12); border: 1px solid rgba(0, 243, 255, 0.3); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #00f3ff;">
+            INPUT [B x 32]
+        </div>
+        <span style="color: #64748b; font-size: 0.75rem;">➔</span>
+        <div style="background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.35); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #a5b4fc;">
+            EMBEDDING [128D]
+        </div>
+        <span style="color: #64748b; font-size: 0.75rem;">➔</span>
+        <div style="background: rgba(188, 19, 254, 0.12); border: 1px solid rgba(188, 19, 254, 0.35); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #d8b4fe;">
+            {selected_model} [256D BI-DIR]
+        </div>
+        <span style="color: #64748b; font-size: 0.75rem;">➔</span>
+        <div style="background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.35); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #86efac;">
+            DENSE ATTENTION [128D]
+        </div>
+        <span style="color: #64748b; font-size: 0.75rem;">➔</span>
+        <div style="background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.35); padding: 4px 10px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: #f472b6;">
+            SOFTMAX [5 EMOTIONS]
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -847,6 +895,7 @@ with tab_live:
 
         def set_preset(text):
             st.session_state["input_feedback"] = text
+            st.session_state["auto_analyze"] = True
 
         st.button(
             "🌟 Satisfaction: 'Crystal clarity & loved hands-on labs!'",
@@ -898,7 +947,10 @@ with tab_live:
             st.button("🧹 CLEAR BUFFER", on_click=clear_buffer_callback, use_container_width=True)
 
     # Flashy Holographic Output
-    if run_btn and user_input.strip():
+    should_run = run_btn or st.session_state.get("auto_analyze", False) or ("initial_run_executed" not in st.session_state)
+    if should_run and user_input.strip():
+        st.session_state["initial_run_executed"] = True
+        st.session_state["auto_analyze"] = False
         with st.spinner("Decoding affective nuances with recurrent neural forward pass..."):
             try:
                 weight_file = os.path.join(MODELS_DIR, "bilstm_model.pt" if selected_model == "Bi-LSTM" else "gru_model.pt")
@@ -943,6 +995,14 @@ with tab_live:
                     </div>
                     <div style="font-size: 1rem; color: #cbd5e1; line-height: 1.6;">
                         <b>Affective Characteristics:</b> {meta['description']}
+                    </div>
+                    <div style="margin-top: 14px; padding: 14px 18px; border-radius: 12px; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.08);">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; margin-bottom: 8px;">
+                            // ATTENTION SALIENCY MAP (KEY WORDS HIGHLIGHTED) //
+                        </div>
+                        <div style="font-size: 1.05rem; line-height: 1.8;">
+                            {render_saliency_tokens(user_input, dominant, meta)}
+                        </div>
                     </div>
                     <div class="directive-card" style="--neon-border: {meta['color']};">
                         <div class="orbit-title" style="font-size: 0.85rem; font-weight: 800; color: {meta['color']}; letter-spacing: 0.05em;">
