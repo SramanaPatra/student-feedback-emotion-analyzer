@@ -37,21 +37,21 @@ st.set_page_config(
 )
 
 # -------------------------------------------------------------
-# ULTRA-FLASHY HOLOGRAPHIC CYBER-NEON CSS SYSTEM
+# ULTRA-AESTHETIC DEEP CYBER-NEON CSS SYSTEM
 # -------------------------------------------------------------
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Syne:wght@700;800&family=Rajdhani:wght@600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
     html, body, [class*="css"] {
-        font-family: 'Rajdhani', sans-serif;
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     .orbit-title {
         font-family: 'Orbitron', monospace;
     }
     .syne-title {
-        font-family: 'Syne', sans-serif;
+        font-family: 'Space Grotesk', sans-serif;
     }
     .mono-text {
         font-family: 'JetBrains Mono', monospace;
@@ -74,27 +74,25 @@ st.markdown("""
         position: relative;
         z-index: 10;
         max-width: 1300px;
-        padding-top: 2rem;
+        padding-top: 1.8rem;
     }
 
     [data-testid="stSidebar"] {
         position: relative;
         z-index: 20;
         background-color: rgba(6, 11, 25, 0.88) !important;
-        backdrop-filter: blur(16px) !important;
-        border-right: 1px solid rgba(0, 243, 255, 0.25) !important;
+        backdrop-filter: blur(20px) saturate(180%) !important;
+        border-right: 1px solid rgba(0, 243, 255, 0.22) !important;
     }
 
-    /* Ambient CRT Scanline Overlay */
+    /* Ambient Cinematic Soft Vignette Overlay */
     .stApp::after {
         content: "";
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
-        background-size: 100% 4px;
+        background: radial-gradient(circle at 50% 35%, transparent 45%, rgba(2, 6, 18, 0.5) 100%);
         z-index: 999999;
         pointer-events: none;
-        opacity: 0.28;
     }
 
     /* ---------------------------------------------------------
@@ -133,8 +131,8 @@ st.markdown("""
         width: calc(100vw + 240px);
         height: calc(100vh + 240px);
         background-image: 
-            linear-gradient(rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px);
+            linear-gradient(rgba(0, 243, 255, 0.14) 1.5px, transparent 1.5px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.14) 1.5px, transparent 1.5px);
         background-size: 48px 48px;
         animation: movingGridGlide 6s linear infinite;
         will-change: transform;
@@ -340,12 +338,13 @@ st.markdown("""
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: linear-gradient(90deg, rgba(8, 18, 38, 0.95), rgba(18, 10, 35, 0.95));
-        border: 1px solid rgba(0, 243, 255, 0.4);
-        border-radius: 12px;
+        background: linear-gradient(90deg, rgba(8, 18, 38, 0.88), rgba(18, 10, 35, 0.88));
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 243, 255, 0.35);
+        border-radius: 14px;
         padding: 10px 22px;
         margin-bottom: 22px;
-        box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), inset 0 0 15px rgba(0, 243, 255, 0.08);
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.76rem;
         color: #00f3ff;
@@ -396,13 +395,14 @@ st.markdown("""
     /* SHOWCASE HERO BANNER WITH SWEEPING LASER */
     .showcase-hero {
         position: relative;
-        background: linear-gradient(135deg, rgba(13, 22, 48, 0.9) 0%, rgba(6, 9, 24, 0.98) 100%);
-        border: 2px solid transparent;
+        background: linear-gradient(135deg, rgba(13, 22, 48, 0.85) 0%, rgba(6, 9, 24, 0.94) 100%);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(0, 243, 255, 0.3);
         border-radius: 24px;
         background-clip: padding-box;
         padding: 36px 42px;
         margin-bottom: 26px;
-        box-shadow: 0 0 50px rgba(0, 243, 255, 0.25), 0 25px 60px -15px rgba(0, 0, 0, 0.8);
+        box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.7), 0 0 35px rgba(0, 243, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         overflow: hidden;
     }
 
@@ -410,11 +410,12 @@ st.markdown("""
         content: '';
         position: absolute;
         top: -2px; left: -2px; right: -2px; bottom: -2px;
-        background: linear-gradient(90deg, #00f3ff, #bc13fe, #ec4899, #00ff66, #00f3ff);
-        background-size: 400% 400%;
-        border-radius: 26px;
+        background: linear-gradient(90deg, #00f3ff, #6366f1, #bc13fe, #ec4899, #00f3ff);
+        background-size: 300% 300%;
+        border-radius: 25px;
         z-index: -1;
-        animation: laserGlow 6s linear infinite;
+        opacity: 0.85;
+        animation: laserGlow 7s ease infinite;
     }
 
     @keyframes laserGlow {
@@ -424,25 +425,25 @@ st.markdown("""
     }
 
     .hero-glow-title {
-        font-family: 'Orbitron', monospace;
-        font-size: 2.6rem;
-        font-weight: 900;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        background: linear-gradient(90deg, #ffffff 0%, #00f3ff 50%, #bc13fe 100%);
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.7rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        background: linear-gradient(135deg, #ffffff 10%, #67e8f9 55%, #c084fc 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        text-shadow: 0 0 35px rgba(0, 243, 255, 0.35);
         margin: 0;
         line-height: 1.15;
     }
 
     .hero-desc {
         color: #cbd5e1;
-        font-size: 1.15rem;
+        font-size: 1.1rem;
         margin-top: 10px;
         max-width: 900px;
         line-height: 1.6;
+        font-weight: 400;
     }
 
     .badge-chip {
@@ -463,12 +464,13 @@ st.markdown("""
 
     /* HOLOGRAPHIC EMOTION SHOWCASE CARD */
     .holo-card {
-        background: linear-gradient(135deg, rgba(16, 26, 56, 0.9) 0%, rgba(8, 12, 30, 0.98) 100%);
-        border: 2px solid var(--neon-border, #00f3ff);
+        background: linear-gradient(135deg, rgba(14, 22, 48, 0.8) 0%, rgba(7, 11, 26, 0.9) 100%);
+        backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid var(--neon-border, #00f3ff);
         border-radius: 22px;
         padding: 30px 36px;
         margin: 22px 0;
-        box-shadow: 0 0 45px var(--neon-shadow, rgba(0, 243, 255, 0.35)), inset 0 0 25px rgba(0, 243, 255, 0.08);
+        box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 35px var(--neon-shadow, rgba(0, 243, 255, 0.25));
         position: relative;
     }
 
@@ -486,8 +488,8 @@ st.markdown("""
     }
 
     .directive-card {
-        background: rgba(255, 255, 255, 0.03);
-        border-left: 5px solid var(--neon-border, #00f3ff);
+        background: rgba(255, 255, 255, 0.04);
+        border-left: 4px solid var(--neon-border, #00f3ff);
         border-radius: 12px;
         padding: 18px 22px;
         margin-top: 18px;
@@ -496,20 +498,21 @@ st.markdown("""
 
     /* FLASHY KPI METRIC CARDS */
     .flashy-kpi {
-        background: linear-gradient(135deg, rgba(14, 22, 46, 0.85) 0%, rgba(6, 10, 26, 0.95) 100%);
-        border: 1px solid rgba(0, 243, 255, 0.3);
+        background: linear-gradient(135deg, rgba(14, 22, 46, 0.78) 0%, rgba(6, 10, 26, 0.9) 100%);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 243, 255, 0.25);
         border-radius: 18px;
         padding: 22px 26px;
         position: relative;
-        box-shadow: 0 0 25px rgba(0, 243, 255, 0.12);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
         overflow: hidden;
         transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .flashy-kpi:hover {
         transform: translateY(-4px);
-        box-shadow: 0 0 35px rgba(0, 243, 255, 0.35);
-        border-color: #00f3ff;
+        box-shadow: 0 15px 40px -5px rgba(0, 243, 255, 0.3), 0 0 25px rgba(0, 243, 255, 0.2);
+        border-color: rgba(0, 243, 255, 0.5);
     }
 
     .flashy-kpi::before {
@@ -521,75 +524,92 @@ st.markdown("""
     }
 
     .kpi-num {
-        font-family: 'Orbitron', monospace;
-        font-size: 2.3rem;
-        font-weight: 800;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 2.4rem;
+        font-weight: 700;
         color: #ffffff;
-        text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         line-height: 1.1;
     }
 
     /* STREAMLIT TAB OVERHAUL (NEON CYBER TABS) */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-        background: rgba(8, 14, 32, 0.9) !important;
-        border: 1px solid rgba(0, 243, 255, 0.3) !important;
-        padding: 8px 12px !important;
-        border-radius: 16px !important;
-        box-shadow: 0 0 30px rgba(0, 243, 255, 0.15) !important;
+        gap: 8px;
+        background: rgba(8, 14, 30, 0.75) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(0, 243, 255, 0.25) !important;
+        padding: 6px 8px !important;
+        border-radius: 14px !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
     }
 
     .stTabs [data-baseweb="tab"] {
-        font-family: 'Orbitron', monospace !important;
-        font-size: 0.85rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 0.06em !important;
+        font-family: 'Space Grotesk', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em !important;
         color: #94a3b8 !important;
         border-radius: 10px !important;
-        padding: 12px 22px !important;
+        padding: 10px 22px !important;
+        border: 1px solid transparent !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, rgba(0, 243, 255, 0.3) 0%, rgba(188, 19, 254, 0.4) 100%) !important;
-        color: #00f3ff !important;
-        border: 1px solid #00f3ff !important;
-        box-shadow: 0 0 25px rgba(0, 243, 255, 0.4) !important;
-        text-shadow: 0 0 10px #00f3ff !important;
+        background: linear-gradient(135deg, rgba(0, 243, 255, 0.22) 0%, rgba(99, 102, 241, 0.3) 100%) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(0, 243, 255, 0.5) !important;
+        box-shadow: 0 4px 20px rgba(0, 243, 255, 0.3) !important;
+    }
+
+    /* SLEEK INPUTS AND CONTROLS */
+    .stTextArea textarea, .stTextInput input, div[data-baseweb="select"] > div {
+        background: rgba(10, 16, 32, 0.75) !important;
+        border: 1px solid rgba(0, 243, 255, 0.25) !important;
+        border-radius: 12px !important;
+        color: #f8fafc !important;
+        backdrop-filter: blur(14px) !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        transition: all 0.2s ease !important;
+    }
+    .stTextArea textarea:focus, .stTextInput input:focus, div[data-baseweb="select"]:focus-within {
+        border-color: #00f3ff !important;
+        box-shadow: 0 0 20px rgba(0, 243, 255, 0.35) !important;
     }
 
     /* FLASHY BUTTONS WITH LASER HOVER */
     .stButton > button {
-        font-family: 'Orbitron', monospace !important;
-        font-size: 0.85rem !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.05em !important;
+        font-family: 'Space Grotesk', sans-serif !important;
+        font-size: 0.88rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.03em !important;
         border-radius: 12px !important;
-        background: rgba(0, 243, 255, 0.08) !important;
-        border: 1px solid rgba(0, 243, 255, 0.4) !important;
+        background: linear-gradient(135deg, rgba(0, 243, 255, 0.12) 0%, rgba(99, 102, 241, 0.15) 100%) !important;
+        border: 1px solid rgba(0, 243, 255, 0.35) !important;
         color: #00f3ff !important;
-        box-shadow: 0 0 15px rgba(0, 243, 255, 0.15) !important;
-        transition: all 0.2s ease !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
     .stButton > button:hover {
-        background: rgba(0, 243, 255, 0.25) !important;
+        background: linear-gradient(135deg, rgba(0, 243, 255, 0.25) 0%, rgba(99, 102, 241, 0.35) 100%) !important;
         border-color: #00f3ff !important;
-        box-shadow: 0 0 30px rgba(0, 243, 255, 0.6) !important;
-        transform: translateY(-2px) scale(1.02) !important;
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.5), 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+        transform: translateY(-2px) !important;
         color: #ffffff !important;
     }
 
     button[kind="primary"] {
-        background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 100%) !important;
+        background: linear-gradient(135deg, #00f3ff 0%, #6366f1 50%, #bc13fe 100%) !important;
         border: none !important;
-        color: #040817 !important;
-        font-weight: 900 !important;
-        box-shadow: 0 0 30px rgba(0, 243, 255, 0.6) !important;
+        color: #020617 !important;
+        font-weight: 800 !important;
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 8px 20px rgba(0, 0, 0, 0.6) !important;
     }
 
     button[kind="primary"]:hover {
-        box-shadow: 0 0 50px rgba(188, 19, 254, 0.8) !important;
+        box-shadow: 0 0 45px rgba(188, 19, 254, 0.7), 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+        transform: translateY(-2px) scale(1.02) !important;
         color: #ffffff !important;
     }
 </style>
