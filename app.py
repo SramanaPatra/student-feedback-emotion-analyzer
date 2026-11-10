@@ -97,10 +97,18 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
-        background: radial-gradient(circle at 18% 22%, rgba(30, 58, 138, 0.30) 0%, transparent 50%),
-                    radial-gradient(circle at 82% 78%, rgba(79, 70, 229, 0.25) 0%, transparent 55%),
-                    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.12) 0%, transparent 65%),
+        background: radial-gradient(circle at 18% 22%, rgba(30, 58, 138, 0.35) 0%, transparent 50%),
+                    radial-gradient(circle at 82% 78%, rgba(79, 70, 229, 0.30) 0%, transparent 55%),
+                    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.16) 0%, transparent 65%),
                     #080c16;
+        animation: ambientHueRotate 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes ambientHueRotate {
+        0%   { filter: hue-rotate(0deg); }
+        35%  { filter: hue-rotate(55deg); }
+        70%  { filter: hue-rotate(-40deg); }
+        100% { filter: hue-rotate(25deg); }
     }
 
     .neural-graph-svg {
@@ -110,41 +118,54 @@ st.markdown("""
         width: 100vw;
         height: 100vh;
         pointer-events: none;
-        opacity: 0.65;
+        opacity: 0.75;
         animation: neuralMeshDrift 22s ease-in-out infinite alternate;
     }
 
     @keyframes neuralMeshDrift {
         0% { transform: scale(1) translate(0, 0); }
-        50% { transform: scale(1.02) translate(-10px, 8px); }
-        100% { transform: scale(0.99) translate(8px, -10px); }
+        50% { transform: scale(1.025) translate(-12px, 10px); }
+        100% { transform: scale(0.99) translate(10px, -12px); }
     }
 
-    /* Synaptic Connections (Weight Edges) */
+    /* Synaptic Connections (Weight Edges) with Real-Time Chromatic Flow */
     .synapse-edge {
-        stroke: rgba(96, 165, 250, 0.35);
-        stroke-width: 1.5;
+        stroke: rgba(96, 165, 250, 0.45);
+        stroke-width: 1.6;
         stroke-dasharray: 6 12;
-        animation: synapseFlow 8s linear infinite;
+        animation: synapseFlow 8s linear infinite, synapseColorShift 10s ease-in-out infinite alternate;
     }
     .synapse-edge.fast {
-        animation-duration: 5s;
-        stroke: rgba(56, 189, 248, 0.45);
+        animation-duration: 5s, 8s;
+        stroke-width: 2;
     }
     .synapse-edge.slow {
-        animation-duration: 11s;
-        stroke: rgba(129, 140, 248, 0.3);
+        animation-duration: 11s, 14s;
     }
     .synapse-edge.normal {
-        animation-duration: 8s;
+        animation-duration: 8s, 10s;
+    }
+
+    @keyframes synapseColorShift {
+        0%   { stroke: rgba(56, 189, 248, 0.55); }
+        25%  { stroke: rgba(167, 139, 250, 0.60); }
+        50%  { stroke: rgba(236, 72, 153, 0.55); }
+        75%  { stroke: rgba(52, 211, 153, 0.60); }
+        100% { stroke: rgba(56, 189, 248, 0.55); }
     }
 
     .recurrent-edge {
         fill: none;
-        stroke: rgba(52, 211, 153, 0.4);
-        stroke-width: 1.8;
+        stroke: rgba(52, 211, 153, 0.5);
+        stroke-width: 2;
         stroke-dasharray: 4 8;
-        animation: synapseFlow 6s linear infinite reverse;
+        animation: synapseFlow 6s linear infinite reverse, recurrentColorShift 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes recurrentColorShift {
+        0%   { stroke: rgba(52, 211, 153, 0.65); }
+        50%  { stroke: rgba(244, 114, 182, 0.65); }
+        100% { stroke: rgba(56, 189, 248, 0.65); }
     }
 
     @keyframes synapseFlow {
@@ -152,54 +173,93 @@ st.markdown("""
         to { stroke-dashoffset: 0; }
     }
 
-    /* Artificial Neurons */
+    /* Artificial Neurons with Dynamic Color-Shifting Activation States */
     .neuron {
         cursor: default;
         transition: all 0.3s ease;
     }
-    .input-node { fill: #38bdf8; }
-    .hidden-node-1 { fill: #818cf8; }
-    .hidden-node-2 { fill: #a78bfa; }
-    .dense-node { fill: #34d399; }
-    .output-satisfaction { fill: #00ff66; }
-    .output-confusion { fill: #fbbf24; }
-    .output-frustration { fill: #f43f5e; }
-    .output-boredom { fill: #94a3b8; }
-    .output-stress { fill: #c084fc; }
-
-    .n-pulse1 { animation: neuronPulse 2.8s ease-in-out infinite alternate; }
-    .n-pulse2 { animation: neuronPulse 3.4s ease-in-out infinite alternate; animation-delay: 0.8s; }
-    .n-pulse3 { animation: neuronPulse 4s ease-in-out infinite alternate; animation-delay: 1.5s; }
-
-    @keyframes neuronPulse {
-        0% { transform-origin: center; opacity: 0.6; filter: drop-shadow(0 0 2px currentColor); }
-        100% { transform-origin: center; opacity: 1; filter: drop-shadow(0 0 10px currentColor); }
+    .input-node { 
+        animation: neuronColorInput 7s ease-in-out infinite alternate, neuronPulse 2.8s ease-in-out infinite alternate; 
+    }
+    .hidden-node-1 { 
+        animation: neuronColorHidden1 9s ease-in-out infinite alternate, neuronPulse 3.4s ease-in-out infinite alternate; 
+    }
+    .hidden-node-2 { 
+        animation: neuronColorHidden2 8s ease-in-out infinite alternate, neuronPulse 4s ease-in-out infinite alternate; 
+    }
+    .dense-node { 
+        animation: neuronColorDense 10s ease-in-out infinite alternate, neuronPulse 3s ease-in-out infinite alternate; 
     }
 
-    /* Floating Tensor Math Notations */
+    @keyframes neuronColorInput {
+        0%   { fill: #00f3ff; filter: drop-shadow(0 0 6px #00f3ff); }
+        50%  { fill: #38bdf8; filter: drop-shadow(0 0 10px #38bdf8); }
+        100% { fill: #818cf8; filter: drop-shadow(0 0 8px #818cf8); }
+    }
+
+    @keyframes neuronColorHidden1 {
+        0%   { fill: #a855f7; filter: drop-shadow(0 0 8px #a855f7); }
+        50%  { fill: #ec4899; filter: drop-shadow(0 0 12px #ec4899); }
+        100% { fill: #38bdf8; filter: drop-shadow(0 0 8px #38bdf8); }
+    }
+
+    @keyframes neuronColorHidden2 {
+        0%   { fill: #6366f1; filter: drop-shadow(0 0 8px #6366f1); }
+        50%  { fill: #10b981; filter: drop-shadow(0 0 12px #10b981); }
+        100% { fill: #c084fc; filter: drop-shadow(0 0 8px #c084fc); }
+    }
+
+    @keyframes neuronColorDense {
+        0%   { fill: #34d399; filter: drop-shadow(0 0 8px #34d399); }
+        50%  { fill: #00f3ff; filter: drop-shadow(0 0 12px #00f3ff); }
+        100% { fill: #f59e0b; filter: drop-shadow(0 0 8px #f59e0b); }
+    }
+
+    .output-satisfaction { fill: #00ff66; filter: drop-shadow(0 0 8px #00ff66); }
+    .output-confusion { fill: #fbbf24; filter: drop-shadow(0 0 8px #fbbf24); }
+    .output-frustration { fill: #f43f5e; filter: drop-shadow(0 0 8px #f43f5e); }
+    .output-boredom { fill: #94a3b8; filter: drop-shadow(0 0 6px #94a3b8); }
+    .output-stress { fill: #c084fc; filter: drop-shadow(0 0 8px #c084fc); }
+
+    .n-pulse1 { animation-delay: 0s; }
+    .n-pulse2 { animation-delay: 0.9s; }
+    .n-pulse3 { animation-delay: 1.7s; }
+
+    @keyframes neuronPulse {
+        0%   { transform-origin: center; opacity: 0.65; transform: scale(0.9); }
+        100% { transform-origin: center; opacity: 1;    transform: scale(1.25); }
+    }
+
+    /* Floating Tensor Math Notations with Chromatic Glow */
     .tensor-particle {
         position: absolute;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.78rem;
+        font-size: 0.82rem;
         font-weight: 700;
-        color: rgba(148, 163, 184, 0.28);
         pointer-events: none;
         user-select: none;
-        animation: floatTensor 18s ease-in-out infinite alternate;
+        animation: floatTensor 16s ease-in-out infinite alternate, tensorColorShift 12s ease-in-out infinite alternate;
     }
     .tp1 { top: 12%; left: 8%; animation-delay: 0s; }
-    .tp2 { top: 28%; left: 24%; animation-delay: 3s; color: rgba(56, 189, 248, 0.35); }
+    .tp2 { top: 28%; left: 24%; animation-delay: 3s; }
     .tp3 { top: 72%; left: 14%; animation-delay: 6s; }
-    .tp4 { top: 18%; left: 52%; animation-delay: 2s; color: rgba(99, 102, 241, 0.35); }
+    .tp4 { top: 18%; left: 52%; animation-delay: 2s; }
     .tp5 { top: 82%; left: 45%; animation-delay: 5s; }
     .tp6 { top: 35%; left: 74%; animation-delay: 1s; }
-    .tp7 { top: 68%; left: 86%; animation-delay: 4s; color: rgba(52, 211, 153, 0.35); }
+    .tp7 { top: 68%; left: 86%; animation-delay: 4s; }
     .tp8 { top: 88%; left: 80%; animation-delay: 7s; }
 
+    @keyframes tensorColorShift {
+        0%   { color: rgba(56, 189, 248, 0.55);  text-shadow: 0 0 10px rgba(56, 189, 248, 0.45); }
+        33%  { color: rgba(167, 139, 250, 0.60); text-shadow: 0 0 12px rgba(167, 139, 250, 0.50); }
+        66%  { color: rgba(52, 211, 153, 0.55);  text-shadow: 0 0 10px rgba(52, 211, 153, 0.45); }
+        100% { color: rgba(244, 114, 182, 0.60); text-shadow: 0 0 12px rgba(244, 114, 182, 0.50); }
+    }
+
     @keyframes floatTensor {
-        0% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
-        50% { transform: translateY(-25px) rotate(3deg); opacity: 0.45; }
-        100% { transform: translateY(15px) rotate(-3deg); opacity: 0.2; }
+        0%   { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+        50%  { transform: translateY(-24px) rotate(3deg); opacity: 0.65; }
+        100% { transform: translateY(14px) rotate(-3deg); opacity: 0.3; }
     }
 
     /* Flashy Top Telemetry Ribbon */
