@@ -58,15 +58,15 @@ st.markdown("""
     }
 
     /* ---------------------------------------------------------
-       TOTALLY LIGHT STREAMLIT CANVAS LAYOUT
+       PURE BLACK NNDL AI CORE - STREAMLIT LAYOUT
        --------------------------------------------------------- */
     .stApp,
     [data-testid="stAppViewContainer"],
     section.main,
     [data-testid="stHeader"],
     .main > div {
-        background-color: #ffffff !important;
-        background: #ffffff !important;
+        background-color: #000000 !important;
+        background: #000000 !important;
     }
 
     .main .block-container {
@@ -79,38 +79,38 @@ st.markdown("""
     [data-testid="stSidebar"] {
         position: relative;
         z-index: 20;
-        background-color: #ffffff !important;
-        border-right: 2px solid #e2e8f0 !important;
-        box-shadow: 4px 0 20px rgba(15, 23, 42, 0.05) !important;
+        background-color: #080a0f !important;
+        border-right: 1px solid #1e2433 !important;
+        box-shadow: 4px 0 25px rgba(0, 0, 0, 0.6) !important;
     }
 
     /* ---------------------------------------------------------
-       DEEP, HIGH-CONTRAST TYPOGRAPHY ("THE WRITTEN MAKE IT DEEP")
+       CRISP HIGH-CONTRAST TYPOGRAPHY ON PURE BLACK
        --------------------------------------------------------- */
     .stMarkdown, .stText, p, span, label, [data-testid="stMarkdownContainer"] p {
-        color: #090d16 !important;
-        font-weight: 600 !important;
+        color: #e2e8f0 !important;
+        font-weight: 500;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        color: #000000 !important;
-        font-weight: 900 !important;
-        letter-spacing: 0.02em !important;
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.03em !important;
     }
 
     label, [data-testid="stWidgetLabel"] p {
-        color: #000000 !important;
-        font-weight: 800 !important;
-        font-size: 0.92rem !important;
+        color: #f1f5f9 !important;
+        font-weight: 700 !important;
+        font-size: 0.90rem !important;
     }
 
     .mono-text {
-        color: #0f172a !important;
-        font-weight: 800 !important;
+        color: #94a3b8 !important;
+        font-weight: 700 !important;
     }
 
     /* ---------------------------------------------------------
-       TOTALLY LIGHT AMBIENT CANVAS & SUBTLE NEURAL WATERMARK
+       PURE BLACK DEEP LEARNING AMBIENT CANVAS & SUBTLE NEURAL GRAPH
        --------------------------------------------------------- */
     .live-bg-universe {
         position: fixed;
@@ -121,14 +121,15 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
-        background-color: #ffffff;
+        background-color: #000000;
         background-image: 
-            radial-gradient(circle at 10% 15%, rgba(219, 234, 254, 0.45) 0%, transparent 40%),
-            radial-gradient(circle at 90% 20%, rgba(243, 232, 255, 0.45) 0%, transparent 40%),
-            linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            radial-gradient(circle at 15% 20%, rgba(30, 58, 138, 0.22) 0%, transparent 45%),
+            radial-gradient(circle at 85% 25%, rgba(67, 56, 202, 0.18) 0%, transparent 45%),
+            radial-gradient(circle at 50% 85%, rgba(14, 116, 144, 0.15) 0%, transparent 50%),
+            linear-gradient(180deg, #000000 0%, #050608 100%);
     }
 
-    /* Very faint, non-intrusive watermark */
+    /* Elegant, subtle neural watermark behind cards */
     .neural-graph-svg {
         position: absolute;
         top: 0;
@@ -136,7 +137,7 @@ st.markdown("""
         width: 100vw;
         height: 100vh;
         pointer-events: none;
-        opacity: 0.09;
+        opacity: 0.18;
         animation: neuralMeshDrift 28s ease-in-out infinite alternate;
     }
 
@@ -147,13 +148,13 @@ st.markdown("""
     }
 
     .synapse-edge {
-        stroke: #2563eb;
+        stroke: #38bdf8;
         stroke-width: 1.2;
         stroke-dasharray: 6 10;
         animation: synapseFlow 8s linear infinite;
     }
     .synapse-edge.fast {
-        stroke: #4f46e5;
+        stroke: #818cf8;
         stroke-width: 1.4;
         animation-duration: 5s;
     }
@@ -163,14 +164,14 @@ st.markdown("""
         animation-duration: 11s;
     }
     .synapse-edge.normal {
-        stroke: #2563eb;
+        stroke: #38bdf8;
         stroke-width: 1.2;
         animation-duration: 8s;
     }
 
     .recurrent-edge {
         fill: none;
-        stroke: #16a34a;
+        stroke: #10b981;
         stroke-width: 1.3;
         stroke-dasharray: 4 8;
         animation: synapseFlow 6s linear infinite reverse;
@@ -184,40 +185,40 @@ st.markdown("""
     .neuron {
         cursor: default;
     }
-    .input-node { fill: #0284c7; }
-    .hidden-node-1 { fill: #4f46e5; }
-    .hidden-node-2 { fill: #7c3aed; }
-    .dense-node { fill: #059669; }
-    .output-satisfaction { fill: #16a34a; }
-    .output-confusion    { fill: #d97706; }
-    .output-frustration  { fill: #dc2626; }
-    .output-boredom      { fill: #475569; }
-    .output-stress       { fill: #9333ea; }
+    .input-node { fill: #38bdf8; }
+    .hidden-node-1 { fill: #818cf8; }
+    .hidden-node-2 { fill: #c084fc; }
+    .dense-node { fill: #34d399; }
+    .output-satisfaction { fill: #00ff66; }
+    .output-confusion    { fill: #fbbf24; }
+    .output-frustration  { fill: #f43f5e; }
+    .output-boredom      { fill: #94a3b8; }
+    .output-stress       { fill: #c084fc; }
 
-    /* Top Telemetry Ribbon - Deep High Contrast */
+    /* Top Telemetry Ribbon - Sleek Pure Black */
     .top-telemetry-ribbon {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #ffffff !important;
-        border: 2px solid #cbd5e1 !important;
+        background: #090b10 !important;
+        border: 1px solid #1e2433 !important;
         border-radius: 14px !important;
         padding: 12px 24px !important;
         margin-bottom: 22px !important;
-        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.82rem;
-        color: #000000 !important;
-        font-weight: 800 !important;
+        color: #f1f5f9 !important;
+        font-weight: 700 !important;
     }
 
     .pulse-laser {
         display: inline-block;
-        width: 11px;
-        height: 11px;
+        width: 10px;
+        height: 10px;
         border-radius: 50%;
-        background: #16a34a;
-        box-shadow: 0 0 8px rgba(22, 163, 74, 0.7);
+        background: #00ff66;
+        box-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
         animation: pulseLaser 1.5s infinite;
         margin-right: 8px;
     }
@@ -236,7 +237,7 @@ st.markdown("""
 
     .eq-col {
         width: 4px;
-        background: #1e40af;
+        background: #38bdf8;
         border-radius: 2px;
         animation: eqAnim 1s ease-in-out infinite alternate;
     }
@@ -251,23 +252,23 @@ st.markdown("""
         100% { height: 100%; }
     }
 
-    /* SHOWCASE HERO BANNER */
+    /* SHOWCASE HERO BANNER - PURE BLACK NNDL SUITE */
     .showcase-hero {
         position: relative;
-        background: #ffffff !important;
-        border: 2px solid #cbd5e1 !important;
+        background: #090b10 !important;
+        border: 1px solid #1e2433 !important;
         border-radius: 22px !important;
         padding: 34px 40px !important;
         margin-bottom: 24px !important;
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8) !important;
         overflow: hidden;
     }
 
     .showcase-hero::before {
         content: '';
         position: absolute;
-        top: 0; left: 0; right: 0; height: 5px;
-        background: linear-gradient(90deg, #1e3a8a, #2563eb, #7c3aed, #16a34a, #1e3a8a);
+        top: 0; left: 0; right: 0; height: 3px;
+        background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899, #00ff66, #38bdf8);
         background-size: 300% 100%;
         animation: heroBarSlide 8s ease infinite;
     }
@@ -284,7 +285,7 @@ st.markdown("""
         font-weight: 900;
         letter-spacing: 0.04em;
         text-transform: uppercase;
-        background: linear-gradient(90deg, #090d16 0%, #1e40af 55%, #4338ca 100%);
+        background: linear-gradient(90deg, #ffffff 0%, #38bdf8 60%, #818cf8 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 0;
@@ -292,12 +293,12 @@ st.markdown("""
     }
 
     .hero-desc {
-        color: #0f172a !important;
-        font-size: 1.12rem;
+        color: #94a3b8 !important;
+        font-size: 1.10rem;
         margin-top: 10px;
         max-width: 900px;
         line-height: 1.6;
-        font-weight: 600 !important;
+        font-weight: 500 !important;
     }
 
     .badge-chip {
@@ -312,18 +313,18 @@ st.markdown("""
         text-transform: uppercase;
         letter-spacing: 0.06em;
     }
-    .chip-cyan { background: #dbeafe; border: 1.5px solid #1d4ed8; color: #1e3a8a; }
-    .chip-pink { background: #fce7f3; border: 1.5px solid #be185d; color: #831843; }
-    .chip-green { background: #dcfce7; border: 1.5px solid #15803d; color: #14532d; }
+    .chip-cyan { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.5); color: #38bdf8; }
+    .chip-pink { background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.5); color: #f472b6; }
+    .chip-green { background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.5); color: #00ff66; }
 
-    /* HOLOGRAPHIC EMOTION SHOWCASE CARD */
+    /* HOLOGRAPHIC EMOTION SHOWCASE CARD (BLACK SOLID) */
     .holo-card {
-        background: #ffffff !important;
-        border: 2px solid var(--neon-border, #1e40af) !important;
+        background: #090b10 !important;
+        border: 1px solid #1e2433 !important;
         border-radius: 20px !important;
         padding: 28px 34px !important;
         margin: 20px 0 !important;
-        box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
         position: relative;
     }
 
@@ -335,64 +336,64 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         font-size: 2.4rem;
-        background: var(--orb-bg, rgba(30, 64, 175, 0.1));
-        border: 2px solid var(--neon-border, #1e40af);
-        box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
+        background: rgba(56, 189, 248, 0.1);
+        border: 2px solid var(--neon-border, #38bdf8);
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
     }
 
     .directive-card {
-        background: #f8fafc !important;
-        border: 2px solid #cbd5e1 !important;
-        border-left: 6px solid var(--neon-border, #1e40af) !important;
+        background: #050608 !important;
+        border: 1px solid #1e2433 !important;
+        border-left: 5px solid var(--neon-border, #38bdf8) !important;
         border-radius: 12px !important;
         padding: 18px 22px !important;
         margin-top: 18px !important;
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
-        color: #000000 !important;
-        font-weight: 600 !important;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important;
+        color: #e2e8f0 !important;
+        font-weight: 500 !important;
     }
 
-    /* FLASHY KPI METRIC CARDS */
+    /* FLASHY KPI METRIC CARDS (PURE BLACK SOLID) */
     .flashy-kpi {
-        background: #ffffff !important;
-        border: 2px solid #cbd5e1 !important;
+        background: #090b10 !important;
+        border: 1px solid #1e2433 !important;
         border-radius: 16px !important;
         padding: 20px 24px !important;
         position: relative;
-        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05) !important;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
         overflow: hidden;
         transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .flashy-kpi:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(30, 64, 175, 0.15) !important;
-        border-color: #1e40af !important;
+        box-shadow: 0 10px 25px rgba(56, 189, 248, 0.25) !important;
+        border-color: #38bdf8 !important;
     }
 
     .flashy-kpi::before {
         content: '';
         position: absolute;
-        top: 0; left: 0; right: 0; height: 4px;
-        background: var(--kpi-laser, #1e40af);
+        top: 0; left: 0; right: 0; height: 3px;
+        background: var(--kpi-laser, #38bdf8);
     }
 
     .kpi-num {
         font-family: 'Orbitron', monospace;
         font-size: 2.3rem;
         font-weight: 900;
-        color: #000000 !important;
+        color: #ffffff !important;
         line-height: 1.1;
     }
 
-    /* STREAMLIT TAB OVERHAUL (DEEP HIGH-CONTRAST TABS) */
+    /* STREAMLIT TAB OVERHAUL (SLEEK BLACK TABS) */
     .stTabs [data-baseweb="tab-list"] {
         gap: 10px;
-        background: #f1f5f9 !important;
-        border: 2px solid #cbd5e1 !important;
+        background: #090b10 !important;
+        border: 1px solid #1e2433 !important;
         padding: 8px 12px !important;
         border-radius: 16px !important;
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
     }
 
     .stTabs [data-baseweb="tab"] {
@@ -400,31 +401,31 @@ st.markdown("""
         font-size: 0.95rem !important;
         font-weight: 800 !important;
         letter-spacing: 0.03em !important;
-        color: #0f172a !important;
+        color: #94a3b8 !important;
         border-radius: 10px !important;
         padding: 10px 20px !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
     .stTabs [aria-selected="true"] {
-        background: #0f172a !important; /* DEEP SOLID NAVY */
-        color: #ffffff !important;       /* SHARP CRISP WHITE */
-        border: 2px solid #0f172a !important;
-        box-shadow: 0 4px 16px rgba(15, 23, 42, 0.3) !important;
+        background: #181d28 !important;
+        color: #38bdf8 !important;
+        border: 1px solid #38bdf8 !important;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3) !important;
     }
 
-    /* TAB PANEL CONTENT CARDS */
+    /* TAB PANEL CONTENT CARDS - 100% OPAQUE BLACK CARD (ZERO OVERLAPPING) */
     .stTabs [data-baseweb="tab-panel"] {
-        background: #ffffff !important;
-        border: 2px solid #e2e8f0 !important;
+        background: #090b10 !important;
+        border: 1px solid #1e2433 !important;
         border-radius: 18px !important;
         padding: 26px 30px !important;
         margin-top: 14px !important;
-        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
     }
 
     /* ---------------------------------------------------------
-       DEEP WORKING BUTTONS ("BUTTONS WORKING MAKE IT DEEP")
+       DEEP HIGH-CONTRAST WORKING BUTTONS
        --------------------------------------------------------- */
     .stButton > button {
         font-family: 'Rajdhani', sans-serif !important;
@@ -432,92 +433,90 @@ st.markdown("""
         font-weight: 800 !important;
         letter-spacing: 0.03em !important;
         border-radius: 12px !important;
-        background: #0f172a !important;  /* DEEP NAVY / SLATE-900 */
-        border: 2px solid #1e293b !important;
-        color: #ffffff !important;        /* CRISP BOLD WHITE TEXT */
-        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2) !important;
+        background: #131722 !important;
+        border: 1px solid #2e384d !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
         padding: 11px 20px !important;
         transition: all 0.2s ease !important;
     }
 
     .stButton > button:hover {
-        background: #1e40af !important;  /* DEEP ROYAL BLUE */
-        border-color: #2563eb !important;
-        color: #ffffff !important;
-        box-shadow: 0 6px 22px rgba(30, 64, 175, 0.4) !important;
+        background: #1e293b !important;
+        border-color: #38bdf8 !important;
+        color: #38bdf8 !important;
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.4) !important;
         transform: translateY(-2px) !important;
     }
 
     .stButton > button:active {
-        background: #172554 !important;
+        background: #0f172a !important;
         transform: translateY(0px) !important;
     }
 
     /* PRIMARY WORKING ACTION BUTTONS */
     button[kind="primary"] {
-        background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 50%, #4338ca 100%) !important;
-        border: 2px solid #1e40af !important;
+        background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%) !important;
+        border: none !important;
         color: #ffffff !important;
         font-weight: 900 !important;
         font-size: 1rem !important;
         letter-spacing: 0.04em !important;
         border-radius: 12px !important;
-        box-shadow: 0 6px 24px rgba(29, 78, 216, 0.45) !important;
+        box-shadow: 0 6px 24px rgba(37, 99, 235, 0.45) !important;
         padding: 12px 24px !important;
     }
 
     button[kind="primary"]:hover {
-        background: linear-gradient(135deg, #172554 0%, #1e40af 50%, #3730a3 100%) !important;
-        border-color: #3b82f6 !important;
-        box-shadow: 0 8px 30px rgba(29, 78, 216, 0.6) !important;
+        box-shadow: 0 8px 30px rgba(56, 189, 248, 0.6) !important;
         color: #ffffff !important;
         transform: translateY(-2px) !important;
     }
 
     /* DOWNLOAD WORKING BUTTON */
     .stDownloadButton > button {
-        background: #065f46 !important; /* DEEP SOLID EMERALD */
-        border: 2px solid #047857 !important;
+        background: #064e3b !important;
+        border: 1px solid #059669 !important;
         color: #ffffff !important;
         font-weight: 800 !important;
         font-size: 0.95rem !important;
         border-radius: 12px !important;
-        box-shadow: 0 4px 16px rgba(6, 95, 70, 0.3) !important;
+        box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3) !important;
         padding: 12px 20px !important;
     }
 
     .stDownloadButton > button:hover {
-        background: #047857 !important;
+        background: #059669 !important;
         color: #ffffff !important;
-        box-shadow: 0 6px 22px rgba(4, 120, 87, 0.45) !important;
+        box-shadow: 0 6px 22px rgba(5, 150, 105, 0.5) !important;
         transform: translateY(-2px) !important;
     }
 
-    /* INPUT FIELDS & TEXT AREAS - HIGH CONTRAST */
+    /* INPUT FIELDS & TEXT AREAS - BLACK HIGH CONTRAST */
     .stTextArea textarea, .stTextInput input, [data-baseweb="select"] {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-        border: 2px solid #64748b !important;
+        background-color: #050608 !important;
+        color: #ffffff !important;
+        border: 1px solid #2e384d !important;
         border-radius: 12px !important;
         font-weight: 600 !important;
         font-size: 0.98rem !important;
     }
 
     .stTextArea textarea:focus, .stTextInput input:focus {
-        border-color: #1e40af !important;
-        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2) !important;
+        border-color: #38bdf8 !important;
+        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
     }
 
     /* FILE UPLOADER CONTAINER */
     [data-testid="stFileUploader"] {
-        background-color: #f8fafc !important;
-        border: 2px dashed #64748b !important;
+        background-color: #050608 !important;
+        border: 2px dashed #2e384d !important;
         border-radius: 14px !important;
         padding: 16px !important;
     }
 
     [data-testid="stFileUploader"] section {
-        background-color: #ffffff !important;
+        background-color: #090b10 !important;
     }
 </style>
 <div class="live-bg-universe">
@@ -662,12 +661,12 @@ EMOTION_META = {
 # -------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-    <div style="background: #f8fafc; border: 1px solid #bfdbfe; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.08);">
+    <div style="background: #0d0f14; border: 1px solid #1e2433; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);">
         <div style="display: flex; align-items: center; gap: 10px;">
             <span style="font-size: 28px;">🧠</span>
             <div>
-                <div class="orbit-title" style="font-size: 1.1rem; font-weight: 900; color: #1d4ed8; letter-spacing: 0.05em;">NNDL AI CORE</div>
-                <div class="mono-text" style="font-size: 0.68rem; color: #64748b;">DEEP RECURRENT TENSOR LAB</div>
+                <div class="orbit-title" style="font-size: 1.1rem; font-weight: 900; color: #38bdf8; letter-spacing: 0.05em;">NNDL AI CORE</div>
+                <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">DEEP RECURRENT TENSOR LAB</div>
             </div>
         </div>
     </div>
@@ -688,16 +687,16 @@ with st.sidebar:
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
             <span style="font-size: 1.2rem;">{meta['icon']}</span>
             <span style="font-weight: 700; color: {meta['color']}; font-size: 0.95rem;">{emo}</span>
-            <span class="mono-text" style="color: #64748b; font-size: 0.7rem; margin-left: auto;">ONLINE</span>
+            <span class="mono-text" style="color: #94a3b8; font-size: 0.7rem; margin-left: auto;">ONLINE</span>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("""
-    <div class="mono-text" style="font-size: 0.72rem; color: #64748b; line-height: 1.8;">
-        CORPUS: <b style="color: #16a34a;">3,000 SAMPLES</b><br>
-        ACCURACY: <b style="color: #2563eb;">100.0% VALIDATED</b><br>
-        LATENCY: <b style="color: #7c3aed;">0.19 ms / SAMPLE</b>
+    <div class="mono-text" style="font-size: 0.72rem; color: #94a3b8; line-height: 1.8;">
+        CORPUS: <b style="color: #00ff66;">3,000 SAMPLES</b><br>
+        ACCURACY: <b style="color: #38bdf8;">100.0% VALIDATED</b><br>
+        LATENCY: <b style="color: #c084fc;">0.19 ms / SAMPLE</b>
     </div>
     """, unsafe_allow_html=True)
 
@@ -711,8 +710,8 @@ st.markdown(f"""
         <span style="font-weight: 700;">NNDL CORE // BIDIRECTIONAL RECURRENT NEURAL NETWORK ACTIVE</span>
     </div>
     <div style="display: flex; align-items: center; gap: 18px;">
-        <div>TENSOR: <b style="color: #2563eb;">{selected_model}</b></div>
-        <div>LATENCY: <b style="color: #16a34a;">0.19ms</b></div>
+        <div>TENSOR: <b style="color: #38bdf8;">{selected_model}</b></div>
+        <div>LATENCY: <b style="color: #00ff66;">0.19ms</b></div>
         <div class="equalizer-box">
             <div class="eq-col eq-1"></div>
             <div class="eq-col eq-2"></div>
@@ -898,10 +897,10 @@ with tab_live:
                     ))
                     fig_radar.update_layout(
                         polar=dict(
-                            radialaxis=dict(visible=True, range=[0, 100], gridcolor="#e2e8f0"),
-                            angularaxis=dict(gridcolor="#e2e8f0", tickfont=dict(family="Orbitron", size=11, color="#1e293b"))
+                            radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(255, 255, 255, 0.1)"),
+                            angularaxis=dict(gridcolor="rgba(255, 255, 255, 0.1)", tickfont=dict(family="Orbitron", size=11, color="#f8fafc"))
                         ),
-                        template="plotly_white",
+                        template="plotly_dark",
                         paper_bgcolor="rgba(0,0,0,0)",
                         plot_bgcolor="rgba(0,0,0,0)",
                         margin=dict(l=30, r=30, t=20, b=20),
@@ -915,19 +914,19 @@ with tab_live:
                     fig_gauge = go.Figure(go.Indicator(
                         mode="gauge+number",
                         value=valence_val,
-                        number=dict(valueformat="+.2f", font=dict(family="Orbitron", size=32, color="#0f172a")),
+                        number=dict(valueformat="+.2f", font=dict(family="Orbitron", size=32, color="#ffffff")),
                         gauge=dict(
-                            axis=dict(range=[-1.0, 1.0], tickvals=[-1.0, -0.5, 0, 0.5, 1.0], tickfont=dict(family="Orbitron", color="#64748b")),
+                            axis=dict(range=[-1.0, 1.0], tickvals=[-1.0, -0.5, 0, 0.5, 1.0], tickfont=dict(family="Orbitron", color="#94a3b8")),
                             bar=dict(color=meta["color"], thickness=0.3),
                             steps=[
-                                dict(range=[-1.0, -0.3], color="rgba(239, 68, 68, 0.15)"),
+                                dict(range=[-1.0, -0.3], color="rgba(239, 68, 68, 0.25)"),
                                 dict(range=[-0.3, 0.3], color="rgba(148, 163, 184, 0.15)"),
-                                dict(range=[0.3, 1.0], color="rgba(34, 197, 94, 0.15)")
+                                dict(range=[0.3, 1.0], color="rgba(34, 197, 94, 0.25)")
                             ]
                         )
                     ))
                     fig_gauge.update_layout(
-                        template="plotly_white",
+                        template="plotly_dark",
                         paper_bgcolor="rgba(0,0,0,0)",
                         plot_bgcolor="rgba(0,0,0,0)",
                         margin=dict(l=20, r=20, t=30, b=10),
@@ -939,25 +938,25 @@ with tab_live:
                 st.markdown("##### 📊 QUANTUM PROBABILITY DENSITY")
                 df_probs = pd.DataFrame(list(breakdown.items()), columns=["Emotion", "Probability"])
                 df_probs["Percentage"] = (df_probs["Probability"] * 100).round(2)
-                df_probs["Color"] = df_probs["Emotion"].map(lambda e: EMOTION_META.get(e, {}).get("color", "#2563eb"))
+                df_probs["Color"] = df_probs["Emotion"].map(lambda e: EMOTION_META.get(e, {}).get("color", "#38bdf8"))
                 df_probs = df_probs.sort_values(by="Percentage", ascending=True)
 
                 fig_bar = go.Figure(go.Bar(
                     x=df_probs["Percentage"],
                     y=df_probs["Emotion"],
                     orientation="h",
-                    marker=dict(color=df_probs["Color"], line=dict(color="#ffffff", width=1.5)),
+                    marker=dict(color=df_probs["Color"], line=dict(color="#ffffff", width=1)),
                     text=[f"  <b>{p:.1f}%</b>" for p in df_probs["Percentage"]],
                     textposition="outside",
                     cliponaxis=False
                 ))
                 fig_bar.update_layout(
-                    template="plotly_white",
+                    template="plotly_dark",
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
                     margin=dict(l=10, r=40, t=10, b=10),
-                    xaxis=dict(title=dict(text="PROBABILITY DENSITY (%)", font=dict(family="Orbitron", size=10, color="#1e293b")), range=[0, max(df_probs["Percentage"].max() + 20, 60)], gridcolor="#e2e8f0"),
-                    yaxis=dict(title="", tickfont=dict(family="Orbitron", size=12, color="#0f172a")),
+                    xaxis=dict(title=dict(text="PROBABILITY DENSITY (%)", font=dict(family="Orbitron", size=10), color="#94a3b8"), range=[0, max(df_probs["Percentage"].max() + 20, 60)], gridcolor="rgba(255, 255, 255, 0.08)"),
+                    yaxis=dict(title="", tickfont=dict(family="Orbitron", size=12, color="#f8fafc")),
                     height=220
                 )
                 st.plotly_chart(fig_bar, use_container_width=True)
@@ -972,8 +971,8 @@ with tab_trends:
     df_trends = load_default_dataset()
 
     st.markdown("""
-    <div style="background: rgba(8, 14, 32, 0.85); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 16px; padding: 18px 24px; margin-bottom: 22px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);">
-        <div class="orbit-title" style="font-size: 0.95rem; font-weight: 700; color: #00f3ff; margin-bottom: 10px;">// MULTI-COURSE LONGITUDINAL FILTER //</div>
+    <div style="background: #090b10; border: 1px solid #1e2433; border-radius: 16px; padding: 18px 24px; margin-bottom: 22px;">
+        <div class="orbit-title" style="font-size: 0.95rem; font-weight: 700; color: #38bdf8; margin-bottom: 10px;">// MULTI-COURSE LONGITUDINAL FILTER //</div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2 = st.columns([2.5, 1])
@@ -1064,14 +1063,14 @@ with tab_trends:
                         marker=dict(size=8, line=dict(width=2, color="#030611"))
                     ))
             fig_trend.update_layout(
-                template="plotly_white",
+                template="plotly_dark",
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 hovermode="x unified",
                 margin=dict(l=10, r=10, t=10, b=10),
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10, color="#1e293b")),
-                yaxis=dict(title=dict(text="PROPORTION (%)", font=dict(family="Orbitron", size=10, color="#1e293b")), gridcolor="#e2e8f0"),
-                xaxis=dict(gridcolor="#e2e8f0"),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10, color="#f8fafc")),
+                yaxis=dict(title=dict(text="PROPORTION (%)", font=dict(family="Orbitron", size=10), color="#94a3b8"), gridcolor="rgba(255, 255, 255, 0.08)"),
+                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
                 height=340
             )
             st.plotly_chart(fig_trend, use_container_width=True)
@@ -1079,22 +1078,22 @@ with tab_trends:
         with c_nes:
             st.markdown("##### 🧭 2. NET EMOTION SCORE PROGRESSION")
             fig_nes = go.Figure()
-            bar_colors = ["#16a34a" if v >= 0 else "#dc2626" for v in trend_table["Net_Emotion_Score"]]
+            bar_colors = ["#00ff66" if v >= 0 else "#ff0055" for v in trend_table["Net_Emotion_Score"]]
             fig_nes.add_trace(go.Bar(
                 x=trend_table["semester"],
                 y=trend_table["Net_Emotion_Score"],
-                marker=dict(color=bar_colors, line=dict(color="#ffffff", width=1.5)),
+                marker=dict(color=bar_colors, line=dict(color="#ffffff", width=1)),
                 text=[f"<b>{v:+.1f}</b>" for v in trend_table["Net_Emotion_Score"]],
                 textposition="outside",
                 hovertemplate="Semester: %{x}<br>NES: %{y:.1f}<extra></extra>"
             ))
             fig_nes.update_layout(
-                template="plotly_white",
+                template="plotly_dark",
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 margin=dict(l=10, r=10, t=10, b=10),
-                yaxis=dict(title=dict(text="NES INDEX (-100 to +100)", font=dict(family="Orbitron", size=10, color="#1e293b")), gridcolor="#e2e8f0"),
-                xaxis=dict(gridcolor="#e2e8f0"),
+                yaxis=dict(title=dict(text="NES INDEX (-100 to +100)", font=dict(family="Orbitron", size=10), color="#94a3b8"), gridcolor="rgba(255, 255, 255, 0.08)"),
+                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
                 height=340
             )
             st.plotly_chart(fig_nes, use_container_width=True)
@@ -1110,7 +1109,7 @@ with tab_trends:
             labels=dict(x="Affective Archetype", y="Course ID", color="Percentage (%)")
         )
         fig_heat.update_layout(
-            template="plotly_white",
+            template="plotly_dark",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             margin=dict(l=10, r=10, t=20, b=10),
@@ -1125,24 +1124,24 @@ with tab_trends:
             for s in spikes:
                 meta = EMOTION_META.get(s['emotion'], EMOTION_META["Stress"])
                 st.markdown(f"""
-                <div style="background: #fef2f2; border: 1px solid #fee2e2; border-left: 5px solid #dc2626; border-radius: 14px; padding: 18px 24px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08);">
-                    <div class="orbit-title" style="font-weight: 800; color: #dc2626; font-size: 1rem;">
+                <div style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.35); border-left: 5px solid #f43f5e; border-radius: 14px; padding: 18px 24px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.2);">
+                    <div class="orbit-title" style="font-weight: 800; color: #f43f5e; font-size: 1rem;">
                         🚨 Negative Emotion Spike Alert: {s['course_id']} ({s['semester']})
                     </div>
-                    <div style="font-size: 0.95rem; color: #1e293b; margin-top: 4px;">
-                        Negative emotion <b>{s['emotion'].upper()}</b> surged by <b style="color: #dc2626;">+{s['spike_amount']}%</b> 
+                    <div style="font-size: 0.95rem; color: #f1f5f9; margin-top: 4px;">
+                        Negative emotion <b>{s['emotion'].upper()}</b> surged by <b style="color: #f43f5e;">+{s['spike_amount']}%</b> 
                         (from {s['previous_rate']}% in {s['previous_semester']} to {s['current_rate']}%).
                     </div>
-                    <div style="font-size: 0.9rem; color: #475569; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #e2e8f0;">
+                    <div style="font-size: 0.9rem; color: #cbd5e1; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255, 255, 255, 0.15);">
                         <b>Targeted Pedagogical Directive:</b> {meta['intervention']}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
         else:
             st.markdown("""
-            <div style="background: #f0fdf4; border: 1px solid #dcfce7; border-left: 5px solid #16a34a; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.08);">
+            <div style="background: rgba(0, 255, 102, 0.08); border: 1px solid rgba(0, 255, 102, 0.3); border-left: 5px solid #00ff66; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 15px rgba(0, 255, 102, 0.2);">
                 <span style="font-size: 24px;">✅</span>
-                <div class="orbit-title" style="color: #16a34a; font-size: 0.9rem; font-weight: 700;">
+                <div class="orbit-title" style="color: #00ff66; font-size: 0.9rem; font-weight: 700;">
                     ALL SIGNALS NOMINAL: No extreme negative anomalies detected (≥10% delta threshold).
                 </div>
             </div>
@@ -1222,7 +1221,7 @@ with tab_batch:
                 color_discrete_map={k: v["color"] for k, v in EMOTION_META.items()}
             )
             fig_batch.update_layout(
-                template="plotly_white",
+                template="plotly_dark",
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 height=280
@@ -1261,32 +1260,32 @@ with tab_benchmark:
         col_lstm, col_gru = st.columns(2)
         with col_lstm:
             st.markdown(f"""
-            <div style="background: #ffffff; border: 2px solid #2563eb; border-radius: 18px; padding: 24px; box-shadow: 0 6px 20px rgba(37, 99, 235, 0.08);">
+            <div style="background: #090b10; border: 1px solid #1e2433; border-top: 3px solid #38bdf8; border-radius: 18px; padding: 24px; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #1d4ed8;">
+                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #38bdf8;">
                         ⚡ BIDIRECTIONAL LSTM
                     </div>
                     <span class="badge-chip chip-cyan">FASTEST LATENCY</span>
                 </div>
-                <div style="font-size: 0.85rem; color: #64748b; margin-top: 6px;">
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 6px;">
                     Triple-gated memory cell structure capturing forward and backward contextual dependencies.
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">VALIDATION ACCURACY</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #16a34a; font-weight: 800;">{b_l.get('validation_accuracy', 'N/A')}%</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">VALIDATION ACCURACY</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #00ff66; font-weight: 800;">{b_l.get('validation_accuracy', 'N/A')}%</div>
                     </div>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">MACRO F1-SCORE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #2563eb; font-weight: 800;">{b_l.get('macro_f1', 'N/A')}</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">MACRO F1-SCORE</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #38bdf8; font-weight: 800;">{b_l.get('macro_f1', 'N/A')}</div>
                     </div>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">LATENCY / SAMPLE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #0284c7; font-weight: 800;">{b_l.get('latency_ms_per_sample', 'N/A')} ms</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">LATENCY / SAMPLE</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #818cf8; font-weight: 800;">{b_l.get('latency_ms_per_sample', 'N/A')} ms</div>
                     </div>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">EPOCH TIME</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #d97706; font-weight: 800;">{b_l.get('training_time_sec', 'N/A')}s</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">EPOCH TIME</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #fbbf24; font-weight: 800;">{b_l.get('training_time_sec', 'N/A')}s</div>
                     </div>
                 </div>
             </div>
@@ -1294,32 +1293,32 @@ with tab_benchmark:
 
         with col_gru:
             st.markdown(f"""
-            <div style="background: #ffffff; border: 2px solid #7c3aed; border-radius: 18px; padding: 24px; box-shadow: 0 6px 20px rgba(124, 58, 237, 0.08);">
+            <div style="background: #090b10; border: 1px solid #1e2433; border-top: 3px solid #c084fc; border-radius: 18px; padding: 24px; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #7c3aed;">
+                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #c084fc;">
                         🚀 BIDIRECTIONAL GRU
                     </div>
                     <span class="badge-chip chip-pink">COMPACT TENSOR</span>
                 </div>
-                <div style="font-size: 0.85rem; color: #64748b; margin-top: 6px;">
+                <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 6px;">
                     Streamlined gated recurrent unit with fewer parameters and rapid state transitions.
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">VALIDATION ACCURACY</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #16a34a; font-weight: 800;">{b_g.get('validation_accuracy', 'N/A')}%</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">VALIDATION ACCURACY</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #00ff66; font-weight: 800;">{b_g.get('validation_accuracy', 'N/A')}%</div>
                     </div>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">MACRO F1-SCORE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #7c3aed; font-weight: 800;">{b_g.get('macro_f1', 'N/A')}</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">MACRO F1-SCORE</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #c084fc; font-weight: 800;">{b_g.get('macro_f1', 'N/A')}</div>
                     </div>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">LATENCY / SAMPLE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #0284c7; font-weight: 800;">{b_g.get('latency_ms_per_sample', 'N/A')} ms</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">LATENCY / SAMPLE</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #818cf8; font-weight: 800;">{b_g.get('latency_ms_per_sample', 'N/A')} ms</div>
                     </div>
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-                        <div class="mono-text" style="font-size: 0.7rem; color: #64748b;">EPOCH TIME</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #d97706; font-weight: 800;">{b_g.get('training_time_sec', 'N/A')}s</div>
+                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                        <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">EPOCH TIME</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #fbbf24; font-weight: 800;">{b_g.get('training_time_sec', 'N/A')}s</div>
                     </div>
                 </div>
             </div>
@@ -1339,30 +1338,30 @@ with tab_benchmark:
             name="Accuracy (%)",
             x=comp_df["Model"],
             y=comp_df["Accuracy (%)"],
-            marker_color="#16a34a"
+            marker_color="#00ff66"
         ))
         fig_comp.add_trace(go.Bar(
             name="Macro F1 (%)",
             x=comp_df["Model"],
             y=comp_df["Macro F1 (%)"],
-            marker_color="#2563eb"
+            marker_color="#38bdf8"
         ))
         fig_comp.add_trace(go.Bar(
             name="Latency (scaled)",
             x=comp_df["Model"],
             y=comp_df["Latency (ms)"] * 50,
-            marker_color="#d97706"
+            marker_color="#fbbf24"
         ))
 
         fig_comp.update_layout(
             barmode="group",
-            template="plotly_white",
+            template="plotly_dark",
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             height=300,
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10, color="#1e293b")),
-            yaxis=dict(gridcolor="#e2e8f0"),
-            xaxis=dict(gridcolor="#e2e8f0")
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10, color="#f8fafc")),
+            yaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
+            xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)")
         )
         st.plotly_chart(fig_comp, use_container_width=True)
     else:
