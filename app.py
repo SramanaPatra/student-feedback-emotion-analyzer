@@ -58,15 +58,16 @@ st.markdown("""
     }
 
     /* ---------------------------------------------------------
-       PURE BLACK NNDL AI CORE - STREAMLIT LAYOUT
+       TRANSPARENCY ENFORCEMENT ON STREAMLIT LAYOUT
+       Ensures our dynamic live moving universe is 100% visible
        --------------------------------------------------------- */
     .stApp,
     [data-testid="stAppViewContainer"],
     section.main,
     [data-testid="stHeader"],
     .main > div {
-        background-color: #000000 !important;
-        background: #000000 !important;
+        background-color: transparent !important;
+        background: transparent !important;
     }
 
     .main .block-container {
@@ -79,38 +80,25 @@ st.markdown("""
     [data-testid="stSidebar"] {
         position: relative;
         z-index: 20;
-        background-color: #080a0f !important;
-        border-right: 1px solid #1e2433 !important;
-        box-shadow: 4px 0 25px rgba(0, 0, 0, 0.6) !important;
+        background-color: rgba(6, 11, 25, 0.88) !important;
+        backdrop-filter: blur(16px) !important;
+        border-right: 1px solid rgba(0, 243, 255, 0.25) !important;
+    }
+
+    /* Ambient CRT Scanline Overlay */
+    .stApp::after {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
+        background-size: 100% 4px;
+        z-index: 999999;
+        pointer-events: none;
+        opacity: 0.28;
     }
 
     /* ---------------------------------------------------------
-       CRISP HIGH-CONTRAST TYPOGRAPHY ON PURE BLACK
-       --------------------------------------------------------- */
-    .stMarkdown, .stText, p, span, label, [data-testid="stMarkdownContainer"] p {
-        color: #e2e8f0 !important;
-        font-weight: 500;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        color: #ffffff !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.03em !important;
-    }
-
-    label, [data-testid="stWidgetLabel"] p {
-        color: #f1f5f9 !important;
-        font-weight: 700 !important;
-        font-size: 0.90rem !important;
-    }
-
-    .mono-text {
-        color: #94a3b8 !important;
-        font-weight: 700 !important;
-    }
-
-    /* ---------------------------------------------------------
-       PURE BLACK DEEP LEARNING AMBIENT CANVAS & SUBTLE NEURAL GRAPH
+       LIVE ANIMATED CYBERNETIC BACKGROUND UNIVERSE
        --------------------------------------------------------- */
     .live-bg-universe {
         position: fixed;
@@ -121,95 +109,246 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
-        background-color: #000000;
-        background-image: 
-            radial-gradient(circle at 15% 20%, rgba(30, 58, 138, 0.22) 0%, transparent 45%),
-            radial-gradient(circle at 85% 25%, rgba(67, 56, 202, 0.18) 0%, transparent 45%),
-            radial-gradient(circle at 50% 85%, rgba(14, 116, 144, 0.15) 0%, transparent 50%),
-            linear-gradient(180deg, #000000 0%, #050608 100%);
     }
 
-    /* Elegant, subtle neural watermark behind cards */
-    .neural-graph-svg {
+    /* Layer 1: Continuous Flowing Aurora Gradient */
+    .aurora-mesh-layer {
         position: absolute;
-        top: 0;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(135deg, #020512 0%, #061838 25%, #18052e 50%, #042533 75%, #020512 100%);
+        background-size: 300% 300%;
+        animation: auroraMeshShift 12s ease-in-out infinite alternate;
+    }
+    @keyframes auroraMeshShift {
+        0% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+        100% { background-position: 0% 100%; }
+    }
+
+    /* Layer 2: Seamlessly Gliding Neon Cyber Grid */
+    .live-grid-drift {
+        position: absolute;
+        top: -120px;
+        left: -120px;
+        width: calc(100vw + 240px);
+        height: calc(100vh + 240px);
+        background-image: 
+            linear-gradient(rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px),
+            linear-gradient(90deg, rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px);
+        background-size: 48px 48px;
+        animation: movingGridGlide 6s linear infinite;
+        will-change: transform;
+    }
+    @keyframes movingGridGlide {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(48px, 48px, 0);
+        }
+    }
+
+    /* Layer 3: Oscillating Wavy Neon Laser Energy Surge */
+    .wavy-laser-container {
+        position: absolute;
+        top: -180px;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: 140px;
         pointer-events: none;
-        opacity: 0.18;
-        animation: neuralMeshDrift 28s ease-in-out infinite alternate;
+        overflow: visible;
+        will-change: top, transform, opacity;
     }
 
-    @keyframes neuralMeshDrift {
-        0%   { transform: scale(1) translate(0, 0); }
-        50%  { transform: scale(1.01) translate(-6px, 4px); }
-        100% { transform: scale(0.99) translate(4px, -6px); }
+    .wavy-svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
     }
 
-    .synapse-edge {
-        stroke: #38bdf8;
-        stroke-width: 1.2;
-        stroke-dasharray: 6 10;
-        animation: synapseFlow 8s linear infinite;
-    }
-    .synapse-edge.fast {
-        stroke: #818cf8;
-        stroke-width: 1.4;
-        animation-duration: 5s;
-    }
-    .synapse-edge.slow {
-        stroke: #0284c7;
-        stroke-width: 1.0;
-        animation-duration: 11s;
-    }
-    .synapse-edge.normal {
-        stroke: #38bdf8;
-        stroke-width: 1.2;
-        animation-duration: 8s;
+    .wave-surge-1 {
+        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
     }
 
-    .recurrent-edge {
-        fill: none;
-        stroke: #10b981;
-        stroke-width: 1.3;
-        stroke-dasharray: 4 8;
-        animation: synapseFlow 6s linear infinite reverse;
+    .wave-surge-2 {
+        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+        animation-delay: 4.25s; /* Staggered so a wave is constantly traversing */
     }
 
-    @keyframes synapseFlow {
-        from { stroke-dashoffset: 48; }
-        to   { stroke-dashoffset: 0; }
+    @keyframes wavyLaserSweep {
+        0% {
+            top: -160px;
+            opacity: 0;
+            transform: scaleY(0.7) scaleX(1);
+        }
+        12% {
+            opacity: 0.95;
+            transform: scaleY(1.15) scaleX(1.02);
+        }
+        50% {
+            opacity: 0.9;
+            transform: scaleY(0.95) scaleX(1);
+        }
+        88% {
+            opacity: 0.95;
+            transform: scaleY(1.2) scaleX(1.02);
+        }
+        100% {
+            top: 105vh;
+            opacity: 0;
+            transform: scaleY(0.7) scaleX(1);
+        }
     }
 
-    .neuron {
-        cursor: default;
+    /* Sine wave dynamic rippling & frequency oscillation */
+    .primary-wave {
+        animation: undulateWave1 3s ease-in-out infinite alternate;
+        transform-origin: center;
     }
-    .input-node { fill: #38bdf8; }
-    .hidden-node-1 { fill: #818cf8; }
-    .hidden-node-2 { fill: #c084fc; }
-    .dense-node { fill: #34d399; }
-    .output-satisfaction { fill: #00ff66; }
-    .output-confusion    { fill: #fbbf24; }
-    .output-frustration  { fill: #f43f5e; }
-    .output-boredom      { fill: #94a3b8; }
-    .output-stress       { fill: #c084fc; }
 
-    /* Top Telemetry Ribbon - Sleek Pure Black */
+    .secondary-wave {
+        animation: undulateWave2 2.4s ease-in-out infinite alternate;
+        transform-origin: center;
+    }
+
+    .harmonic-wave {
+        animation: undulateWave1 2.8s ease-in-out infinite alternate;
+        transform-origin: center;
+    }
+
+    @keyframes undulateWave1 {
+        0% {
+            transform: scaleY(0.8) translateY(-8px);
+        }
+        100% {
+            transform: scaleY(1.25) translateY(8px);
+        }
+    }
+
+    @keyframes undulateWave2 {
+        0% {
+            transform: scaleY(1.25) translateY(10px);
+        }
+        100% {
+            transform: scaleY(0.75) translateY(-10px);
+        }
+    }
+
+    /* Layer 4: Luminous Floating Plasma Nebulas */
+    .plasma-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(85px);
+        mix-blend-mode: screen;
+        pointer-events: none;
+        will-change: transform;
+    }
+    .orb-cyan {
+        width: 550px;
+        height: 550px;
+        background: radial-gradient(circle, rgba(0, 243, 255, 0.75) 0%, rgba(0, 243, 255, 0) 70%);
+        top: -60px;
+        left: -60px;
+        animation: orbMove1 14s ease-in-out infinite alternate;
+    }
+    .orb-magenta {
+        width: 650px;
+        height: 650px;
+        background: radial-gradient(circle, rgba(236, 72, 153, 0.7) 0%, rgba(236, 72, 153, 0) 70%);
+        bottom: -100px;
+        right: -60px;
+        animation: orbMove2 18s ease-in-out infinite alternate;
+    }
+    .orb-violet {
+        width: 480px;
+        height: 480px;
+        background: radial-gradient(circle, rgba(188, 19, 254, 0.7) 0%, rgba(188, 19, 254, 0) 70%);
+        top: 35%;
+        left: 55%;
+        animation: orbMove3 15s ease-in-out infinite alternate;
+    }
+    .orb-emerald {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(0, 255, 102, 0.6) 0%, rgba(0, 255, 102, 0) 70%);
+        bottom: 18%;
+        left: 12%;
+        animation: orbMove4 16s ease-in-out infinite alternate;
+    }
+    @keyframes orbMove1 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(160px, 120px) scale(1.2); }
+        100% { transform: translate(60px, 220px) scale(0.9); }
+    }
+    @keyframes orbMove2 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-180px, -130px) scale(1.25); }
+        100% { transform: translate(-70px, -240px) scale(0.85); }
+    }
+    @keyframes orbMove3 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(-140px, 120px) scale(1.2); }
+        100% { transform: translate(100px, -120px) scale(0.95); }
+    }
+    @keyframes orbMove4 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(150px, -100px) scale(1.15); }
+        100% { transform: translate(80px, 110px) scale(0.85); }
+    }
+
+    /* Layer 5: Glowing Floating Cyber Data Particles */
+    .cyber-particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        will-change: transform, opacity;
+    }
+    @keyframes floatUpSwirl1 {
+        0% { transform: translateY(105vh) translateX(0) scale(0.6); opacity: 0; }
+        10% { opacity: 0.9; }
+        50% { transform: translateY(50vh) translateX(40px) scale(1.2); opacity: 1; }
+        90% { opacity: 0.9; }
+        100% { transform: translateY(-5vh) translateX(-20px) scale(0.6); opacity: 0; }
+    }
+    @keyframes floatUpSwirl2 {
+        0% { transform: translateY(105vh) translateX(0) scale(0.8); opacity: 0; }
+        15% { opacity: 1; }
+        50% { transform: translateY(45vh) translateX(-50px) scale(1.3); opacity: 0.9; }
+        85% { opacity: 1; }
+        100% { transform: translateY(-5vh) translateX(30px) scale(0.7); opacity: 0; }
+    }
+
+    .p1  { left: 6%;  width: 7px;  height: 7px;  background: #00f3ff; box-shadow: 0 0 14px #00f3ff; animation: floatUpSwirl1 11s infinite linear; animation-delay: 0s; }
+    .p2  { left: 16%; width: 9px;  height: 9px;  background: #ec4899; box-shadow: 0 0 16px #ec4899; animation: floatUpSwirl2 14s infinite linear; animation-delay: 2s; }
+    .p3  { left: 26%; width: 5px;  height: 5px;  background: #00ff66; box-shadow: 0 0 12px #00ff66; animation: floatUpSwirl1 9s  infinite linear; animation-delay: 4s; }
+    .p4  { left: 36%; width: 8px;  height: 8px;  background: #bc13fe; box-shadow: 0 0 16px #bc13fe; animation: floatUpSwirl2 16s infinite linear; animation-delay: 1s; }
+    .p5  { left: 46%; width: 10px; height: 10px; background: #00f3ff; box-shadow: 0 0 20px #00f3ff; animation: floatUpSwirl1 12s infinite linear; animation-delay: 3s; }
+    .p6  { left: 56%; width: 6px;  height: 6px;  background: #ffb703; box-shadow: 0 0 14px #ffb703; animation: floatUpSwirl2 15s infinite linear; animation-delay: 5s; }
+    .p7  { left: 66%; width: 9px;  height: 9px;  background: #ec4899; box-shadow: 0 0 18px #ec4899; animation: floatUpSwirl1 10s infinite linear; animation-delay: 2.5s; }
+    .p8  { left: 76%; width: 5px;  height: 5px;  background: #00f3ff; box-shadow: 0 0 12px #00f3ff; animation: floatUpSwirl2 13s infinite linear; animation-delay: 0.5s; }
+    .p9  { left: 86%; width: 8px;  height: 8px;  background: #00ff66; box-shadow: 0 0 16px #00ff66; animation: floatUpSwirl1 17s infinite linear; animation-delay: 4s; }
+    .p10 { left: 93%; width: 6px;  height: 6px;  background: #bc13fe; box-shadow: 0 0 14px #bc13fe; animation: floatUpSwirl2 11s infinite linear; animation-delay: 1.5s; }
+    .p11 { left: 11%; width: 11px; height: 11px; background: #00f3ff; box-shadow: 0 0 22px #00f3ff; animation: floatUpSwirl1 18s infinite linear; animation-delay: 6s; }
+    .p12 { left: 30%; width: 6px;  height: 6px;  background: #ec4899; box-shadow: 0 0 14px #ec4899; animation: floatUpSwirl2 12s infinite linear; animation-delay: 7s; }
+    .p13 { left: 52%; width: 8px;  height: 8px;  background: #00ff66; box-shadow: 0 0 16px #00ff66; animation: floatUpSwirl1 14s infinite linear; animation-delay: 8s; }
+    .p14 { left: 72%; width: 7px;  height: 7px;  background: #bc13fe; box-shadow: 0 0 15px #bc13fe; animation: floatUpSwirl2 11s infinite linear; animation-delay: 9s; }
+    .p15 { left: 84%; width: 5px;  height: 5px;  background: #00f3ff; box-shadow: 0 0 12px #00f3ff; animation: floatUpSwirl1 16s infinite linear; animation-delay: 3.5s; }
+    .p16 { left: 97%; width: 9px;  height: 9px;  background: #ffb703; box-shadow: 0 0 18px #ffb703; animation: floatUpSwirl2 13s infinite linear; animation-delay: 7.5s; }
+
+    /* Flashy Top Telemetry Ribbon */
     .top-telemetry-ribbon {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #090b10 !important;
-        border: 1px solid #1e2433 !important;
-        border-radius: 14px !important;
-        padding: 12px 24px !important;
-        margin-bottom: 22px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
+        background: linear-gradient(90deg, rgba(8, 18, 38, 0.95), rgba(18, 10, 35, 0.95));
+        border: 1px solid rgba(0, 243, 255, 0.4);
+        border-radius: 12px;
+        padding: 10px 22px;
+        margin-bottom: 22px;
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.2), inset 0 0 15px rgba(0, 243, 255, 0.08);
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.82rem;
-        color: #f1f5f9 !important;
-        font-weight: 700 !important;
+        font-size: 0.76rem;
+        color: #00f3ff;
     }
 
     .pulse-laser {
@@ -218,16 +357,17 @@ st.markdown("""
         height: 10px;
         border-radius: 50%;
         background: #00ff66;
-        box-shadow: 0 0 10px rgba(0, 255, 102, 0.7);
+        box-shadow: 0 0 12px #00ff66, 0 0 25px #00ff66;
         animation: pulseLaser 1.5s infinite;
         margin-right: 8px;
     }
 
     @keyframes pulseLaser {
         0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.3); opacity: 0.5; }
+        50% { transform: scale(1.4); opacity: 0.4; }
     }
 
+    /* Animated Audio Equalizer Bars */
     .equalizer-box {
         display: flex;
         align-items: flex-end;
@@ -237,8 +377,9 @@ st.markdown("""
 
     .eq-col {
         width: 4px;
-        background: #38bdf8;
+        background: #00f3ff;
         border-radius: 2px;
+        box-shadow: 0 0 6px #00f3ff;
         animation: eqAnim 1s ease-in-out infinite alternate;
     }
     .eq-1 { height: 60%; animation-delay: 0.1s; }
@@ -252,30 +393,33 @@ st.markdown("""
         100% { height: 100%; }
     }
 
-    /* SHOWCASE HERO BANNER - PURE BLACK NNDL SUITE */
+    /* SHOWCASE HERO BANNER WITH SWEEPING LASER */
     .showcase-hero {
         position: relative;
-        background: #090b10 !important;
-        border: 1px solid #1e2433 !important;
-        border-radius: 22px !important;
-        padding: 34px 40px !important;
-        margin-bottom: 24px !important;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8) !important;
+        background: linear-gradient(135deg, rgba(13, 22, 48, 0.9) 0%, rgba(6, 9, 24, 0.98) 100%);
+        border: 2px solid transparent;
+        border-radius: 24px;
+        background-clip: padding-box;
+        padding: 36px 42px;
+        margin-bottom: 26px;
+        box-shadow: 0 0 50px rgba(0, 243, 255, 0.25), 0 25px 60px -15px rgba(0, 0, 0, 0.8);
         overflow: hidden;
     }
 
     .showcase-hero::before {
         content: '';
         position: absolute;
-        top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, #38bdf8, #818cf8, #ec4899, #00ff66, #38bdf8);
-        background-size: 300% 100%;
-        animation: heroBarSlide 8s ease infinite;
+        top: -2px; left: -2px; right: -2px; bottom: -2px;
+        background: linear-gradient(90deg, #00f3ff, #bc13fe, #ec4899, #00ff66, #00f3ff);
+        background-size: 400% 400%;
+        border-radius: 26px;
+        z-index: -1;
+        animation: laserGlow 6s linear infinite;
     }
 
-    @keyframes heroBarSlide {
-        0%   { background-position: 0% 50%; }
-        50%  { background-position: 100% 50%; }
+    @keyframes laserGlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
 
@@ -283,48 +427,48 @@ st.markdown("""
         font-family: 'Orbitron', monospace;
         font-size: 2.6rem;
         font-weight: 900;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
-        background: linear-gradient(90deg, #ffffff 0%, #38bdf8 60%, #818cf8 100%);
+        background: linear-gradient(90deg, #ffffff 0%, #00f3ff 50%, #bc13fe 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
         margin: 0;
         line-height: 1.15;
     }
 
     .hero-desc {
-        color: #94a3b8 !important;
-        font-size: 1.10rem;
+        color: #cbd5e1;
+        font-size: 1.15rem;
         margin-top: 10px;
         max-width: 900px;
         line-height: 1.6;
-        font-weight: 500 !important;
     }
 
     .badge-chip {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 7px 18px;
+        padding: 6px 16px;
         border-radius: 9999px;
         font-family: 'JetBrains Mono', monospace;
-        font-size: 0.80rem;
-        font-weight: 800;
+        font-size: 0.78rem;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.08em;
     }
-    .chip-cyan { background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.5); color: #38bdf8; }
-    .chip-pink { background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.5); color: #f472b6; }
-    .chip-green { background: rgba(0, 255, 102, 0.12); border: 1px solid rgba(0, 255, 102, 0.5); color: #00ff66; }
+    .chip-cyan { background: rgba(0, 243, 255, 0.15); border: 1px solid #00f3ff; color: #00f3ff; box-shadow: 0 0 15px rgba(0, 243, 255, 0.4); }
+    .chip-pink { background: rgba(236, 72, 153, 0.15); border: 1px solid #ec4899; color: #f472b6; box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+    .chip-green { background: rgba(0, 255, 102, 0.15); border: 1px solid #00ff66; color: #00ff66; box-shadow: 0 0 15px rgba(0, 255, 102, 0.4); }
 
-    /* HOLOGRAPHIC EMOTION SHOWCASE CARD (BLACK SOLID) */
+    /* HOLOGRAPHIC EMOTION SHOWCASE CARD */
     .holo-card {
-        background: #090b10 !important;
-        border: 1px solid #1e2433 !important;
-        border-radius: 20px !important;
-        padding: 28px 34px !important;
-        margin: 20px 0 !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7) !important;
+        background: linear-gradient(135deg, rgba(16, 26, 56, 0.9) 0%, rgba(8, 12, 30, 0.98) 100%);
+        border: 2px solid var(--neon-border, #00f3ff);
+        border-radius: 22px;
+        padding: 30px 36px;
+        margin: 22px 0;
+        box-shadow: 0 0 45px var(--neon-shadow, rgba(0, 243, 255, 0.35)), inset 0 0 25px rgba(0, 243, 255, 0.08);
         position: relative;
     }
 
@@ -336,263 +480,179 @@ st.markdown("""
         align-items: center;
         justify-content: center;
         font-size: 2.4rem;
-        background: rgba(56, 189, 248, 0.1);
-        border: 2px solid var(--neon-border, #38bdf8);
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+        background: var(--orb-bg, rgba(0, 243, 255, 0.2));
+        border: 2px solid var(--neon-border, #00f3ff);
+        box-shadow: 0 0 30px var(--neon-border, #00f3ff);
     }
 
     .directive-card {
-        background: #050608 !important;
-        border: 1px solid #1e2433 !important;
-        border-left: 5px solid var(--neon-border, #38bdf8) !important;
-        border-radius: 12px !important;
-        padding: 18px 22px !important;
-        margin-top: 18px !important;
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6) !important;
-        color: #e2e8f0 !important;
-        font-weight: 500 !important;
+        background: rgba(255, 255, 255, 0.03);
+        border-left: 5px solid var(--neon-border, #00f3ff);
+        border-radius: 12px;
+        padding: 18px 22px;
+        margin-top: 18px;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
     }
 
-    /* FLASHY KPI METRIC CARDS (PURE BLACK SOLID) */
+    /* FLASHY KPI METRIC CARDS */
     .flashy-kpi {
-        background: #090b10 !important;
-        border: 1px solid #1e2433 !important;
-        border-radius: 16px !important;
-        padding: 20px 24px !important;
+        background: linear-gradient(135deg, rgba(14, 22, 46, 0.85) 0%, rgba(6, 10, 26, 0.95) 100%);
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        border-radius: 18px;
+        padding: 22px 26px;
         position: relative;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.12);
         overflow: hidden;
         transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .flashy-kpi:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px rgba(56, 189, 248, 0.25) !important;
-        border-color: #38bdf8 !important;
+        transform: translateY(-4px);
+        box-shadow: 0 0 35px rgba(0, 243, 255, 0.35);
+        border-color: #00f3ff;
     }
 
     .flashy-kpi::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0; height: 3px;
-        background: var(--kpi-laser, #38bdf8);
+        background: var(--kpi-laser, #00f3ff);
+        box-shadow: 0 0 12px var(--kpi-laser, #00f3ff);
     }
 
     .kpi-num {
         font-family: 'Orbitron', monospace;
         font-size: 2.3rem;
-        font-weight: 900;
-        color: #ffffff !important;
+        font-weight: 800;
+        color: #ffffff;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         line-height: 1.1;
     }
 
-    /* STREAMLIT TAB OVERHAUL (SLEEK BLACK TABS) */
+    /* STREAMLIT TAB OVERHAUL (NEON CYBER TABS) */
     .stTabs [data-baseweb="tab-list"] {
         gap: 10px;
-        background: #090b10 !important;
-        border: 1px solid #1e2433 !important;
+        background: rgba(8, 14, 32, 0.9) !important;
+        border: 1px solid rgba(0, 243, 255, 0.3) !important;
         padding: 8px 12px !important;
         border-radius: 16px !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.15) !important;
     }
 
     .stTabs [data-baseweb="tab"] {
-        font-family: 'Rajdhani', sans-serif !important;
-        font-size: 0.95rem !important;
-        font-weight: 800 !important;
-        letter-spacing: 0.03em !important;
+        font-family: 'Orbitron', monospace !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.06em !important;
         color: #94a3b8 !important;
         border-radius: 10px !important;
-        padding: 10px 20px !important;
+        padding: 12px 22px !important;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
     }
 
     .stTabs [aria-selected="true"] {
-        background: #181d28 !important;
-        color: #38bdf8 !important;
-        border: 1px solid #38bdf8 !important;
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.3) !important;
+        background: linear-gradient(135deg, rgba(0, 243, 255, 0.3) 0%, rgba(188, 19, 254, 0.4) 100%) !important;
+        color: #00f3ff !important;
+        border: 1px solid #00f3ff !important;
+        box-shadow: 0 0 25px rgba(0, 243, 255, 0.4) !important;
+        text-shadow: 0 0 10px #00f3ff !important;
     }
 
-    /* TAB PANEL CONTENT CARDS - 100% OPAQUE BLACK CARD (ZERO OVERLAPPING) */
-    .stTabs [data-baseweb="tab-panel"] {
-        background: #090b10 !important;
-        border: 1px solid #1e2433 !important;
-        border-radius: 18px !important;
-        padding: 26px 30px !important;
-        margin-top: 14px !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
-    }
-
-    /* ---------------------------------------------------------
-       DEEP HIGH-CONTRAST WORKING BUTTONS
-       --------------------------------------------------------- */
+    /* FLASHY BUTTONS WITH LASER HOVER */
     .stButton > button {
-        font-family: 'Rajdhani', sans-serif !important;
-        font-size: 0.95rem !important;
+        font-family: 'Orbitron', monospace !important;
+        font-size: 0.85rem !important;
         font-weight: 800 !important;
-        letter-spacing: 0.03em !important;
+        letter-spacing: 0.05em !important;
         border-radius: 12px !important;
-        background: #131722 !important;
-        border: 1px solid #2e384d !important;
-        color: #ffffff !important;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
-        padding: 11px 20px !important;
+        background: rgba(0, 243, 255, 0.08) !important;
+        border: 1px solid rgba(0, 243, 255, 0.4) !important;
+        color: #00f3ff !important;
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.15) !important;
         transition: all 0.2s ease !important;
     }
 
     .stButton > button:hover {
-        background: #1e293b !important;
-        border-color: #38bdf8 !important;
-        color: #38bdf8 !important;
-        box-shadow: 0 0 20px rgba(56, 189, 248, 0.4) !important;
-        transform: translateY(-2px) !important;
-    }
-
-    .stButton > button:active {
-        background: #0f172a !important;
-        transform: translateY(0px) !important;
-    }
-
-    /* PRIMARY WORKING ACTION BUTTONS */
-    button[kind="primary"] {
-        background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #7c3aed 100%) !important;
-        border: none !important;
+        background: rgba(0, 243, 255, 0.25) !important;
+        border-color: #00f3ff !important;
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.6) !important;
+        transform: translateY(-2px) scale(1.02) !important;
         color: #ffffff !important;
+    }
+
+    button[kind="primary"] {
+        background: linear-gradient(135deg, #00f3ff 0%, #bc13fe 100%) !important;
+        border: none !important;
+        color: #040817 !important;
         font-weight: 900 !important;
-        font-size: 1rem !important;
-        letter-spacing: 0.04em !important;
-        border-radius: 12px !important;
-        box-shadow: 0 6px 24px rgba(37, 99, 235, 0.45) !important;
-        padding: 12px 24px !important;
+        box-shadow: 0 0 30px rgba(0, 243, 255, 0.6) !important;
     }
 
     button[kind="primary"]:hover {
-        box-shadow: 0 8px 30px rgba(56, 189, 248, 0.6) !important;
+        box-shadow: 0 0 50px rgba(188, 19, 254, 0.8) !important;
         color: #ffffff !important;
-        transform: translateY(-2px) !important;
-    }
-
-    /* DOWNLOAD WORKING BUTTON */
-    .stDownloadButton > button {
-        background: #064e3b !important;
-        border: 1px solid #059669 !important;
-        color: #ffffff !important;
-        font-weight: 800 !important;
-        font-size: 0.95rem !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 16px rgba(5, 150, 105, 0.3) !important;
-        padding: 12px 20px !important;
-    }
-
-    .stDownloadButton > button:hover {
-        background: #059669 !important;
-        color: #ffffff !important;
-        box-shadow: 0 6px 22px rgba(5, 150, 105, 0.5) !important;
-        transform: translateY(-2px) !important;
-    }
-
-    /* INPUT FIELDS & TEXT AREAS - BLACK HIGH CONTRAST */
-    .stTextArea textarea, .stTextInput input, [data-baseweb="select"] {
-        background-color: #050608 !important;
-        color: #ffffff !important;
-        border: 1px solid #2e384d !important;
-        border-radius: 12px !important;
-        font-weight: 600 !important;
-        font-size: 0.98rem !important;
-    }
-
-    .stTextArea textarea:focus, .stTextInput input:focus {
-        border-color: #38bdf8 !important;
-        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25) !important;
-    }
-
-    /* FILE UPLOADER CONTAINER */
-    [data-testid="stFileUploader"] {
-        background-color: #050608 !important;
-        border: 2px dashed #2e384d !important;
-        border-radius: 14px !important;
-        padding: 16px !important;
-    }
-
-    [data-testid="stFileUploader"] section {
-        background-color: #090b10 !important;
     }
 </style>
 <div class="live-bg-universe">
-<svg class="neural-graph-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
-<g class="synaptic-edges">
-<line x1="200" y1="220" x2="520" y2="260" class="synapse-edge fast" />
-<line x1="200" y1="220" x2="520" y2="440" class="synapse-edge slow" />
-<line x1="200" y1="380" x2="520" y2="260" class="synapse-edge normal" />
-<line x1="200" y1="380" x2="520" y2="440" class="synapse-edge fast" />
-<line x1="200" y1="380" x2="520" y2="620" class="synapse-edge slow" />
-<line x1="200" y1="540" x2="520" y2="440" class="synapse-edge normal" />
-<line x1="200" y1="540" x2="520" y2="620" class="synapse-edge fast" />
-<line x1="200" y1="540" x2="520" y2="800" class="synapse-edge slow" />
-<line x1="200" y1="700" x2="520" y2="620" class="synapse-edge normal" />
-<line x1="200" y1="700" x2="520" y2="800" class="synapse-edge fast" />
-<line x1="200" y1="860" x2="520" y2="800" class="synapse-edge normal" />
-<line x1="520" y1="260" x2="900" y2="220" class="synapse-edge normal" />
-<line x1="520" y1="260" x2="900" y2="400" class="synapse-edge fast" />
-<line x1="520" y1="440" x2="900" y2="220" class="synapse-edge slow" />
-<line x1="520" y1="440" x2="900" y2="400" class="synapse-edge normal" />
-<line x1="520" y1="440" x2="900" y2="580" class="synapse-edge fast" />
-<line x1="520" y1="620" x2="900" y2="400" class="synapse-edge slow" />
-<line x1="520" y1="620" x2="900" y2="580" class="synapse-edge normal" />
-<line x1="520" y1="620" x2="900" y2="760" class="synapse-edge fast" />
-<line x1="520" y1="800" x2="900" y2="580" class="synapse-edge slow" />
-<line x1="520" y1="800" x2="900" y2="760" class="synapse-edge normal" />
-<line x1="520" y1="800" x2="900" y2="920" class="synapse-edge fast" />
-<path d="M 520,260 Q 430,350 520,440" class="recurrent-edge" />
-<path d="M 520,440 Q 430,530 520,620" class="recurrent-edge" />
-<path d="M 520,620 Q 430,710 520,800" class="recurrent-edge" />
-<path d="M 900,400 Q 990,310 900,220" class="recurrent-edge" />
-<path d="M 900,580 Q 990,490 900,400" class="recurrent-edge" />
-<path d="M 900,760 Q 990,670 900,580" class="recurrent-edge" />
-<line x1="900" y1="220" x2="1300" y2="280" class="synapse-edge normal" />
-<line x1="900" y1="400" x2="1300" y2="280" class="synapse-edge fast" />
-<line x1="900" y1="400" x2="1300" y2="500" class="synapse-edge slow" />
-<line x1="900" y1="580" x2="1300" y2="500" class="synapse-edge normal" />
-<line x1="900" y1="580" x2="1300" y2="720" class="synapse-edge fast" />
-<line x1="900" y1="760" x2="1300" y2="720" class="synapse-edge normal" />
-<line x1="900" y1="760" x2="1300" y2="900" class="synapse-edge slow" />
-<line x1="900" y1="920" x2="1300" y2="900" class="synapse-edge fast" />
-<line x1="1300" y1="280" x2="1680" y2="240" class="synapse-edge fast" />
-<line x1="1300" y1="280" x2="1680" y2="400" class="synapse-edge normal" />
-<line x1="1300" y1="500" x2="1680" y2="400" class="synapse-edge slow" />
-<line x1="1300" y1="500" x2="1680" y2="560" class="synapse-edge fast" />
-<line x1="1300" y1="720" x2="1680" y2="560" class="synapse-edge normal" />
-<line x1="1300" y1="720" x2="1680" y2="720" class="synapse-edge fast" />
-<line x1="1300" y1="900" x2="1680" y2="720" class="synapse-edge slow" />
-<line x1="1300" y1="900" x2="1680" y2="880" class="synapse-edge normal" />
-</g>
-<g class="neural-nodes">
-<circle cx="200" cy="220" r="7" class="neuron input-node n-pulse1" />
-<circle cx="200" cy="380" r="7" class="neuron input-node n-pulse2" />
-<circle cx="200" cy="540" r="7" class="neuron input-node n-pulse3" />
-<circle cx="200" cy="700" r="7" class="neuron input-node n-pulse1" />
-<circle cx="200" cy="860" r="7" class="neuron input-node n-pulse2" />
-<circle cx="520" cy="260" r="9" class="neuron hidden-node-1 n-pulse2" />
-<circle cx="520" cy="440" r="9" class="neuron hidden-node-1 n-pulse1" />
-<circle cx="520" cy="620" r="9" class="neuron hidden-node-1 n-pulse3" />
-<circle cx="520" cy="800" r="9" class="neuron hidden-node-1 n-pulse2" />
-<circle cx="900" cy="220" r="9" class="neuron hidden-node-2 n-pulse3" />
-<circle cx="900" cy="400" r="9" class="neuron hidden-node-2 n-pulse1" />
-<circle cx="900" cy="580" r="9" class="neuron hidden-node-2 n-pulse2" />
-<circle cx="900" cy="760" r="9" class="neuron hidden-node-2 n-pulse3" />
-<circle cx="900" cy="920" r="9" class="neuron hidden-node-2 n-pulse1" />
-<circle cx="1300" cy="280" r="8" class="neuron dense-node n-pulse1" />
-<circle cx="1300" cy="500" r="8" class="neuron dense-node n-pulse3" />
-<circle cx="1300" cy="720" r="8" class="neuron dense-node n-pulse2" />
-<circle cx="1300" cy="900" r="8" class="neuron dense-node n-pulse1" />
-<circle cx="1680" cy="240" r="9" class="neuron output-satisfaction n-pulse1" />
-<circle cx="1680" cy="400" r="9" class="neuron output-confusion n-pulse2" />
-<circle cx="1680" cy="560" r="9" class="neuron output-frustration n-pulse3" />
-<circle cx="1680" cy="720" r="9" class="neuron output-boredom n-pulse1" />
-<circle cx="1680" cy="880" r="9" class="neuron output-stress n-pulse2" />
-</g>
+<div class="aurora-mesh-layer"></div>
+<div class="live-grid-drift"></div>
+<div class="plasma-orb orb-cyan"></div>
+<div class="plasma-orb orb-magenta"></div>
+<div class="plasma-orb orb-violet"></div>
+<div class="plasma-orb orb-emerald"></div>
+<div class="wavy-laser-container wave-surge-1">
+<svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+<defs>
+<linearGradient id="neonWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#00f3ff" stop-opacity="0" />
+<stop offset="15%" stop-color="#00f3ff" stop-opacity="0.9" />
+<stop offset="45%" stop-color="#bc13fe" stop-opacity="1" />
+<stop offset="70%" stop-color="#ec4899" stop-opacity="0.95" />
+<stop offset="85%" stop-color="#00f3ff" stop-opacity="0.9" />
+<stop offset="100%" stop-color="#00f3ff" stop-opacity="0" />
+</linearGradient>
+<linearGradient id="neonWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
+<stop offset="20%" stop-color="#00ff66" stop-opacity="0.8" />
+<stop offset="50%" stop-color="#00f3ff" stop-opacity="1" />
+<stop offset="80%" stop-color="#bc13fe" stop-opacity="0.85" />
+<stop offset="100%" stop-color="#00ff66" stop-opacity="0" />
+</linearGradient>
+<filter id="neonGlowEffect" x="-10%" y="-40%" width="120%" height="180%">
+<feGaussianBlur stdDeviation="5" result="blur1" />
+<feGaussianBlur stdDeviation="12" result="blur2" />
+<feMerge>
+<feMergeNode in="blur2" />
+<feMergeNode in="blur1" />
+<feMergeNode in="SourceGraphic" />
+</feMerge>
+</filter>
+</defs>
+<path class="wave-path primary-wave" d="M 0,80 Q 200,10 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad1)" stroke-width="5" filter="url(#neonGlowEffect)" />
+<path class="wave-path secondary-wave" d="M 0,80 Q 200,150 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad2)" stroke-width="3" opacity="0.8" filter="url(#neonGlowEffect)" />
 </svg>
+</div>
+<div class="wavy-laser-container wave-surge-2">
+<svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+<path class="wave-path harmonic-wave" d="M 0,80 Q 200,135 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad1)" stroke-width="4" filter="url(#neonGlowEffect)" />
+</svg>
+</div>
+<div class="cyber-particle p1"></div>
+<div class="cyber-particle p2"></div>
+<div class="cyber-particle p3"></div>
+<div class="cyber-particle p4"></div>
+<div class="cyber-particle p5"></div>
+<div class="cyber-particle p6"></div>
+<div class="cyber-particle p7"></div>
+<div class="cyber-particle p8"></div>
+<div class="cyber-particle p9"></div>
+<div class="cyber-particle p10"></div>
+<div class="cyber-particle p11"></div>
+<div class="cyber-particle p12"></div>
+<div class="cyber-particle p13"></div>
+<div class="cyber-particle p14"></div>
+<div class="cyber-particle p15"></div>
+<div class="cyber-particle p16"></div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -661,12 +721,12 @@ EMOTION_META = {
 # -------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-    <div style="background: #0d0f14; border: 1px solid #1e2433; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);">
+    <div style="background: rgba(0, 243, 255, 0.05); border: 2px solid #00f3ff; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 0 25px rgba(0, 243, 255, 0.25);">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 28px;">🧠</span>
+            <span style="font-size: 28px;">⚡</span>
             <div>
-                <div class="orbit-title" style="font-size: 1.1rem; font-weight: 900; color: #38bdf8; letter-spacing: 0.05em;">NNDL AI CORE</div>
-                <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">DEEP RECURRENT TENSOR LAB</div>
+                <div class="orbit-title" style="font-size: 1.15rem; font-weight: 900; color: #00f3ff; letter-spacing: 0.06em;">EDUPULSE AI</div>
+                <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">AFFECTIVE TENSOR ENGINE</div>
             </div>
         </div>
     </div>
@@ -687,16 +747,16 @@ with st.sidebar:
         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
             <span style="font-size: 1.2rem;">{meta['icon']}</span>
             <span style="font-weight: 700; color: {meta['color']}; font-size: 0.95rem;">{emo}</span>
-            <span class="mono-text" style="color: #94a3b8; font-size: 0.7rem; margin-left: auto;">ONLINE</span>
+            <span class="mono-text" style="color: #64748b; font-size: 0.7rem; margin-left: auto;">ONLINE</span>
         </div>
         """, unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("""
-    <div class="mono-text" style="font-size: 0.72rem; color: #94a3b8; line-height: 1.8;">
+    <div class="mono-text" style="font-size: 0.72rem; color: #64748b; line-height: 1.8;">
         CORPUS: <b style="color: #00ff66;">3,000 SAMPLES</b><br>
-        ACCURACY: <b style="color: #38bdf8;">100.0% VALIDATED</b><br>
-        LATENCY: <b style="color: #c084fc;">0.19 ms / SAMPLE</b>
+        ACCURACY: <b style="color: #00f3ff;">100.0% VALIDATED</b><br>
+        LATENCY: <b style="color: #bc13fe;">0.19 ms / SAMPLE</b>
     </div>
     """, unsafe_allow_html=True)
 
@@ -707,10 +767,10 @@ st.markdown(f"""
 <div class="top-telemetry-ribbon">
     <div style="display: flex; align-items: center;">
         <span class="pulse-laser"></span>
-        <span style="font-weight: 700;">NNDL CORE // BIDIRECTIONAL RECURRENT NEURAL NETWORK ACTIVE</span>
+        <span style="font-weight: 700;">NEURAL CORE CO-PROCESSOR ACTIVE</span>
     </div>
     <div style="display: flex; align-items: center; gap: 18px;">
-        <div>TENSOR: <b style="color: #38bdf8;">{selected_model}</b></div>
+        <div>TENSOR: <b style="color: #ffffff;">{selected_model}</b></div>
         <div>LATENCY: <b style="color: #00ff66;">0.19ms</b></div>
         <div class="equalizer-box">
             <div class="eq-col eq-1"></div>
@@ -730,15 +790,14 @@ st.markdown(f"""
 <div class="showcase-hero">
     <h1 class="hero-glow-title">Student Feedback Emotion Analyzer</h1>
     <p class="hero-desc">
-        <b>Neural Networks & Deep Learning (NNDL)</b> affective framework: Modeling multi-dimensional academic sentiment through 
-        <b>Bidirectional Recurrent Neural Networks ({selected_model})</b> with <b>5-Class Softmax Probability Distribution</b>, 
-        <b>Sentiment Valence Vectors</b>, and <b>Autonomous Institutional Pedagogical Directives</b>.
+        Deep Learning affective intelligence transforming qualitative student feedback into 
+        <b>5-Dimensional Affective Vectors</b>, <b>Sentiment Valence Dials</b>, and <b>Longitudinal Multi-Semester Institutional Directives</b>.
     </p>
     <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-        <span class="badge-chip chip-cyan">🧠 {selected_model} (2-Layer Recurrent)</span>
-        <span class="badge-chip chip-pink">⚡ Hidden Dim = 128 (Bi=256)</span>
-        <span class="badge-chip chip-green">🧭 PyTorch Tensor Core</span>
-        <span class="badge-chip chip-cyan">🎯 5-Class Softmax Archetype</span>
+        <span class="badge-chip chip-cyan">⚡ {selected_model} Active</span>
+        <span class="badge-chip chip-pink">🕸️ 5-Axis Spider Radar</span>
+        <span class="badge-chip chip-green">🧭 Sentiment Valence Dial</span>
+        <span class="badge-chip chip-cyan">💡 Automated Pedagogical Interventions</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -897,8 +956,8 @@ with tab_live:
                     ))
                     fig_radar.update_layout(
                         polar=dict(
-                            radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(255, 255, 255, 0.1)"),
-                            angularaxis=dict(gridcolor="rgba(255, 255, 255, 0.1)", tickfont=dict(family="Orbitron", size=11, color="#f8fafc"))
+                            radialaxis=dict(visible=True, range=[0, 100], gridcolor="rgba(0, 243, 255, 0.15)"),
+                            angularaxis=dict(gridcolor="rgba(0, 243, 255, 0.15)", tickfont=dict(family="Orbitron", size=11, color="#f1f5f9"))
                         ),
                         template="plotly_dark",
                         paper_bgcolor="rgba(0,0,0,0)",
@@ -919,9 +978,9 @@ with tab_live:
                             axis=dict(range=[-1.0, 1.0], tickvals=[-1.0, -0.5, 0, 0.5, 1.0], tickfont=dict(family="Orbitron", color="#94a3b8")),
                             bar=dict(color=meta["color"], thickness=0.3),
                             steps=[
-                                dict(range=[-1.0, -0.3], color="rgba(239, 68, 68, 0.25)"),
-                                dict(range=[-0.3, 0.3], color="rgba(148, 163, 184, 0.15)"),
-                                dict(range=[0.3, 1.0], color="rgba(34, 197, 94, 0.25)")
+                                dict(range=[-1.0, -0.3], color="rgba(255, 0, 85, 0.3)"),
+                                dict(range=[-0.3, 0.3], color="rgba(148, 163, 184, 0.2)"),
+                                dict(range=[0.3, 1.0], color="rgba(0, 255, 102, 0.3)")
                             ]
                         )
                     ))
@@ -938,14 +997,14 @@ with tab_live:
                 st.markdown("##### 📊 QUANTUM PROBABILITY DENSITY")
                 df_probs = pd.DataFrame(list(breakdown.items()), columns=["Emotion", "Probability"])
                 df_probs["Percentage"] = (df_probs["Probability"] * 100).round(2)
-                df_probs["Color"] = df_probs["Emotion"].map(lambda e: EMOTION_META.get(e, {}).get("color", "#38bdf8"))
+                df_probs["Color"] = df_probs["Emotion"].map(lambda e: EMOTION_META.get(e, {}).get("color", "#00f3ff"))
                 df_probs = df_probs.sort_values(by="Percentage", ascending=True)
 
                 fig_bar = go.Figure(go.Bar(
                     x=df_probs["Percentage"],
                     y=df_probs["Emotion"],
                     orientation="h",
-                    marker=dict(color=df_probs["Color"], line=dict(color="#ffffff", width=1)),
+                    marker=dict(color=df_probs["Color"], line=dict(color="#ffffff", width=1.5)),
                     text=[f"  <b>{p:.1f}%</b>" for p in df_probs["Percentage"]],
                     textposition="outside",
                     cliponaxis=False
@@ -955,8 +1014,8 @@ with tab_live:
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
                     margin=dict(l=10, r=40, t=10, b=10),
-                    xaxis=dict(title=dict(text="PROBABILITY DENSITY (%)", font=dict(family="Orbitron", size=10), color="#94a3b8"), range=[0, max(df_probs["Percentage"].max() + 20, 60)], gridcolor="rgba(255, 255, 255, 0.08)"),
-                    yaxis=dict(title="", tickfont=dict(family="Orbitron", size=12, color="#f8fafc")),
+                    xaxis=dict(title=dict(text="PROBABILITY DENSITY (%)", font=dict(family="Orbitron", size=10)), range=[0, max(df_probs["Percentage"].max() + 20, 60)], gridcolor="rgba(0, 243, 255, 0.1)"),
+                    yaxis=dict(title="", tickfont=dict(family="Orbitron", size=12)),
                     height=220
                 )
                 st.plotly_chart(fig_bar, use_container_width=True)
@@ -971,8 +1030,8 @@ with tab_trends:
     df_trends = load_default_dataset()
 
     st.markdown("""
-    <div style="background: #090b10; border: 1px solid #1e2433; border-radius: 16px; padding: 18px 24px; margin-bottom: 22px;">
-        <div class="orbit-title" style="font-size: 0.95rem; font-weight: 700; color: #38bdf8; margin-bottom: 10px;">// MULTI-COURSE LONGITUDINAL FILTER //</div>
+    <div style="background: rgba(8, 14, 32, 0.85); border: 1px solid rgba(0, 243, 255, 0.3); border-radius: 16px; padding: 18px 24px; margin-bottom: 22px; box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);">
+        <div class="orbit-title" style="font-size: 0.95rem; font-weight: 700; color: #00f3ff; margin-bottom: 10px;">// MULTI-COURSE LONGITUDINAL FILTER //</div>
     """, unsafe_allow_html=True)
 
     col_f1, col_f2 = st.columns([2.5, 1])
@@ -1068,9 +1127,9 @@ with tab_trends:
                 plot_bgcolor="rgba(0,0,0,0)",
                 hovermode="x unified",
                 margin=dict(l=10, r=10, t=10, b=10),
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10, color="#f8fafc")),
-                yaxis=dict(title=dict(text="PROPORTION (%)", font=dict(family="Orbitron", size=10), color="#94a3b8"), gridcolor="rgba(255, 255, 255, 0.08)"),
-                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10)),
+                yaxis=dict(title=dict(text="PROPORTION (%)", font=dict(family="Orbitron", size=10)), gridcolor="rgba(0, 243, 255, 0.1)"),
+                xaxis=dict(gridcolor="rgba(0, 243, 255, 0.1)"),
                 height=340
             )
             st.plotly_chart(fig_trend, use_container_width=True)
@@ -1082,7 +1141,7 @@ with tab_trends:
             fig_nes.add_trace(go.Bar(
                 x=trend_table["semester"],
                 y=trend_table["Net_Emotion_Score"],
-                marker=dict(color=bar_colors, line=dict(color="#ffffff", width=1)),
+                marker=dict(color=bar_colors, line=dict(color="#ffffff", width=1.5)),
                 text=[f"<b>{v:+.1f}</b>" for v in trend_table["Net_Emotion_Score"]],
                 textposition="outside",
                 hovertemplate="Semester: %{x}<br>NES: %{y:.1f}<extra></extra>"
@@ -1092,8 +1151,8 @@ with tab_trends:
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
                 margin=dict(l=10, r=10, t=10, b=10),
-                yaxis=dict(title=dict(text="NES INDEX (-100 to +100)", font=dict(family="Orbitron", size=10), color="#94a3b8"), gridcolor="rgba(255, 255, 255, 0.08)"),
-                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
+                yaxis=dict(title=dict(text="NES INDEX (-100 to +100)", font=dict(family="Orbitron", size=10)), gridcolor="rgba(0, 243, 255, 0.1)"),
+                xaxis=dict(gridcolor="rgba(0, 243, 255, 0.1)"),
                 height=340
             )
             st.plotly_chart(fig_nes, use_container_width=True)
@@ -1124,12 +1183,12 @@ with tab_trends:
             for s in spikes:
                 meta = EMOTION_META.get(s['emotion'], EMOTION_META["Stress"])
                 st.markdown(f"""
-                <div style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.35); border-left: 5px solid #f43f5e; border-radius: 14px; padding: 18px 24px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(244, 63, 94, 0.2);">
-                    <div class="orbit-title" style="font-weight: 800; color: #f43f5e; font-size: 1rem;">
+                <div style="background: rgba(255, 0, 85, 0.1); border-left: 4px solid #ff0055; border-radius: 14px; padding: 18px 24px; margin-bottom: 12px; box-shadow: 0 0 25px rgba(255, 0, 85, 0.25);">
+                    <div class="orbit-title" style="font-weight: 800; color: #ff0055; font-size: 1rem;">
                         🚨 Negative Emotion Spike Alert: {s['course_id']} ({s['semester']})
                     </div>
-                    <div style="font-size: 0.95rem; color: #f1f5f9; margin-top: 4px;">
-                        Negative emotion <b>{s['emotion'].upper()}</b> surged by <b style="color: #f43f5e;">+{s['spike_amount']}%</b> 
+                    <div style="font-size: 0.95rem; color: #e2e8f0; margin-top: 4px;">
+                        Negative emotion <b>{s['emotion'].upper()}</b> surged by <b style="color: #ff0055;">+{s['spike_amount']}%</b> 
                         (from {s['previous_rate']}% in {s['previous_semester']} to {s['current_rate']}%).
                     </div>
                     <div style="font-size: 0.9rem; color: #cbd5e1; margin-top: 8px; padding-top: 8px; border-top: 1px dashed rgba(255, 255, 255, 0.15);">
@@ -1139,7 +1198,7 @@ with tab_trends:
                 """, unsafe_allow_html=True)
         else:
             st.markdown("""
-            <div style="background: rgba(0, 255, 102, 0.08); border: 1px solid rgba(0, 255, 102, 0.3); border-left: 5px solid #00ff66; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 14px; box-shadow: 0 4px 15px rgba(0, 255, 102, 0.2);">
+            <div style="background: rgba(0, 255, 102, 0.08); border-left: 4px solid #00ff66; border-radius: 14px; padding: 18px 24px; display: flex; align-items: center; gap: 14px; box-shadow: 0 0 20px rgba(0, 255, 102, 0.2);">
                 <span style="font-size: 24px;">✅</span>
                 <div class="orbit-title" style="color: #00ff66; font-size: 0.9rem; font-weight: 700;">
                     ALL SIGNALS NOMINAL: No extreme negative anomalies detected (≥10% delta threshold).
@@ -1260,9 +1319,9 @@ with tab_benchmark:
         col_lstm, col_gru = st.columns(2)
         with col_lstm:
             st.markdown(f"""
-            <div style="background: #090b10; border: 1px solid #1e2433; border-top: 3px solid #38bdf8; border-radius: 18px; padding: 24px; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);">
+            <div style="background: rgba(14, 24, 48, 0.9); border: 2px solid #00f3ff; border-radius: 18px; padding: 24px; box-shadow: 0 0 35px rgba(0, 243, 255, 0.25);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #38bdf8;">
+                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #00f3ff;">
                         ⚡ BIDIRECTIONAL LSTM
                     </div>
                     <span class="badge-chip chip-cyan">FASTEST LATENCY</span>
@@ -1271,21 +1330,21 @@ with tab_benchmark:
                     Triple-gated memory cell structure capturing forward and backward contextual dependencies.
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">VALIDATION ACCURACY</div>
                         <div class="orbit-title" style="font-size: 1.6rem; color: #00ff66; font-weight: 800;">{b_l.get('validation_accuracy', 'N/A')}%</div>
                     </div>
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">MACRO F1-SCORE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #38bdf8; font-weight: 800;">{b_l.get('macro_f1', 'N/A')}</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #00f3ff; font-weight: 800;">{b_l.get('macro_f1', 'N/A')}</div>
                     </div>
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">LATENCY / SAMPLE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #818cf8; font-weight: 800;">{b_l.get('latency_ms_per_sample', 'N/A')} ms</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #38bdf8; font-weight: 800;">{b_l.get('latency_ms_per_sample', 'N/A')} ms</div>
                     </div>
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">EPOCH TIME</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #fbbf24; font-weight: 800;">{b_l.get('training_time_sec', 'N/A')}s</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #ffb703; font-weight: 800;">{b_l.get('training_time_sec', 'N/A')}s</div>
                     </div>
                 </div>
             </div>
@@ -1293,9 +1352,9 @@ with tab_benchmark:
 
         with col_gru:
             st.markdown(f"""
-            <div style="background: #090b10; border: 1px solid #1e2433; border-top: 3px solid #c084fc; border-radius: 18px; padding: 24px; box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);">
+            <div style="background: rgba(24, 12, 40, 0.9); border: 2px solid #bc13fe; border-radius: 18px; padding: 24px; box-shadow: 0 0 35px rgba(188, 19, 254, 0.25);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #c084fc;">
+                    <div class="orbit-title" style="font-size: 1.35rem; font-weight: 800; color: #bc13fe;">
                         🚀 BIDIRECTIONAL GRU
                     </div>
                     <span class="badge-chip chip-pink">COMPACT TENSOR</span>
@@ -1304,21 +1363,21 @@ with tab_benchmark:
                     Streamlined gated recurrent unit with fewer parameters and rapid state transitions.
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(188, 19, 254, 0.05); border: 1px solid rgba(188, 19, 254, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">VALIDATION ACCURACY</div>
                         <div class="orbit-title" style="font-size: 1.6rem; color: #00ff66; font-weight: 800;">{b_g.get('validation_accuracy', 'N/A')}%</div>
                     </div>
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(188, 19, 254, 0.05); border: 1px solid rgba(188, 19, 254, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">MACRO F1-SCORE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #c084fc; font-weight: 800;">{b_g.get('macro_f1', 'N/A')}</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #bc13fe; font-weight: 800;">{b_g.get('macro_f1', 'N/A')}</div>
                     </div>
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(188, 19, 254, 0.05); border: 1px solid rgba(188, 19, 254, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">LATENCY / SAMPLE</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #818cf8; font-weight: 800;">{b_g.get('latency_ms_per_sample', 'N/A')} ms</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #38bdf8; font-weight: 800;">{b_g.get('latency_ms_per_sample', 'N/A')} ms</div>
                     </div>
-                    <div style="background: #050608; border: 1px solid #1e2433; border-radius: 12px; padding: 12px;">
+                    <div style="background: rgba(188, 19, 254, 0.05); border: 1px solid rgba(188, 19, 254, 0.2); border-radius: 12px; padding: 12px;">
                         <div class="mono-text" style="font-size: 0.7rem; color: #94a3b8;">EPOCH TIME</div>
-                        <div class="orbit-title" style="font-size: 1.6rem; color: #fbbf24; font-weight: 800;">{b_g.get('training_time_sec', 'N/A')}s</div>
+                        <div class="orbit-title" style="font-size: 1.6rem; color: #ffb703; font-weight: 800;">{b_g.get('training_time_sec', 'N/A')}s</div>
                     </div>
                 </div>
             </div>
@@ -1344,13 +1403,13 @@ with tab_benchmark:
             name="Macro F1 (%)",
             x=comp_df["Model"],
             y=comp_df["Macro F1 (%)"],
-            marker_color="#38bdf8"
+            marker_color="#00f3ff"
         ))
         fig_comp.add_trace(go.Bar(
             name="Latency (scaled)",
             x=comp_df["Model"],
             y=comp_df["Latency (ms)"] * 50,
-            marker_color="#fbbf24"
+            marker_color="#ffb703"
         ))
 
         fig_comp.update_layout(
@@ -1359,9 +1418,7 @@ with tab_benchmark:
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
             height=300,
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10, color="#f8fafc")),
-            yaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)"),
-            xaxis=dict(gridcolor="rgba(255, 255, 255, 0.08)")
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(family="Orbitron", size=10))
         )
         st.plotly_chart(fig_comp, use_container_width=True)
     else:
