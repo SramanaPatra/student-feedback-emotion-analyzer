@@ -594,84 +594,65 @@ st.markdown("""
     }
 </style>
 <div class="live-bg-universe">
-    <div class="aurora-mesh-layer"></div>
-    <div class="live-grid-drift"></div>
-    <div class="plasma-orb orb-cyan"></div>
-    <div class="plasma-orb orb-magenta"></div>
-    <div class="plasma-orb orb-violet"></div>
-    <div class="plasma-orb orb-emerald"></div>
-    <!-- Primary Wavy Oscillating Neon Laser Surge -->
-    <div class="wavy-laser-container wave-surge-1">
-        <svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
-            <defs>
-                <linearGradient id="neonWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#00f3ff" stop-opacity="0" />
-                    <stop offset="15%" stop-color="#00f3ff" stop-opacity="0.9" />
-                    <stop offset="45%" stop-color="#bc13fe" stop-opacity="1" />
-                    <stop offset="70%" stop-color="#ec4899" stop-opacity="0.95" />
-                    <stop offset="85%" stop-color="#00f3ff" stop-opacity="0.9" />
-                    <stop offset="100%" stop-color="#00f3ff" stop-opacity="0" />
-                </linearGradient>
-                <linearGradient id="neonWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
-                    <stop offset="20%" stop-color="#00ff66" stop-opacity="0.8" />
-                    <stop offset="50%" stop-color="#00f3ff" stop-opacity="1" />
-                    <stop offset="80%" stop-color="#bc13fe" stop-opacity="0.85" />
-                    <stop offset="100%" stop-color="#00ff66" stop-opacity="0" />
-                </linearGradient>
-                <filter id="neonGlowEffect" x="-10%" y="-40%" width="120%" height="180%">
-                    <feGaussianBlur stdDeviation="5" result="blur1" />
-                    <feGaussianBlur stdDeviation="12" result="blur2" />
-                    <feMerge>
-                        <feMergeNode in="blur2" />
-                        <feMergeNode in="blur1" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-            <path class="wave-path primary-wave" 
-                  d="M 0,80 Q 200,10 400,80 T 800,80 T 1200,80 T 1600,80" 
-                  fill="none" 
-                  stroke="url(#neonWaveGrad1)" 
-                  stroke-width="5" 
-                  filter="url(#neonGlowEffect)" />
-            <path class="wave-path secondary-wave" 
-                  d="M 0,80 Q 200,150 400,80 T 800,80 T 1200,80 T 1600,80" 
-                  fill="none" 
-                  stroke="url(#neonWaveGrad2)" 
-                  stroke-width="3" 
-                  opacity="0.8" 
-                  filter="url(#neonGlowEffect)" />
-        </svg>
-    </div>
-
-    <!-- Secondary Staggered Harmonic Wavy Surge -->
-    <div class="wavy-laser-container wave-surge-2">
-        <svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
-            <path class="wave-path harmonic-wave" 
-                  d="M 0,80 Q 200,135 400,80 T 800,80 T 1200,80 T 1600,80" 
-                  fill="none" 
-                  stroke="url(#neonWaveGrad1)" 
-                  stroke-width="4" 
-                  filter="url(#neonGlowEffect)" />
-        </svg>
-    </div>
-    <div class="cyber-particle p1"></div>
-    <div class="cyber-particle p2"></div>
-    <div class="cyber-particle p3"></div>
-    <div class="cyber-particle p4"></div>
-    <div class="cyber-particle p5"></div>
-    <div class="cyber-particle p6"></div>
-    <div class="cyber-particle p7"></div>
-    <div class="cyber-particle p8"></div>
-    <div class="cyber-particle p9"></div>
-    <div class="cyber-particle p10"></div>
-    <div class="cyber-particle p11"></div>
-    <div class="cyber-particle p12"></div>
-    <div class="cyber-particle p13"></div>
-    <div class="cyber-particle p14"></div>
-    <div class="cyber-particle p15"></div>
-    <div class="cyber-particle p16"></div>
+<div class="aurora-mesh-layer"></div>
+<div class="live-grid-drift"></div>
+<div class="plasma-orb orb-cyan"></div>
+<div class="plasma-orb orb-magenta"></div>
+<div class="plasma-orb orb-violet"></div>
+<div class="plasma-orb orb-emerald"></div>
+<div class="wavy-laser-container wave-surge-1">
+<svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+<defs>
+<linearGradient id="neonWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#00f3ff" stop-opacity="0" />
+<stop offset="15%" stop-color="#00f3ff" stop-opacity="0.9" />
+<stop offset="45%" stop-color="#bc13fe" stop-opacity="1" />
+<stop offset="70%" stop-color="#ec4899" stop-opacity="0.95" />
+<stop offset="85%" stop-color="#00f3ff" stop-opacity="0.9" />
+<stop offset="100%" stop-color="#00f3ff" stop-opacity="0" />
+</linearGradient>
+<linearGradient id="neonWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+<stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
+<stop offset="20%" stop-color="#00ff66" stop-opacity="0.8" />
+<stop offset="50%" stop-color="#00f3ff" stop-opacity="1" />
+<stop offset="80%" stop-color="#bc13fe" stop-opacity="0.85" />
+<stop offset="100%" stop-color="#00ff66" stop-opacity="0" />
+</linearGradient>
+<filter id="neonGlowEffect" x="-10%" y="-40%" width="120%" height="180%">
+<feGaussianBlur stdDeviation="5" result="blur1" />
+<feGaussianBlur stdDeviation="12" result="blur2" />
+<feMerge>
+<feMergeNode in="blur2" />
+<feMergeNode in="blur1" />
+<feMergeNode in="SourceGraphic" />
+</feMerge>
+</filter>
+</defs>
+<path class="wave-path primary-wave" d="M 0,80 Q 200,10 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad1)" stroke-width="5" filter="url(#neonGlowEffect)" />
+<path class="wave-path secondary-wave" d="M 0,80 Q 200,150 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad2)" stroke-width="3" opacity="0.8" filter="url(#neonGlowEffect)" />
+</svg>
+</div>
+<div class="wavy-laser-container wave-surge-2">
+<svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+<path class="wave-path harmonic-wave" d="M 0,80 Q 200,135 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad1)" stroke-width="4" filter="url(#neonGlowEffect)" />
+</svg>
+</div>
+<div class="cyber-particle p1"></div>
+<div class="cyber-particle p2"></div>
+<div class="cyber-particle p3"></div>
+<div class="cyber-particle p4"></div>
+<div class="cyber-particle p5"></div>
+<div class="cyber-particle p6"></div>
+<div class="cyber-particle p7"></div>
+<div class="cyber-particle p8"></div>
+<div class="cyber-particle p9"></div>
+<div class="cyber-particle p10"></div>
+<div class="cyber-particle p11"></div>
+<div class="cyber-particle p12"></div>
+<div class="cyber-particle p13"></div>
+<div class="cyber-particle p14"></div>
+<div class="cyber-particle p15"></div>
+<div class="cyber-particle p16"></div>
 </div>
 """, unsafe_allow_html=True)
 
