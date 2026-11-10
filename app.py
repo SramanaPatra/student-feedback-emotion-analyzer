@@ -85,20 +85,8 @@ st.markdown("""
         border-right: 1px solid rgba(0, 243, 255, 0.25) !important;
     }
 
-    /* Ambient CRT Scanline Overlay */
-    .stApp::after {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%);
-        background-size: 100% 4px;
-        z-index: 999999;
-        pointer-events: none;
-        opacity: 0.28;
-    }
-
     /* ---------------------------------------------------------
-       LIVE ANIMATED CYBERNETIC BACKGROUND UNIVERSE
+       NNDL DEEP LEARNING AMBIENT CANVAS & SYNAPTIC GRAPH
        --------------------------------------------------------- */
     .live-bg-universe {
         position: fixed;
@@ -109,231 +97,110 @@ st.markdown("""
         overflow: hidden;
         pointer-events: none;
         z-index: 0;
+        background: radial-gradient(circle at 18% 22%, rgba(30, 58, 138, 0.30) 0%, transparent 50%),
+                    radial-gradient(circle at 82% 78%, rgba(79, 70, 229, 0.25) 0%, transparent 55%),
+                    radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.12) 0%, transparent 65%),
+                    #080c16;
     }
 
-    /* Layer 1: Continuous Flowing Aurora Gradient */
-    .aurora-mesh-layer {
+    .neural-graph-svg {
         position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, #020512 0%, #061838 25%, #18052e 50%, #042533 75%, #020512 100%);
-        background-size: 300% 300%;
-        animation: auroraMeshShift 12s ease-in-out infinite alternate;
-    }
-    @keyframes auroraMeshShift {
-        0% { background-position: 0% 0%; }
-        50% { background-position: 100% 100%; }
-        100% { background-position: 0% 100%; }
-    }
-
-    /* Layer 2: Seamlessly Gliding Neon Cyber Grid */
-    .live-grid-drift {
-        position: absolute;
-        top: -120px;
-        left: -120px;
-        width: calc(100vw + 240px);
-        height: calc(100vh + 240px);
-        background-image: 
-            linear-gradient(rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.16) 1.5px, transparent 1.5px);
-        background-size: 48px 48px;
-        animation: movingGridGlide 6s linear infinite;
-        will-change: transform;
-    }
-    @keyframes movingGridGlide {
-        0% {
-            transform: translate3d(0, 0, 0);
-        }
-        100% {
-            transform: translate3d(48px, 48px, 0);
-        }
-    }
-
-    /* Layer 3: Oscillating Wavy Neon Laser Energy Surge */
-    .wavy-laser-container {
-        position: absolute;
-        top: -180px;
+        top: 0;
         left: 0;
         width: 100vw;
-        height: 140px;
+        height: 100vh;
         pointer-events: none;
-        overflow: visible;
-        will-change: top, transform, opacity;
+        opacity: 0.65;
+        animation: neuralMeshDrift 22s ease-in-out infinite alternate;
     }
 
-    .wavy-svg {
-        width: 100%;
-        height: 100%;
-        overflow: visible;
+    @keyframes neuralMeshDrift {
+        0% { transform: scale(1) translate(0, 0); }
+        50% { transform: scale(1.02) translate(-10px, 8px); }
+        100% { transform: scale(0.99) translate(8px, -10px); }
     }
 
-    .wave-surge-1 {
-        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    /* Synaptic Connections (Weight Edges) */
+    .synapse-edge {
+        stroke: rgba(96, 165, 250, 0.35);
+        stroke-width: 1.5;
+        stroke-dasharray: 6 12;
+        animation: synapseFlow 8s linear infinite;
+    }
+    .synapse-edge.fast {
+        animation-duration: 5s;
+        stroke: rgba(56, 189, 248, 0.45);
+    }
+    .synapse-edge.slow {
+        animation-duration: 11s;
+        stroke: rgba(129, 140, 248, 0.3);
+    }
+    .synapse-edge.normal {
+        animation-duration: 8s;
     }
 
-    .wave-surge-2 {
-        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-        animation-delay: 4.25s; /* Staggered so a wave is constantly traversing */
+    .recurrent-edge {
+        fill: none;
+        stroke: rgba(52, 211, 153, 0.4);
+        stroke-width: 1.8;
+        stroke-dasharray: 4 8;
+        animation: synapseFlow 6s linear infinite reverse;
     }
 
-    @keyframes wavyLaserSweep {
-        0% {
-            top: -160px;
-            opacity: 0;
-            transform: scaleY(0.7) scaleX(1);
-        }
-        12% {
-            opacity: 0.95;
-            transform: scaleY(1.15) scaleX(1.02);
-        }
-        50% {
-            opacity: 0.9;
-            transform: scaleY(0.95) scaleX(1);
-        }
-        88% {
-            opacity: 0.95;
-            transform: scaleY(1.2) scaleX(1.02);
-        }
-        100% {
-            top: 105vh;
-            opacity: 0;
-            transform: scaleY(0.7) scaleX(1);
-        }
+    @keyframes synapseFlow {
+        from { stroke-dashoffset: 48; }
+        to { stroke-dashoffset: 0; }
     }
 
-    /* Sine wave dynamic rippling & frequency oscillation */
-    .primary-wave {
-        animation: undulateWave1 3s ease-in-out infinite alternate;
-        transform-origin: center;
+    /* Artificial Neurons */
+    .neuron {
+        cursor: default;
+        transition: all 0.3s ease;
+    }
+    .input-node { fill: #38bdf8; }
+    .hidden-node-1 { fill: #818cf8; }
+    .hidden-node-2 { fill: #a78bfa; }
+    .dense-node { fill: #34d399; }
+    .output-satisfaction { fill: #00ff66; }
+    .output-confusion { fill: #fbbf24; }
+    .output-frustration { fill: #f43f5e; }
+    .output-boredom { fill: #94a3b8; }
+    .output-stress { fill: #c084fc; }
+
+    .n-pulse1 { animation: neuronPulse 2.8s ease-in-out infinite alternate; }
+    .n-pulse2 { animation: neuronPulse 3.4s ease-in-out infinite alternate; animation-delay: 0.8s; }
+    .n-pulse3 { animation: neuronPulse 4s ease-in-out infinite alternate; animation-delay: 1.5s; }
+
+    @keyframes neuronPulse {
+        0% { transform-origin: center; opacity: 0.6; filter: drop-shadow(0 0 2px currentColor); }
+        100% { transform-origin: center; opacity: 1; filter: drop-shadow(0 0 10px currentColor); }
     }
 
-    .secondary-wave {
-        animation: undulateWave2 2.4s ease-in-out infinite alternate;
-        transform-origin: center;
-    }
-
-    .harmonic-wave {
-        animation: undulateWave1 2.8s ease-in-out infinite alternate;
-        transform-origin: center;
-    }
-
-    @keyframes undulateWave1 {
-        0% {
-            transform: scaleY(0.8) translateY(-8px);
-        }
-        100% {
-            transform: scaleY(1.25) translateY(8px);
-        }
-    }
-
-    @keyframes undulateWave2 {
-        0% {
-            transform: scaleY(1.25) translateY(10px);
-        }
-        100% {
-            transform: scaleY(0.75) translateY(-10px);
-        }
-    }
-
-    /* Layer 4: Luminous Floating Plasma Nebulas */
-    .plasma-orb {
+    /* Floating Tensor Math Notations */
+    .tensor-particle {
         position: absolute;
-        border-radius: 50%;
-        filter: blur(85px);
-        mix-blend-mode: screen;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: rgba(148, 163, 184, 0.28);
         pointer-events: none;
-        will-change: transform;
+        user-select: none;
+        animation: floatTensor 18s ease-in-out infinite alternate;
     }
-    .orb-cyan {
-        width: 550px;
-        height: 550px;
-        background: radial-gradient(circle, rgba(0, 243, 255, 0.75) 0%, rgba(0, 243, 255, 0) 70%);
-        top: -60px;
-        left: -60px;
-        animation: orbMove1 14s ease-in-out infinite alternate;
-    }
-    .orb-magenta {
-        width: 650px;
-        height: 650px;
-        background: radial-gradient(circle, rgba(236, 72, 153, 0.7) 0%, rgba(236, 72, 153, 0) 70%);
-        bottom: -100px;
-        right: -60px;
-        animation: orbMove2 18s ease-in-out infinite alternate;
-    }
-    .orb-violet {
-        width: 480px;
-        height: 480px;
-        background: radial-gradient(circle, rgba(188, 19, 254, 0.7) 0%, rgba(188, 19, 254, 0) 70%);
-        top: 35%;
-        left: 55%;
-        animation: orbMove3 15s ease-in-out infinite alternate;
-    }
-    .orb-emerald {
-        width: 400px;
-        height: 400px;
-        background: radial-gradient(circle, rgba(0, 255, 102, 0.6) 0%, rgba(0, 255, 102, 0) 70%);
-        bottom: 18%;
-        left: 12%;
-        animation: orbMove4 16s ease-in-out infinite alternate;
-    }
-    @keyframes orbMove1 {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(160px, 120px) scale(1.2); }
-        100% { transform: translate(60px, 220px) scale(0.9); }
-    }
-    @keyframes orbMove2 {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(-180px, -130px) scale(1.25); }
-        100% { transform: translate(-70px, -240px) scale(0.85); }
-    }
-    @keyframes orbMove3 {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(-140px, 120px) scale(1.2); }
-        100% { transform: translate(100px, -120px) scale(0.95); }
-    }
-    @keyframes orbMove4 {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(150px, -100px) scale(1.15); }
-        100% { transform: translate(80px, 110px) scale(0.85); }
-    }
+    .tp1 { top: 12%; left: 8%; animation-delay: 0s; }
+    .tp2 { top: 28%; left: 24%; animation-delay: 3s; color: rgba(56, 189, 248, 0.35); }
+    .tp3 { top: 72%; left: 14%; animation-delay: 6s; }
+    .tp4 { top: 18%; left: 52%; animation-delay: 2s; color: rgba(99, 102, 241, 0.35); }
+    .tp5 { top: 82%; left: 45%; animation-delay: 5s; }
+    .tp6 { top: 35%; left: 74%; animation-delay: 1s; }
+    .tp7 { top: 68%; left: 86%; animation-delay: 4s; color: rgba(52, 211, 153, 0.35); }
+    .tp8 { top: 88%; left: 80%; animation-delay: 7s; }
 
-    /* Layer 5: Glowing Floating Cyber Data Particles */
-    .cyber-particle {
-        position: absolute;
-        border-radius: 50%;
-        pointer-events: none;
-        will-change: transform, opacity;
+    @keyframes floatTensor {
+        0% { transform: translateY(0px) rotate(0deg); opacity: 0.2; }
+        50% { transform: translateY(-25px) rotate(3deg); opacity: 0.45; }
+        100% { transform: translateY(15px) rotate(-3deg); opacity: 0.2; }
     }
-    @keyframes floatUpSwirl1 {
-        0% { transform: translateY(105vh) translateX(0) scale(0.6); opacity: 0; }
-        10% { opacity: 0.9; }
-        50% { transform: translateY(50vh) translateX(40px) scale(1.2); opacity: 1; }
-        90% { opacity: 0.9; }
-        100% { transform: translateY(-5vh) translateX(-20px) scale(0.6); opacity: 0; }
-    }
-    @keyframes floatUpSwirl2 {
-        0% { transform: translateY(105vh) translateX(0) scale(0.8); opacity: 0; }
-        15% { opacity: 1; }
-        50% { transform: translateY(45vh) translateX(-50px) scale(1.3); opacity: 0.9; }
-        85% { opacity: 1; }
-        100% { transform: translateY(-5vh) translateX(30px) scale(0.7); opacity: 0; }
-    }
-
-    .p1  { left: 6%;  width: 7px;  height: 7px;  background: #00f3ff; box-shadow: 0 0 14px #00f3ff; animation: floatUpSwirl1 11s infinite linear; animation-delay: 0s; }
-    .p2  { left: 16%; width: 9px;  height: 9px;  background: #ec4899; box-shadow: 0 0 16px #ec4899; animation: floatUpSwirl2 14s infinite linear; animation-delay: 2s; }
-    .p3  { left: 26%; width: 5px;  height: 5px;  background: #00ff66; box-shadow: 0 0 12px #00ff66; animation: floatUpSwirl1 9s  infinite linear; animation-delay: 4s; }
-    .p4  { left: 36%; width: 8px;  height: 8px;  background: #bc13fe; box-shadow: 0 0 16px #bc13fe; animation: floatUpSwirl2 16s infinite linear; animation-delay: 1s; }
-    .p5  { left: 46%; width: 10px; height: 10px; background: #00f3ff; box-shadow: 0 0 20px #00f3ff; animation: floatUpSwirl1 12s infinite linear; animation-delay: 3s; }
-    .p6  { left: 56%; width: 6px;  height: 6px;  background: #ffb703; box-shadow: 0 0 14px #ffb703; animation: floatUpSwirl2 15s infinite linear; animation-delay: 5s; }
-    .p7  { left: 66%; width: 9px;  height: 9px;  background: #ec4899; box-shadow: 0 0 18px #ec4899; animation: floatUpSwirl1 10s infinite linear; animation-delay: 2.5s; }
-    .p8  { left: 76%; width: 5px;  height: 5px;  background: #00f3ff; box-shadow: 0 0 12px #00f3ff; animation: floatUpSwirl2 13s infinite linear; animation-delay: 0.5s; }
-    .p9  { left: 86%; width: 8px;  height: 8px;  background: #00ff66; box-shadow: 0 0 16px #00ff66; animation: floatUpSwirl1 17s infinite linear; animation-delay: 4s; }
-    .p10 { left: 93%; width: 6px;  height: 6px;  background: #bc13fe; box-shadow: 0 0 14px #bc13fe; animation: floatUpSwirl2 11s infinite linear; animation-delay: 1.5s; }
-    .p11 { left: 11%; width: 11px; height: 11px; background: #00f3ff; box-shadow: 0 0 22px #00f3ff; animation: floatUpSwirl1 18s infinite linear; animation-delay: 6s; }
-    .p12 { left: 30%; width: 6px;  height: 6px;  background: #ec4899; box-shadow: 0 0 14px #ec4899; animation: floatUpSwirl2 12s infinite linear; animation-delay: 7s; }
-    .p13 { left: 52%; width: 8px;  height: 8px;  background: #00ff66; box-shadow: 0 0 16px #00ff66; animation: floatUpSwirl1 14s infinite linear; animation-delay: 8s; }
-    .p14 { left: 72%; width: 7px;  height: 7px;  background: #bc13fe; box-shadow: 0 0 15px #bc13fe; animation: floatUpSwirl2 11s infinite linear; animation-delay: 9s; }
-    .p15 { left: 84%; width: 5px;  height: 5px;  background: #00f3ff; box-shadow: 0 0 12px #00f3ff; animation: floatUpSwirl1 16s infinite linear; animation-delay: 3.5s; }
-    .p16 { left: 97%; width: 9px;  height: 9px;  background: #ffb703; box-shadow: 0 0 18px #ffb703; animation: floatUpSwirl2 13s infinite linear; animation-delay: 7.5s; }
 
     /* Flashy Top Telemetry Ribbon */
     .top-telemetry-ribbon {
@@ -594,65 +461,96 @@ st.markdown("""
     }
 </style>
 <div class="live-bg-universe">
-<div class="aurora-mesh-layer"></div>
-<div class="live-grid-drift"></div>
-<div class="plasma-orb orb-cyan"></div>
-<div class="plasma-orb orb-magenta"></div>
-<div class="plasma-orb orb-violet"></div>
-<div class="plasma-orb orb-emerald"></div>
-<div class="wavy-laser-container wave-surge-1">
-<svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
+<svg class="neural-graph-svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
 <defs>
-<linearGradient id="neonWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#00f3ff" stop-opacity="0" />
-<stop offset="15%" stop-color="#00f3ff" stop-opacity="0.9" />
-<stop offset="45%" stop-color="#bc13fe" stop-opacity="1" />
-<stop offset="70%" stop-color="#ec4899" stop-opacity="0.95" />
-<stop offset="85%" stop-color="#00f3ff" stop-opacity="0.9" />
-<stop offset="100%" stop-color="#00f3ff" stop-opacity="0" />
-</linearGradient>
-<linearGradient id="neonWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-<stop offset="0%" stop-color="#00ff66" stop-opacity="0" />
-<stop offset="20%" stop-color="#00ff66" stop-opacity="0.8" />
-<stop offset="50%" stop-color="#00f3ff" stop-opacity="1" />
-<stop offset="80%" stop-color="#bc13fe" stop-opacity="0.85" />
-<stop offset="100%" stop-color="#00ff66" stop-opacity="0" />
-</linearGradient>
-<filter id="neonGlowEffect" x="-10%" y="-40%" width="120%" height="180%">
-<feGaussianBlur stdDeviation="5" result="blur1" />
-<feGaussianBlur stdDeviation="12" result="blur2" />
+<filter id="neuronGlow" x="-50%" y="-50%" width="200%" height="200%">
+<feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
 <feMerge>
-<feMergeNode in="blur2" />
-<feMergeNode in="blur1" />
+<feMergeNode in="blur" />
 <feMergeNode in="SourceGraphic" />
 </feMerge>
 </filter>
 </defs>
-<path class="wave-path primary-wave" d="M 0,80 Q 200,10 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad1)" stroke-width="5" filter="url(#neonGlowEffect)" />
-<path class="wave-path secondary-wave" d="M 0,80 Q 200,150 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad2)" stroke-width="3" opacity="0.8" filter="url(#neonGlowEffect)" />
+<g class="synaptic-edges">
+<line x1="200" y1="220" x2="520" y2="260" class="synapse-edge fast" />
+<line x1="200" y1="220" x2="520" y2="440" class="synapse-edge slow" />
+<line x1="200" y1="380" x2="520" y2="260" class="synapse-edge normal" />
+<line x1="200" y1="380" x2="520" y2="440" class="synapse-edge fast" />
+<line x1="200" y1="380" x2="520" y2="620" class="synapse-edge slow" />
+<line x1="200" y1="540" x2="520" y2="440" class="synapse-edge normal" />
+<line x1="200" y1="540" x2="520" y2="620" class="synapse-edge fast" />
+<line x1="200" y1="540" x2="520" y2="800" class="synapse-edge slow" />
+<line x1="200" y1="700" x2="520" y2="620" class="synapse-edge normal" />
+<line x1="200" y1="700" x2="520" y2="800" class="synapse-edge fast" />
+<line x1="200" y1="860" x2="520" y2="800" class="synapse-edge normal" />
+<line x1="520" y1="260" x2="900" y2="220" class="synapse-edge normal" />
+<line x1="520" y1="260" x2="900" y2="400" class="synapse-edge fast" />
+<line x1="520" y1="440" x2="900" y2="220" class="synapse-edge slow" />
+<line x1="520" y1="440" x2="900" y2="400" class="synapse-edge normal" />
+<line x1="520" y1="440" x2="900" y2="580" class="synapse-edge fast" />
+<line x1="520" y1="620" x2="900" y2="400" class="synapse-edge slow" />
+<line x1="520" y1="620" x2="900" y2="580" class="synapse-edge normal" />
+<line x1="520" y1="620" x2="900" y2="760" class="synapse-edge fast" />
+<line x1="520" y1="800" x2="900" y2="580" class="synapse-edge slow" />
+<line x1="520" y1="800" x2="900" y2="760" class="synapse-edge normal" />
+<line x1="520" y1="800" x2="900" y2="920" class="synapse-edge fast" />
+<path d="M 520,260 Q 430,350 520,440" class="recurrent-edge" />
+<path d="M 520,440 Q 430,530 520,620" class="recurrent-edge" />
+<path d="M 520,620 Q 430,710 520,800" class="recurrent-edge" />
+<path d="M 900,400 Q 990,310 900,220" class="recurrent-edge" />
+<path d="M 900,580 Q 990,490 900,400" class="recurrent-edge" />
+<path d="M 900,760 Q 990,670 900,580" class="recurrent-edge" />
+<line x1="900" y1="220" x2="1300" y2="280" class="synapse-edge normal" />
+<line x1="900" y1="400" x2="1300" y2="280" class="synapse-edge fast" />
+<line x1="900" y1="400" x2="1300" y2="500" class="synapse-edge slow" />
+<line x1="900" y1="580" x2="1300" y2="500" class="synapse-edge normal" />
+<line x1="900" y1="580" x2="1300" y2="720" class="synapse-edge fast" />
+<line x1="900" y1="760" x2="1300" y2="720" class="synapse-edge normal" />
+<line x1="900" y1="760" x2="1300" y2="900" class="synapse-edge slow" />
+<line x1="900" y1="920" x2="1300" y2="900" class="synapse-edge fast" />
+<line x1="1300" y1="280" x2="1680" y2="240" class="synapse-edge fast" />
+<line x1="1300" y1="280" x2="1680" y2="400" class="synapse-edge normal" />
+<line x1="1300" y1="500" x2="1680" y2="400" class="synapse-edge slow" />
+<line x1="1300" y1="500" x2="1680" y2="560" class="synapse-edge fast" />
+<line x1="1300" y1="720" x2="1680" y2="560" class="synapse-edge normal" />
+<line x1="1300" y1="720" x2="1680" y2="720" class="synapse-edge fast" />
+<line x1="1300" y1="900" x2="1680" y2="720" class="synapse-edge slow" />
+<line x1="1300" y1="900" x2="1680" y2="880" class="synapse-edge normal" />
+</g>
+<g class="neural-nodes">
+<circle cx="200" cy="220" r="7" class="neuron input-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="200" cy="380" r="7" class="neuron input-node n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="200" cy="540" r="7" class="neuron input-node n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="200" cy="700" r="7" class="neuron input-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="200" cy="860" r="7" class="neuron input-node n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="520" cy="260" r="9" class="neuron hidden-node-1 n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="520" cy="440" r="9" class="neuron hidden-node-1 n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="520" cy="620" r="9" class="neuron hidden-node-1 n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="520" cy="800" r="9" class="neuron hidden-node-1 n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="900" cy="220" r="9" class="neuron hidden-node-2 n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="900" cy="400" r="9" class="neuron hidden-node-2 n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="900" cy="580" r="9" class="neuron hidden-node-2 n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="900" cy="760" r="9" class="neuron hidden-node-2 n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="900" cy="920" r="9" class="neuron hidden-node-2 n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="280" r="8" class="neuron dense-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="500" r="8" class="neuron dense-node n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="720" r="8" class="neuron dense-node n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="1300" cy="900" r="8" class="neuron dense-node n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="240" r="9" class="neuron output-satisfaction n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="400" r="9" class="neuron output-confusion n-pulse2" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="560" r="9" class="neuron output-frustration n-pulse3" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="720" r="9" class="neuron output-boredom n-pulse1" filter="url(#neuronGlow)" />
+<circle cx="1680" cy="880" r="9" class="neuron output-stress n-pulse2" filter="url(#neuronGlow)" />
+</g>
 </svg>
-</div>
-<div class="wavy-laser-container wave-surge-2">
-<svg class="wavy-svg" viewBox="0 0 1600 160" preserveAspectRatio="none">
-<path class="wave-path harmonic-wave" d="M 0,80 Q 200,135 400,80 T 800,80 T 1200,80 T 1600,80" fill="none" stroke="url(#neonWaveGrad1)" stroke-width="4" filter="url(#neonGlowEffect)" />
-</svg>
-</div>
-<div class="cyber-particle p1"></div>
-<div class="cyber-particle p2"></div>
-<div class="cyber-particle p3"></div>
-<div class="cyber-particle p4"></div>
-<div class="cyber-particle p5"></div>
-<div class="cyber-particle p6"></div>
-<div class="cyber-particle p7"></div>
-<div class="cyber-particle p8"></div>
-<div class="cyber-particle p9"></div>
-<div class="cyber-particle p10"></div>
-<div class="cyber-particle p11"></div>
-<div class="cyber-particle p12"></div>
-<div class="cyber-particle p13"></div>
-<div class="cyber-particle p14"></div>
-<div class="cyber-particle p15"></div>
-<div class="cyber-particle p16"></div>
+<div class="tensor-particle tp1">W_xh · x_t</div>
+<div class="tensor-particle tp2">h_t = tanh(W·x + U·h)</div>
+<div class="tensor-particle tp3">σ(z) = 1/(1+e^-z)</div>
+<div class="tensor-particle tp4">c_t = f_t ⊙ c_{t-1} + i_t ⊙ c̃_t</div>
+<div class="tensor-particle tp5">tanh(cell_gate)</div>
+<div class="tensor-particle tp6">Bi-LSTM: [h⃗_t ; h⃖_t]</div>
+<div class="tensor-particle tp7">softmax(z_i) = e^{z_i} / Σe^{z_j}</div>
+<div class="tensor-particle tp8">∇L_θ (Backprop Through Time)</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -721,12 +619,12 @@ EMOTION_META = {
 # -------------------------------------------------------------
 with st.sidebar:
     st.markdown("""
-    <div style="background: rgba(0, 243, 255, 0.05); border: 2px solid #00f3ff; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 0 25px rgba(0, 243, 255, 0.25);">
+    <div style="background: rgba(30, 58, 138, 0.15); border: 1px solid #3b82f6; border-radius: 18px; padding: 16px; margin-bottom: 22px; box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);">
         <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 28px;">⚡</span>
+            <span style="font-size: 28px;">🧠</span>
             <div>
-                <div class="orbit-title" style="font-size: 1.15rem; font-weight: 900; color: #00f3ff; letter-spacing: 0.06em;">EDUPULSE AI</div>
-                <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">AFFECTIVE TENSOR ENGINE</div>
+                <div class="orbit-title" style="font-size: 1.1rem; font-weight: 900; color: #38bdf8; letter-spacing: 0.05em;">NNDL AI CORE</div>
+                <div class="mono-text" style="font-size: 0.68rem; color: #94a3b8;">DEEP RECURRENT TENSOR LAB</div>
             </div>
         </div>
     </div>
@@ -767,7 +665,7 @@ st.markdown(f"""
 <div class="top-telemetry-ribbon">
     <div style="display: flex; align-items: center;">
         <span class="pulse-laser"></span>
-        <span style="font-weight: 700;">NEURAL CORE CO-PROCESSOR ACTIVE</span>
+        <span style="font-weight: 700;">NNDL CORE // BIDIRECTIONAL RECURRENT NEURAL NETWORK ACTIVE</span>
     </div>
     <div style="display: flex; align-items: center; gap: 18px;">
         <div>TENSOR: <b style="color: #ffffff;">{selected_model}</b></div>
@@ -790,14 +688,15 @@ st.markdown(f"""
 <div class="showcase-hero">
     <h1 class="hero-glow-title">Student Feedback Emotion Analyzer</h1>
     <p class="hero-desc">
-        Deep Learning affective intelligence transforming qualitative student feedback into 
-        <b>5-Dimensional Affective Vectors</b>, <b>Sentiment Valence Dials</b>, and <b>Longitudinal Multi-Semester Institutional Directives</b>.
+        <b>Neural Networks & Deep Learning (NNDL)</b> affective framework: Modeling multi-dimensional academic sentiment through 
+        <b>Bidirectional Recurrent Neural Networks ({selected_model})</b> with <b>5-Class Softmax Probability Distribution</b>, 
+        <b>Sentiment Valence Vectors</b>, and <b>Autonomous Institutional Pedagogical Directives</b>.
     </p>
     <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-        <span class="badge-chip chip-cyan">⚡ {selected_model} Active</span>
-        <span class="badge-chip chip-pink">🕸️ 5-Axis Spider Radar</span>
-        <span class="badge-chip chip-green">🧭 Sentiment Valence Dial</span>
-        <span class="badge-chip chip-cyan">💡 Automated Pedagogical Interventions</span>
+        <span class="badge-chip chip-cyan">🧠 {selected_model} (2-Layer Recurrent)</span>
+        <span class="badge-chip chip-pink">⚡ Hidden Dim = 128 (Bi=256)</span>
+        <span class="badge-chip chip-green">🧭 PyTorch Tensor Core</span>
+        <span class="badge-chip chip-cyan">🎯 5-Class Softmax Archetype</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
