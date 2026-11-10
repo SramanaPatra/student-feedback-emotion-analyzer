@@ -61,10 +61,15 @@ st.markdown("""
        TRANSPARENCY ENFORCEMENT ON STREAMLIT LAYOUT
        Ensures our dynamic live moving universe is 100% visible
        --------------------------------------------------------- */
+    [data-testid="stDecoration"] {
+        display: none !important;
+    }
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+    }
     .stApp,
     [data-testid="stAppViewContainer"],
     section.main,
-    [data-testid="stHeader"],
     .main > div {
         background-color: transparent !important;
         background: transparent !important;
@@ -74,15 +79,17 @@ st.markdown("""
         position: relative;
         z-index: 10;
         max-width: 1300px;
-        padding-top: 1.8rem;
+        padding-top: 1.5rem;
+        padding-bottom: 3rem;
     }
 
     [data-testid="stSidebar"] {
         position: relative;
         z-index: 20;
-        background-color: rgba(6, 11, 25, 0.88) !important;
-        backdrop-filter: blur(20px) saturate(180%) !important;
-        border-right: 1px solid rgba(0, 243, 255, 0.22) !important;
+        background-color: rgba(6, 11, 25, 0.92) !important;
+        backdrop-filter: blur(24px) saturate(200%) !important;
+        border-right: 1px solid rgba(56, 189, 248, 0.18) !important;
+        box-shadow: 10px 0 35px rgba(0, 0, 0, 0.5) !important;
     }
 
     /* Ambient Cinematic Soft Vignette Overlay */
@@ -90,7 +97,7 @@ st.markdown("""
         content: "";
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: radial-gradient(circle at 50% 35%, transparent 45%, rgba(2, 6, 18, 0.5) 100%);
+        background: radial-gradient(circle at 50% 35%, transparent 50%, rgba(2, 5, 16, 0.6) 100%);
         z-index: 999999;
         pointer-events: none;
     }
@@ -113,9 +120,13 @@ st.markdown("""
     .aurora-mesh-layer {
         position: absolute;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(135deg, #020512 0%, #061838 25%, #18052e 50%, #042533 75%, #020512 100%);
-        background-size: 300% 300%;
-        animation: auroraMeshShift 12s ease-in-out infinite alternate;
+        background: 
+            radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.16) 0%, transparent 45%),
+            radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.16) 0%, transparent 45%),
+            radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 55%),
+            linear-gradient(135deg, #020512 0%, #060d24 30%, #0d0822 65%, #020614 100%);
+        background-size: 200% 200%;
+        animation: auroraMeshShift 16s ease-in-out infinite alternate;
     }
     @keyframes auroraMeshShift {
         0% { background-position: 0% 0%; }
@@ -131,10 +142,10 @@ st.markdown("""
         width: calc(100vw + 240px);
         height: calc(100vh + 240px);
         background-image: 
-            linear-gradient(rgba(0, 243, 255, 0.14) 1.5px, transparent 1.5px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.14) 1.5px, transparent 1.5px);
-        background-size: 48px 48px;
-        animation: movingGridGlide 6s linear infinite;
+            linear-gradient(rgba(56, 189, 248, 0.09) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(56, 189, 248, 0.09) 1px, transparent 1px);
+        background-size: 42px 42px;
+        animation: movingGridGlide 7s linear infinite;
         will-change: transform;
     }
     @keyframes movingGridGlide {
@@ -142,7 +153,7 @@ st.markdown("""
             transform: translate3d(0, 0, 0);
         }
         100% {
-            transform: translate3d(48px, 48px, 0);
+            transform: translate3d(42px, 42px, 0);
         }
     }
 
@@ -155,6 +166,7 @@ st.markdown("""
         height: 140px;
         pointer-events: none;
         overflow: visible;
+        opacity: 0.65;
         will-change: top, transform, opacity;
     }
 
@@ -165,12 +177,12 @@ st.markdown("""
     }
 
     .wave-surge-1 {
-        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+        animation: wavyLaserSweep 9s cubic-bezier(0.35, 0, 0.25, 1) infinite;
     }
 
     .wave-surge-2 {
-        animation: wavyLaserSweep 8.5s cubic-bezier(0.35, 0, 0.25, 1) infinite;
-        animation-delay: 4.25s; /* Staggered so a wave is constantly traversing */
+        animation: wavyLaserSweep 9s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+        animation-delay: 4.5s;
     }
 
     @keyframes wavyLaserSweep {
@@ -180,16 +192,16 @@ st.markdown("""
             transform: scaleY(0.7) scaleX(1);
         }
         12% {
-            opacity: 0.95;
-            transform: scaleY(1.15) scaleX(1.02);
+            opacity: 0.85;
+            transform: scaleY(1.1) scaleX(1.01);
         }
         50% {
-            opacity: 0.9;
+            opacity: 0.75;
             transform: scaleY(0.95) scaleX(1);
         }
         88% {
-            opacity: 0.95;
-            transform: scaleY(1.2) scaleX(1.02);
+            opacity: 0.85;
+            transform: scaleY(1.15) scaleX(1.01);
         }
         100% {
             top: 105vh;
@@ -236,9 +248,10 @@ st.markdown("""
     .plasma-orb {
         position: absolute;
         border-radius: 50%;
-        filter: blur(85px);
+        filter: blur(110px);
         mix-blend-mode: screen;
         pointer-events: none;
+        opacity: 0.6;
         will-change: transform;
     }
     .orb-cyan {
@@ -599,17 +612,47 @@ st.markdown("""
         color: #ffffff !important;
     }
 
+    /* PRESET BUTTONS SPECIFIC PALETTE & HOVER */
+    div[data-testid="column"]:nth-child(2) .stButton > button {
+        text-align: left !important;
+        justify-content: flex-start !important;
+        padding: 12px 18px !important;
+        background: rgba(12, 18, 38, 0.72) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        backdrop-filter: blur(14px) !important;
+        border-radius: 12px !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 0.86rem !important;
+        font-weight: 600 !important;
+        color: #e2e8f0 !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    div[data-testid="column"]:nth-child(2) .stButton > button:hover {
+        transform: translateX(6px) !important;
+        background: rgba(20, 32, 64, 0.9) !important;
+        border-color: rgba(56, 189, 248, 0.6) !important;
+        box-shadow: 0 6px 25px rgba(56, 189, 248, 0.25) !important;
+        color: #ffffff !important;
+    }
+
     button[kind="primary"] {
-        background: linear-gradient(135deg, #00f3ff 0%, #6366f1 50%, #bc13fe 100%) !important;
+        background: linear-gradient(135deg, #00f3ff 0%, #4f46e5 50%, #9333ea 100%) !important;
         border: none !important;
-        color: #020617 !important;
+        color: #ffffff !important;
+        font-family: 'Space Grotesk', sans-serif !important;
         font-weight: 800 !important;
-        box-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 8px 20px rgba(0, 0, 0, 0.6) !important;
+        font-size: 0.94rem !important;
+        letter-spacing: 0.04em !important;
+        padding: 13px 26px !important;
+        border-radius: 14px !important;
+        box-shadow: 0 4px 25px rgba(79, 70, 229, 0.5), 0 0 25px rgba(0, 243, 255, 0.35) !important;
+        transition: all 0.25s ease !important;
     }
 
     button[kind="primary"]:hover {
-        box-shadow: 0 0 45px rgba(188, 19, 254, 0.7), 0 10px 30px rgba(0, 0, 0, 0.7) !important;
-        transform: translateY(-2px) scale(1.02) !important;
+        box-shadow: 0 8px 35px rgba(79, 70, 229, 0.75), 0 0 35px rgba(0, 243, 255, 0.55) !important;
+        transform: translateY(-2px) scale(1.01) !important;
         color: #ffffff !important;
     }
 </style>
