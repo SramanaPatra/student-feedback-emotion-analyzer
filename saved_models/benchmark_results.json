@@ -1,17 +1,17 @@
 {
     "Bi-LSTM": {
         "model_name": "Bi-LSTM",
-        "training_time_sec": 29.74,
+        "training_time_sec": 115.95,
         "validation_accuracy": 100.0,
         "macro_f1": 1.0,
-        "latency_ms_per_sample": 0.193
+        "latency_ms_per_sample": 1.142
     },
     "Bi-GRU": {
         "model_name": "Bi-GRU",
-        "training_time_sec": 64.71,
+        "training_time_sec": 159.59,
         "validation_accuracy": 100.0,
         "macro_f1": 1.0,
-        "latency_ms_per_sample": 0.386
+        "latency_ms_per_sample": 0.68
     },
     "emotions": [
         "Satisfaction",

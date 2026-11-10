@@ -34,8 +34,10 @@ class TextPreprocessor:
         text = re.sub(r"'t", " not", text)
         text = re.sub(r"'ve", " have", text)
         text = re.sub(r"'m", " am", text)
-        # Keep letters, numbers, and basic punctuation
-        text = re.sub(r"[^a-zA-Z0-9\s!?.,]", "", text)
+        # Replace punctuation with whitespace to cleanly isolate words
+        text = re.sub(r"[^a-zA-Z0-9\s]", " ", text)
+        # Collapse multiple spaces
+        text = re.sub(r"\s+", " ", text).strip()
         return text
 
     def fit(self, texts: List[str]):

@@ -356,7 +356,7 @@ def load_default_dataset():
     return pd.read_csv(DATA_PATH)
 
 @st.cache_resource
-def get_inference_engine(model_type: str):
+def get_inference_engine(model_type: str, weight_mtime: float):
     return EmotionInferenceEngine(model_type=model_type, models_dir=MODELS_DIR)
 
 EMOTION_META = {
@@ -554,19 +554,22 @@ with tab_live:
             placeholder="Type student feedback here..."
         )
 
+        def clear_buffer_callback():
+            st.session_state["input_feedback"] = ""
+
         b_c1, b_c2 = st.columns([2, 1])
         with b_c1:
             run_btn = st.button(f"✨ EXECUTE AFFECTIVE DECODING ({selected_model})", type="primary", use_container_width=True)
         with b_c2:
-            if st.button("🧹 CLEAR BUFFER", use_container_width=True):
-                st.session_state["input_feedback"] = ""
-                st.rerun()
+            st.button("🧹 CLEAR BUFFER", on_click=clear_buffer_callback, use_container_width=True)
 
     # Flashy Holographic Output
     if run_btn and user_input.strip():
         with st.spinner("Decoding affective nuances with recurrent neural forward pass..."):
             try:
-                engine = get_inference_engine(selected_model)
+                weight_file = os.path.join(MODELS_DIR, "bilstm_model.pt" if selected_model == "Bi-LSTM" else "gru_model.pt")
+                weight_mtime = os.path.getmtime(weight_file) if os.path.exists(weight_file) else 0.0
+                engine = get_inference_engine(selected_model, weight_mtime)
                 prediction = engine.predict(user_input)[0]
 
                 dominant = prediction["dominant_emotion"]
@@ -923,7 +926,9 @@ with tab_batch:
 
         if st.button(f"⚡ EXECUTE MASS TENSOR INFERENCE ({selected_model})", type="primary"):
             progress_bar = st.progress(0, text="INITIALIZING RECURRENT TENSORS...")
-            engine = get_inference_engine(selected_model)
+            weight_file = os.path.join(MODELS_DIR, "bilstm_model.pt" if selected_model == "Bi-LSTM" else "gru_model.pt")
+            weight_mtime = os.path.getmtime(weight_file) if os.path.exists(weight_file) else 0.0
+            engine = get_inference_engine(selected_model, weight_mtime)
 
             raw_texts = batch_df[selected_text_col].astype(str).tolist()
             progress_bar.progress(35, text="EXECUTING RECURRENT FORWARD PASSES...")
